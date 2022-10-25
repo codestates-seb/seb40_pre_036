@@ -4,9 +4,7 @@ import Aside from './components/Aside';
 import Nav from './components/Nav';
 import Content from './components/Content';
 
-const Allcontent = styled.div`
-  display: flex;
-`;
+const Allcontent = styled.div``;
 
 function Main() {
   return (
