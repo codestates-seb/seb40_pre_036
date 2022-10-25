@@ -1,12 +1,12 @@
-import React from 'react';
-import reset from 'styled-reset';
 import { createGlobalStyle } from 'styled-components';
+import reset from 'styled-reset';
+import React from 'react';
 import Footer from './components/Footer';
 import Main from './Main';
 import HeaderBefore from './components/HeaderBefore';
 
 const GlobalStyles = createGlobalStyle`
-    ${reset}
+${reset}
 `;
 
 function App() {
