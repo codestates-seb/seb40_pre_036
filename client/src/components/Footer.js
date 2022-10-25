@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import React from 'react';
 import footerLogo from '../footerLogo.png';
 
-const Containter = styled.div`
+const FooterBox = styled.div`
   background-color: #232629;
   background-image: none;
   background-position: top left;
@@ -20,27 +20,36 @@ const Containter = styled.div`
   justify-content: space-evenly;
 `;
 
+const Content = styled.div`
+  width: 70%;
+  margin: 0 20%;
+  display: flex;
+  flex: 2 1 auto;
+`;
+
 const Logo = styled.img`
   //flex: 0 0 64px;
   width: 50px;
   height: 50px;
-  margin: 5px;
+  margin: 40px 0 0 5px;
 `;
 
 const Nav = styled.nav`
+  width: 100%;
   display: flex;
-  //flex: 2 1 auto;
+  justify-content: space-between;
   flex-wrap: wrap;
 `;
 
 const Col = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0;
   //flex-direction: 1 0 auto;
+  padding: 0 6px;
   margin: 15px;
 `;
 const H5 = styled.h5`
+  margin: 20px 0;
   display: flex;
   text-transform: uppercase;
   font-weight: bold;
@@ -60,79 +69,89 @@ const Li = styled.li`
   color: hsl(210, 8%, 60%);
   text-decoration: none;
   display: inline-block;
-  margin-bottom: 5px;
+  margin: 7px 0px;
   font-size: 0.9rem;
   cursor: pointer;
 `;
-const Contect = styled.li`
+const Sns = styled.li`
+  font-size: 0.8em;
   display: flex;
   text-decoration: none;
   margin: 20px 5px 0 5px;
 `;
 
+const Privacy = styled.li`
+  font-size: 0.6em;
+  display: flex;
+  text-decoration: none;
+  margin-top: 80%;
+`;
+
 function Footer() {
   return (
-    <Containter>
-      <Logo src={footerLogo} />
-      <Nav>
-        <Col>
-          <H5>STACK OVERFLOW</H5>
-          <Ul>
-            <Li>Questions</Li>
-            <Li>Help</Li>
-          </Ul>
-        </Col>
-        <Col>
-          <H5>PRODUCTS</H5>
-          <Ul>
-            <Li>Teams</Li>
-            <Li>Advertising</Li>
-            <Li>Collectives</Li>
-            <Li>Talent</Li>
-          </Ul>
-        </Col>
-        <Col>
-          <H5>COMPANY</H5>
-          <Ul>
-            <Li>About</Li>
-            <Li>Press</Li>
-            <Li>Work Here</Li>
-            <Li>Legal</Li>
-            <Li>Privacy Policy</Li>
-            <Li>Terms of Service</Li>
-            <Li>Contact us</Li>
-            <Li>Cookie Settings</Li>
-            <Li>Cookie Policy</Li>
-          </Ul>
-        </Col>
-        <Col>
-          <H5>STACK EXCHANGE NETWORK</H5>
-          <Ul>
-            <Li>Technology</Li>
-            <Li>Culture & recreation</Li>
-            <Li>Life & arts</Li>
-            <Li>Science</Li>
-            <Li>Professional</Li>
-            <Li>Business</Li>
-            <Li />
-            <Li>API</Li>
-            <Li>Data</Li>
-          </Ul>
-        </Col>
-        <Col>
-          <Nav>
-            <Contect>Blog</Contect>
-            <Contect>Facebook</Contect>
-            <Contect>Twitter</Contect>
-            <Contect>Linkedin</Contect>
-            <Contect>Instagram</Contect>
-          </Nav>
-          <Contect>Site design / logo © 2022 Stack Exchange Inc; user</Contect>
-          <Contect>contributions licensed under CC BY-SA.</Contect>
-          <Contect>rev 2022.10.21.36010</Contect>
-        </Col>
-      </Nav>
-    </Containter>
+    <FooterBox>
+      <Content>
+        <Nav>
+          <Logo src={footerLogo} />
+          <Col>
+            <H5>STACK OVERFLOW</H5>
+            <Ul>
+              <Li>Questions</Li>
+              <Li>Help</Li>
+            </Ul>
+          </Col>
+          <Col>
+            <H5>PRODUCTS</H5>
+            <Ul>
+              <Li>Teams</Li>
+              <Li>Advertising</Li>
+              <Li>Collectives</Li>
+              <Li>Talent</Li>
+            </Ul>
+          </Col>
+          <Col>
+            <H5>COMPANY</H5>
+            <Ul>
+              <Li>About</Li>
+              <Li>Press</Li>
+              <Li>Work Here</Li>
+              <Li>Legal</Li>
+              <Li>Privacy Policy</Li>
+              <Li>Terms of Service</Li>
+              <Li>Contact us</Li>
+              <Li>Cookie Settings</Li>
+              <Li>Cookie Policy</Li>
+            </Ul>
+          </Col>
+          <Col>
+            <H5>STACK EXCHANGE NETWORK</H5>
+            <Ul>
+              <Li>Technology</Li>
+              <Li>Culture & recreation</Li>
+              <Li>Life & arts</Li>
+              <Li>Science</Li>
+              <Li>Professional</Li>
+              <Li>Business</Li>
+              <Li>API</Li>
+              <Li>Data</Li>
+            </Ul>
+          </Col>
+          <Col>
+            <Nav>
+              <Sns>Blog</Sns>
+              <Sns>Facebook</Sns>
+              <Sns>Twitter</Sns>
+              <Sns>Linkedin</Sns>
+              <Sns>Instagram</Sns>
+            </Nav>
+            <Privacy>
+              Site design / logo © 2022 Stack Exchange Inc; user
+              <br /> contributions licensed under CC BY-SA. rev 2022.10.24.26681
+            </Privacy>
+          </Col>
+        </Nav>
+      </Content>
+    </FooterBox>
   );
 }
 export default Footer;
