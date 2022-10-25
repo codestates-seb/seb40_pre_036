@@ -6,19 +6,22 @@ import { faStackOverflow } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Nav = styled.nav`
-  width: 20%;
+  width: 15%;
   display: flex;
   flex-direction: column;
   margin: 10px;
 `;
 const Header = styled.div`
-  background-color: #f9f0cf;
+  background-color: #fbf3d5;
   padding: 10px;
-  font-size: 0.8rem;
+  font-size: 0.6rem;
   font-weight: 700;
   display: flex;
   border: 1px solid;
   border-color: #f1e5bc;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  color: #656a6d;
 `;
 
 const Content = styled.div`
@@ -26,6 +29,11 @@ const Content = styled.div`
   font-size: 0.3rem;
   display: flex;
   padding: 10px;
+  cursor: pointer;
+`;
+
+const FAI = styled.div`
+  margin-right: 7px;
 `;
 
 function Aside() {
@@ -33,32 +41,46 @@ function Aside() {
     <Nav>
       <Header>The Overflow Blog</Header>
       <Content>
-        <FontAwesomeIcon icon={faPencil} />
+        <FAI>
+          <FontAwesomeIcon icon={faPencil} size="2x" />
+        </FAI>
         He helped build .NET and VS Code — Now’s he working on Web3 (Ep. 499)
       </Content>
       <Content>
-        <FontAwesomeIcon icon={faPencil} />
+        <FAI>
+          <FontAwesomeIcon icon={faPencil} size="2x" />
+        </FAI>
         How hardware and software can maximize your flow states
       </Content>
       <Header>Featured on Meta</Header>
       <Content>
-        <FontAwesomeIcon icon={faMessage} />
+        <FAI>
+          <FontAwesomeIcon icon={faMessage} color="#4ca5d9" size="2x" />
+        </FAI>
         The 2022 Community-a-thon has begun!
       </Content>
       <Content>
-        <FontAwesomeIcon icon={faMessage} />
+        <FAI>
+          <FontAwesomeIcon icon={faMessage} color="#4ca5d9" size="2x" />
+        </FAI>
         Mobile app infrastructure being decommissioned
       </Content>
       <Content>
-        <FontAwesomeIcon icon={faStackOverflow} />
+        <FAI>
+          <FontAwesomeIcon icon={faStackOverflow} color="#828583" size="3x" />
+        </FAI>
         Staging Ground Workflow: Canned Comments
       </Content>
       <Content>
-        <FontAwesomeIcon icon={faStackOverflow} />
+        <FAI>
+          <FontAwesomeIcon icon={faStackOverflow} color="#828583" size="3x" />
+        </FAI>
         The [script] tag is being burninated
       </Content>
       <Content>
-        <FontAwesomeIcon icon={faStackOverflow} />
+        <FAI>
+          <FontAwesomeIcon icon={faStackOverflow} color="#828583" size="3x" />
+        </FAI>
         Ask Wizard Test Graduation
       </Content>
       <Header>Hot Meta Posts</Header>
