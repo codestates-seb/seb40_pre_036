@@ -13,6 +13,10 @@ ${reset}
 }
 `;
 
+const GlobalStyles = createGlobalStyle`
+${reset}
+`;
+
 function App() {
   return (
     <div className="App">
