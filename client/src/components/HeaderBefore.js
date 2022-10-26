@@ -90,7 +90,6 @@ const Input = styled.input`
   height: 2rem;
   border: 1px solid hsl(210deg 8% 75%);
   border-radius: 3px;
-  max-length: 240;
 
   &:focus {
     outline: none;
