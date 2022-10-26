@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import React from 'react';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 import sofLogo from '../sofLogo.png';
 
 const Header = styled.header`
@@ -90,7 +91,6 @@ const Input = styled.input`
   height: 2rem;
   border: 1px solid hsl(210deg 8% 75%);
   border-radius: 3px;
-  max-length: 240;
 
   &:focus {
     outline: none;
@@ -124,13 +124,20 @@ const Button = styled.button`
   }
 `;
 
+const PageMove = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+`;
+
 function HeaderBefore() {
   return (
     <div>
       <Header>
         <Front>
           <FontAwesomeIcon className="menu" icon={faBars} />
-          <Logo src={sofLogo} />
+          <PageMove to="/">
+            <Logo src={sofLogo} />
+          </PageMove>
           <Products>About</Products>
           <Products>Products</Products>
           <Products>For Teams</Products>
@@ -143,8 +150,12 @@ function HeaderBefore() {
             <Input placeholder="Search..." type="text" />
           </Form>
         </Container>
-        <Button>Log in</Button>
-        <Button>Sign up</Button>
+        <PageMove to="/login">
+          <Button>Log in</Button>
+        </PageMove>
+        <PageMove to="/signup">
+          <Button>Sign up</Button>
+        </PageMove>
       </Header>
     </div>
   );
