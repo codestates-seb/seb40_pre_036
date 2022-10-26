@@ -5,11 +5,14 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Footer from './components/Footer';
 import Main from './Main';
 import HeaderBefore from './components/HeaderBefore';
-
+// import HeaderAfter from './components/HeaderAfter';
 import Signup from './pages/Signup';
 
 const GlobalStyles = createGlobalStyle`
 ${reset}
+* {
+  box-sizing: border-box;
+}
 `;
 
 function App() {
@@ -23,6 +26,7 @@ function App() {
           <Route path="/Signup" element={<Signup />} />
         </Routes>
         <Footer />
+        {/* <HeaderAfter />  */}
       </div>
     </BrowserRouter>
   );
