@@ -4,8 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import soybeanoil.stackoverflowClone.answer.entity.Answer;
+import soybeanoil.stackoverflowClone.question.entity.Question;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
@@ -31,30 +35,27 @@ public class User {
     @Column(length = 20, nullable = false, name = "STATUS")
     private UserStatus userStatus = UserStatus.USER_EXIST;
 
+    @Column(nullable = false)
+    private String role;
+
     // 연관관계
-//    @OneToMany
-//    private List<Question> questions = new ArrayList<>();
-//
-//    @OneToMany
-//    private List<Answer> answer = new ArrayList<>();
-//
+    @OneToMany(mappedBy = "USERS")
+    private List<Question> questions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "USERS")
+    private List<Answer> answer = new ArrayList<>();
+
 //    @OneToMany
 //    private List<QuestionVote> questionVotes = new ArrayList<>();
 //
 //    @OneToMany
 //    private List<AnswerVote> answerVotes = new ArrayList<>();
-//
-//    @OneToOne
-//    private Answer answerWriter;
-//
-//    @OneToOne
-//    private Question questionWriter;
 
-    public User(String displayName, String email, String password) {
-        this.displayName = displayName;
-        this.email = email;
-        this.password = password;
-    }
+//    public User(String displayName, String email, String password) {
+//        this.displayName = displayName;
+//        this.email = email;
+//        this.password = password;
+//    }
 
     public enum UserStatus {
         USER_EXIST("활동중"),
