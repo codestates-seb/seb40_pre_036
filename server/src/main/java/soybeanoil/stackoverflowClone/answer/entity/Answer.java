@@ -3,7 +3,11 @@ package soybeanoil.stackoverflowClone.answer.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.domain.Auditable;
+import soybeanoil.stackoverflowClone.question.entity.Question;
+import soybeanoil.stackoverflowClone.user.entity.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -16,14 +20,19 @@ public class Answer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int answerId; // 답변자 id
+    private Long answerId; // 답변자 id
 
     @Column(nullable = false, columnDefinition = "TEXT")  //컬럼을 text 로 설정하여 데이터를 추출
-    private String content;
+    private String answerContent; // content -> Q & A 따로 구별
 
-//    @OneToOne // 1:1매핑 => answer writer <-> user id
-//    @JoinColumn(name="USER_ID")
-//    private user writer;  // 질문자 user id 엔티티랑 묶기
+    @OneToOne // 1:1매핑 => answer writer <-> user id
+    @JoinColumn(name="USER_ID")
+    private User user;  // 질문자 user id 엔티티랑 묶기
+
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "QUESTION_ID")
+    private Question question;   // Question 에 붙은 답변 => Question 연결
 
     @Column(nullable = false)
     private int vote;
@@ -33,6 +42,11 @@ public class Answer {
 
     @Column(nullable = false, name = "UPDATED")
     private LocalDateTime modifiedAt = LocalDateTime.now();
+
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, name = "STATUS")
+    private AnswerStatus answerStatus = AnswerStatus.ANSWER_EXIST;
     public enum AnswerStatus {
         ANSWER_NOT_EXIST("존재하지 않는 답변"),
         ANSWER_EXIST("존재하는 답변");
