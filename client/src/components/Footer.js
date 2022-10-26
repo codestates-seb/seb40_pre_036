@@ -22,14 +22,11 @@ const FooterBox = styled.div`
 
 const Content = styled.div`
   width: 70%;
-  margin: 0 20%;
+  margin: 0 15%;
   display: flex;
-  flex: 2 1 auto;
 `;
 
 const Logo = styled.img`
-  //flex: 0 0 64px;
-  width: 50px;
   height: 50px;
   margin: 40px 0 0 5px;
 `;
@@ -38,17 +35,17 @@ const Nav = styled.nav`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
 `;
 
 const Col = styled.div`
   display: flex;
   flex-direction: column;
-  //flex-direction: 1 0 auto;
-  padding: 0 6px;
-  margin: 15px;
+  padding: 0 5px;
+  margin: 15px 15px 15px 0;
 `;
 const H5 = styled.h5`
+  white-space: nowrap;
+  font-size: 0.9em;
   margin: 20px 0;
   display: flex;
   text-transform: uppercase;
@@ -59,7 +56,7 @@ const Ul = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  flex-wrap: wrap;
+  flex-wrap: no-wrap;
   margin: 0;
   padding-left: 0;
   list-style: none;

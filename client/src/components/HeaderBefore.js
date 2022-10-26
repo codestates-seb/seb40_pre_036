@@ -118,7 +118,7 @@ const Button = styled.button`
   &:last-child {
     background: #0995fd;
     color: white;
-    &: hover {
+    &:hover {
       background-color: hsl(206deg 100% 40%);
     }
   }
