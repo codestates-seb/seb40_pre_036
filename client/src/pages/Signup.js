@@ -27,6 +27,7 @@ const Content = styled.div`
 `;
 
 const LeftBox = styled.div`
+  min-width: 600px;
   width: 50%;
   height: 500px;
   position: relative;
@@ -62,6 +63,7 @@ const Introduce = styled.div`
 `;
 
 const RightBox = styled.div`
+  min-width: 600px;
   width: 45%;
   height: 500px;
   box-sizing: border-box;
