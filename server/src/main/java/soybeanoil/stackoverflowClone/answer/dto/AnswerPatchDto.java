@@ -16,7 +16,7 @@ public class AnswerPatchDto {
 
     @NotNull
     @Positive
-    private int answerId;  // 질문하는 사람 답변하는 사람 다른 사람??
+    private long answerId;  // 질문하는 사람 답변하는 사람 다른 사람??
 
     @NotBlank(message="내용을 입력하세요.") // 필드 값에 null 값을 허용하지 않는다
     private String body;
