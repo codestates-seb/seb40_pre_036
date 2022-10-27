@@ -14,18 +14,10 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface AnswerMapper {
 
-    default Answer answerPostDtoToAnswer(AnswerPostDto answerPostDto) {
-        Answer answer = new Answer();
-        User user = new User();
-        Question question = new Question();
+    Answer answerPostDtoToAnswer(AnswerPostDto answerPostDto);
 
-        user.setUserId(answerPostDto.getAnswerId());
-        question.setQuestionId(answerPostDto.getAnswerId());
+    Answer answerPatchDtoToAnswer(AnswerPatchDto answerPatchDto);
 
-        answer.setUser(user); //
-        answer.setQuestion(question);
-        answer.setAnswerContent(answerPostDto.getContent());
-
-        return answer;
+    Answer answerToAnswerResponseDto(Answer answer);
     }
-}
+
