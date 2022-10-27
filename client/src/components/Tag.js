@@ -47,11 +47,11 @@ function Tag() {
   const [isKeyReleased, setIsKeyReleased] = useState(false);
 
   const onChange = e => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setInput(e.target.value);
   };
   const onKeyDown = e => {
-    console.log(e.keyCode);
+    // console.log(e.keyCode);
     // const { key } = e;
     const trimmedInput = input.trim();
 
