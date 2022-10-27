@@ -42,7 +42,7 @@ function App() {
           <Route path="/questions" element={<Main />} />
           <Route path="/qna" element={<QnA />} />
           <Route path="/tags" element={<SearchTag />} />
-          <Route path="/mypage" element={<MyPage />} />
+          <Route path="/mypage/*" element={<MyPage />} />
           <Route path="/updateq" element={<UpdateQ />} />
           <Route path="/updatea" element={<UpdateA />} />
           <Route path="/search" element={<Search />} />

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Container = styled.div`
   display: flex;
   overflow: scroll;
-  width: 100%;
+  width: 750px;
   max-width: 100%;
   padding-left: 10px;
   border: 1px grey solid;
@@ -47,11 +47,11 @@ function Tag() {
   const [isKeyReleased, setIsKeyReleased] = useState(false);
 
   const onChange = e => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setInput(e.target.value);
   };
   const onKeyDown = e => {
-    console.log(e.keyCode);
+    // console.log(e.keyCode);
     // const { key } = e;
     const trimmedInput = input.trim();
 
