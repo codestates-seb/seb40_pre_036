@@ -21,7 +21,7 @@
     "react-google-recaptcha": "^2.1.0",
     "react-redux": "^8.0.4",
     "react-router-dom": "6.4",
-    "react-scripts": "5.0.1",
+    "react-scripts": "5.0.1", 
     "react-tag-input-component": "^2.0.2",
     "sanitize-html": "^2.7.2",
     "styled-components": "^5.3.6",

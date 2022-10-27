@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
 import footerLogo from '../footerLogo.png';
 import google from '../img/google.png';
 import github from '../img/github.png';
@@ -120,6 +121,25 @@ const SignupGuide = styled.div`
 `;
 
 function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+  const users = useSelector(state => state.users);
+
+  const login = () => {
+    const payload = users.find(user => user.email === email && user.password === password);
+
+    if (payload) {
+      dispatch({
+        type: 'LOGIN',
+        payload,
+      });
+      alert('Success');
+    } else {
+      alert('정보가 틀렸습니다!');
+    }
+  };
+
   return (
     <Container>
       <Content>
@@ -150,16 +170,18 @@ function Login() {
         <InputForm>
           <InputLable>
             <p>Email</p>
-            <input />
+            <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
           </InputLable>
           <InputLable>
             <div>
               <p>Password</p>
               <a href="/">Forgot password?</a>
             </div>
-            <input type="password" />
+            <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
           </InputLable>
-          <LoginButton>Log in</LoginButton>
+          <LoginButton value="Login" onClick={login}>
+            Log in
+          </LoginButton>
         </InputForm>
         <SignupGuide>
           <p>

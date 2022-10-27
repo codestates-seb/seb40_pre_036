@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import ReCAPTCHA from 'react-google-recaptcha';
+import { useDispatch, useSelector } from 'react-redux';
 // icon
 import bookmark from '../img/bookmark.png';
 import msg from '../img/msg.png';
@@ -9,7 +10,6 @@ import vote from '../img/vote.png';
 import google from '../img/google.png';
 import github from '../img/github.png';
 import facebook from '../img/facebook.png';
-
 // Chptcha
 function onChange(value) {
   console.log('Captcha value:', value);
@@ -167,9 +167,31 @@ const ConsentGuide = styled.div`
 `;
 
 function Signup() {
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const dispatch = useDispatch();
+  const users = useSelector(state => state.users);
+
+  const register = () => {
+    dispatch({
+      type: 'REGISTER',
+      payload: {
+        id: new Date().getTime(),
+        username,
+        email,
+        password,
+      },
+    });
+  };
   return (
     <Container>
       <Content>
+        {/* 가입 확인 화면 표시 */}
+        {users.map(user => (
+          <div key={user.id}>{user.email}</div>
+        ))}
         <LeftBox>
           <LeftContent>
             <h1>Join the Stack Overflow community</h1>
@@ -219,15 +241,15 @@ function Signup() {
           <InputForm>
             <InputLable>
               <p>Display name</p>
-              <input />
+              <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
             </InputLable>
             <InputLable>
               <p>Email</p>
-              <input />
+              <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
             </InputLable>
             <InputLable>
               <p>Password</p>
-              <input type="password" />
+              <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
               <span>
                 Passwords must contain at least eight characters, including at least 1 letter and 1
                 number.
@@ -243,7 +265,9 @@ function Signup() {
                 announcements, and digests.
               </p>
             </ConcentBox>
-            <SignUpButton>Sign in</SignUpButton>
+            <SignUpButton value="Register" onClick={register}>
+              Sign in
+            </SignUpButton>
             <ConsentGuide>
               <p>
                 By clicking “Sign up”, you agree to our
