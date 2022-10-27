@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Container = styled.div`
   display: flex;
   overflow: scroll;
-  width: 100%;
+  width: 750px;
   max-width: 100%;
   padding-left: 10px;
   border: 1px grey solid;

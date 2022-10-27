@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Nav from '../components/Nav';
-import Editor from '../components/Editor';
+import EditorComp from '../components/EditorComp';
 import Tag from '../components/Tag';
 
 const Main = styled.div`
@@ -61,6 +61,7 @@ const Ul = styled.ul`
   color: #6c6f6f;
   list-style: decimal !important;
 `;
+
 const Li = styled.li`
   display: flex;
   white-space: nowrap;
@@ -128,7 +129,6 @@ const Bodyeditor = styled.div`
   margin-bottom: 30px;
 `;
 function Edit() {
-  const [textEditable, setTextEditable] = useState('');
   return (
     <Main>
       <Container>
@@ -152,21 +152,7 @@ function Edit() {
               <Bodyeditor>
                 <h2>Body</h2>
                 <Editorform>
-                  <Editor>
-                    {' '}
-                    <Editor
-                      value={textEditable}
-                      onChange={e => {
-                        setTextEditable(e.target.value);
-                      }}
-                      onCancel={() => {
-                        setTextEditable('');
-                      }}
-                      onPost={() => {
-                        console.log('onPost >', textEditable);
-                      }}
-                    />
-                  </Editor>
+                  <EditorComp />
                 </Editorform>
               </Bodyeditor>
               <h2>Tags</h2>
