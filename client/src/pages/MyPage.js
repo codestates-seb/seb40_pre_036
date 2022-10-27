@@ -191,7 +191,7 @@ const Span = styled.span`
   cursor: pointer;
 `;
 
-const Mypage = function () {
+function Mypage() {
   const [clicked, setClicked] = useState();
 
   const onClick = useCallback(e => {
@@ -396,6 +396,6 @@ const Mypage = function () {
       </Container>
     </Main>
   );
-};
+}
 
 export default Mypage;
