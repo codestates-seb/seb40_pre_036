@@ -3,7 +3,7 @@ package soybeanoil.stackoverflowClone.question.dto;
 import lombok.Getter;
 import lombok.Setter;
 import soybeanoil.stackoverflowClone.question.entity.Question;
-import soybeanoil.stackoverflowClone.question.entity.QuestionVote;
+import soybeanoil.stackoverflowClone.user.dto.UserResponseDto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -47,7 +47,7 @@ public class QuestionDto {
         private String content;
         private Question.QuestionStatus questionStatus;
         private Integer votes;
-//        private UserResponseDto user;
+        private UserResponseDto user;
         private List<TagResponseDto> questionTags;
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
