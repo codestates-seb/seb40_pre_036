@@ -4,7 +4,7 @@ import '@toast-ui/editor/dist/toastui-editor.css'; // Editor 스타일
 import styled from 'styled-components';
 
 const Container = styled.div`
-  width: 750px;
+  width: 650px;
   margin-top: 10px;
   border: 1px solid;
   border-color: #c7cccf;
