@@ -369,9 +369,7 @@ function Search() {
                   <PostInfo>
                     <UserPic />
                     <User href="https://stackoverflow.com/users/20315421/seyeon-kim">uxolrv</User>
-                    <Time>
-                      <span>315k</span> answered Feb 15, 2010 at 7:43
-                    </Time>
+                    <Time>answered Feb 15, 2010 at 7:43</Time>
                   </PostInfo>
                 </InfoContainer>
               </Question>

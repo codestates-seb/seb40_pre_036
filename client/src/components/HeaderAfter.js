@@ -7,8 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import sofLogo from '../sofLogo.png';
 
 const Header = styled.header`
+  position: fixed;
   color: black;
-  min-width: auto;
   width: 100%;
   height: 3rem;
   background-color: hsl(210, 8%, 97.5%);
@@ -16,9 +16,15 @@ const Header = styled.header`
   align-items: center;
   justify-content: space-between;
   vertical-align: baseline;
-  box-shadow: 0 -6px 10px 0px;
+  box-shadow: 0 -5px 10px 0px;
   padding: 1.5rem 6rem;
   border-top: 3px solid #f48123;
+  z-index: 10;
+`;
+
+const Blank = styled.div`
+  width: 100%;
+  height: 3rem;
 `;
 
 const Front = styled.div`
@@ -154,6 +160,7 @@ function HeaderAfter() {
           </Li>
         </Ol>
       </Header>
+      <Blank />
     </div>
   );
 }

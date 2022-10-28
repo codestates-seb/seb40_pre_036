@@ -4,11 +4,15 @@ import '@toast-ui/editor/dist/toastui-editor.css'; // Editor 스타일
 import styled from 'styled-components';
 
 const Container = styled.div`
-  width: 650px;
-  margin-top: 10px;
-  border: 1px solid;
-  border-color: #c7cccf;
+  width: 800px;
+  border: 1px solid #babfc4;
   border-radius: 5px;
+
+  &:focus-within {
+    outline: none;
+    border-color: hsl(206deg 100% 52%);
+    box-shadow: 0px 0px 0px 5px #e1ecf4;
+  }
 `;
 
 function EditorComp() {
