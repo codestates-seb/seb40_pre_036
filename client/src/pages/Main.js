@@ -2,10 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import Aside from '../components/Aside';
 import Nav from '../components/Nav';
-// import Content from '../components/Content';
-// import QuestionsHeader from '../components/QuestionsHeader';
-import QuestionsList from '../components/QuestionList';
-import QuestionsHeader from '../components/QuestionsHeader';
+import QuestionsList from '../components/main/QuestionList';
+import QuestionListHeader from '../components/main/QuestionListHeader';
 
 const Allcontent = styled.div`
   display: flex;
@@ -13,7 +11,6 @@ const Allcontent = styled.div`
 
 // li 태그를 담을 ul태그
 const ListContainer = styled.ul`
-  /* width: 751px; */
   display: flex;
   flex-direction: column;
   color: #232629;
@@ -25,7 +22,7 @@ function Main() {
     <Allcontent>
       <Nav />
       <ListContainer>
-        <QuestionsHeader />
+        <QuestionListHeader />
         <QuestionsList />
         <QuestionsList />
         <QuestionsList />
