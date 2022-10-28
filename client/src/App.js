@@ -3,8 +3,8 @@ import reset from 'styled-reset';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Footer from './components/Footer';
-// import HeaderBefore from './components/HeaderBefore';
-import HeaderAfter from './components/HeaderAfter';
+import HeaderBefore from './components/HeaderBefore';
+// import HeaderAfter from './components/HeaderAfter';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
@@ -32,8 +32,8 @@ function App() {
     <BrowserRouter>
       <GlobalStyles />
       <div className="App">
-        {/* <HeaderBefore /> */}
-        <HeaderAfter />
+        <HeaderBefore />
+        {/* <HeaderAfter /> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
