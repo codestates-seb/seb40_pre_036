@@ -2,90 +2,32 @@ import React from 'react';
 import styled from 'styled-components';
 import Nav from '../components/Nav';
 import Aside from '../components/Aside';
+import QuestionContent from '../components/qna/QuestionContent';
+import QnAHeader from '../components/qna/QnAHeader';
+import AnswerContent from '../components/qna/AnswerContent';
+import QnASideBar from '../components/qna/QnASideBar';
+import QnAComment from '../components/qna/QnAComment';
 
 const Container = styled.div`
   display: flex;
 `;
 
-const QnAContainer = styled.div`
+const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 24px;
 `;
 
-const Header = styled.header`
+const QnAContainer = styled.div`
+  max-width: 730px;
   display: flex;
   flex-direction: column;
-  /* height: 114px; */
-  /* padding: 20px 20px 10px 20px; */
-  padding-bottom: 16px;
-  margin-bottom: 16px;
-  border-bottom: 1px solid #e3e6e8;
-  font-size: 13px;
-  color: #232639;
-  line-height: 1.4;
 `;
 
-const Title = styled.h1`
-  display: flex;
-  justify-content: space-between;
-  font-size: 26px;
-  color: #3b4045;
-  max-width: 1080px;
-`;
-
-const AskBtn = styled.button`
-  min-width: 103px;
-  height: 38px;
-  color: white;
-  background-color: rgb(0, 137, 254);
-  border: 1px solid transparent;
-  box-shadow: inset 0 1px 0 0 rgba(250, 250, 250, 0.5);
-  border-radius: 3px;
-  white-space: nowrap;
-  margin-left: 10px;
-`;
-
-const PostInfo = styled.div`
-  color: #6a737c;
-  display: flex;
-  padding-top: 8px;
-`;
-
-const Time = styled.time`
-  margin: 0 15px 0 6px;
-  color: #232639;
-`;
-
+// header 밑 부분 정렬
 const ContentContainer = styled.div`
   display: flex;
-`;
-
-const SideBar = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding-right: 16px;
-`;
-
-const Content = styled.div`
-  color: #232629;
-  font-size: 15px;
-`;
-
-const Paragraph = styled.p`
-  max-width: 730px;
-  margin-bottom: 10px;
-  line-height: 1.6;
-  /* word-wrap: break-word; */
-`;
-
-const Icon = styled.svg`
-  fill: gray;
-`;
-
-const VoteBtn = styled.button`
-  border: none;
-  background: none;
+  margin-top: 16px;
 `;
 
 const AsideContainer = styled.div`
@@ -118,6 +60,7 @@ const RelatedVote = styled.div`
   color: white;
   border-radius: 3px;
   margin-right: 10px;
+  cursor: pointer;
 `;
 
 const RelatedPost = styled.div`
@@ -133,8 +76,11 @@ const RelatedTitle = styled.a`
   font-size: 13px;
   line-height: 1.4;
   width: 70%;
-  :visited {
+  &:visited {
     text-decoration: none;
+  }
+  &:hover {
+    color: #0a95ff;
   }
 `;
 
@@ -142,78 +88,15 @@ function QnA() {
   return (
     <Container>
       <Nav />
-      <QnAContainer>
-        <Header>
-          <Title>
-            Capture all network requests and full response data when loading a page in Chrome - not
-            working well
-            {/* Capture all network requests and full response data when loading a page in Chrome - not
-          working well */}
-            <AskBtn>Ask Question</AskBtn>
-          </Title>
-          <PostInfo>
-            <div>
-              Asked
-              <Time>today</Time>
-            </div>
-            <div>
-              Modified
-              <Time>today</Time>
-            </div>
-            <div>
-              Viewed
-              <Time>3 times</Time>
-            </div>
-          </PostInfo>
-        </Header>
+      <MainContainer>
+        <QnAHeader />
         <ContentContainer>
-          <SideBar>
-            <VoteBtn type="button">
-              <Icon
-                aria-hidden="true"
-                className="svg-icon iconArrowUpLg"
-                width="36"
-                height="36"
-                viewBox="0 0 36 36"
-              >
-                <path d="M2 25h32L18 9 2 25Z" />
-              </Icon>
-            </VoteBtn>
-          </SideBar>
-          <Content>
-            <Paragraph>
-              I&apos;m abling to fetch some data but not all with the function describe in similar
-              question and copied to this question.
-            </Paragraph>
-            <Paragraph>
-              The function does exactly what it is meant to do. But my problem is with this method
-              the desired request not appear on to screen.
-            </Paragraph>
-            <Paragraph>
-              The desired request should respond with products JSON information. and it didn&apos;t.
-              when I surf to the same URL without coding I can see that request with full responed
-              and I can see in UI all products arrived from this request. But when doing it in this
-              method and (```headless: false&apos; &apos;) the UI shows all excluding the products
-              data. What am I missing here?
-            </Paragraph>
-            <Paragraph>
-              I understand that I can select the remote I wish to &quot;push&quot; to:
-            </Paragraph>
-            <Paragraph>git push origin main</Paragraph>
-            <Paragraph>
-              But taking a step back from the push, when I add and commit, these aren&apos;t tied
-              back to a repo. So is there a way I can group commit changes for specific repos?
-            </Paragraph>
-            <Paragraph>For example,</Paragraph>
-            <Paragraph>git add README.md git commit -am &quot;FIRST COMMIT&quot;</Paragraph>
-            <Paragraph>
-              git add test1234.html git add test5678.html git commit -am &quot;SECOND COMMIT&quot;
-            </Paragraph>
-            <Paragraph>
-              Can I push both of these commits to the &quot;origin&quot; repo and just the first
-              commit to the &quot;prod&quot; repo?
-            </Paragraph>
-          </Content>
+          <QnASideBar />
+          <QnAContainer>
+            <QuestionContent />
+            <QnAComment />
+            <AnswerContent />
+          </QnAContainer>
           <AsideContainer>
             <RelatedContainer>
               <h2>Related</h2>
@@ -271,7 +154,7 @@ function QnA() {
             <Aside />
           </AsideContainer>
         </ContentContainer>
-      </QnAContainer>
+      </MainContainer>
     </Container>
   );
 }

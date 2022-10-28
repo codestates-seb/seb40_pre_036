@@ -72,7 +72,6 @@ const Menu = styled.span`
   color: #6a737c;
   font-size: 13px;
   margin-right: 10px;
-  cursor: pointer;
 `;
 
 const PostInfoBox = styled.div`
