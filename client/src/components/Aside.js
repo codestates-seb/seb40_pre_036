@@ -6,7 +6,6 @@ import { faStackOverflow } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Nav = styled.nav`
-  width: 15%;
   display: flex;
   flex-direction: column;
   margin: 10px;
