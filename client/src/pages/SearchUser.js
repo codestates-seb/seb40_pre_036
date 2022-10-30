@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Nav from '../components/Nav';
 
@@ -128,10 +128,10 @@ const UserItem = styled.div`
   }
 `;
 
-const UserAvatar = styled.div`
+const UserAvatar = styled.img`
   width: 48px;
   height: 48px;
-  background-image: url(https://www.gravatar.com/avatar/0555bd0deb416a320a0069abef08078a?s=96&d=identicon&r=PG&f=1);
+  // background-image: url(https://www.gravatar.com/avatar/0555bd0deb416a320a0069abef08078a?s=96&d=identicon&r=PG&f=1);
   border-radius: 2px;
 `;
 
@@ -183,10 +183,22 @@ const UserTags = styled.div`
 
 function SearchUser() {
   const [clicked, setClicked] = useState();
+  const [users, setUsers] = useState([{}]);
 
   const onClick = useCallback(e => {
     const text = e.target.innerText;
     setClicked(text);
+  }, []);
+
+  const setAllUsers = () => {
+    fetch('https://api.stackexchange.com/2.3/users?order=desc&sort=reputation&site=stackoverflow')
+      .then(res => res.json())
+      .then(res => setUsers(res.items));
+  };
+  console.log(users);
+
+  useEffect(() => {
+    setAllUsers();
   }, []);
 
   return (
@@ -218,101 +230,20 @@ function SearchUser() {
           </SerchFilter>
         </Search>
         <UserBrowser>
-          <UserItem>
-            <div className="div">
-              <UserAvatar />
-              <UserDetails>
-                <span>mozway</span>
-                <UserLocation>Mare Tranquillitatis</UserLocation>
-                <UserReputation>2,310</UserReputation>
-              </UserDetails>
-            </div>
-            <UserTags>python, pandas, dataframe</UserTags>
-          </UserItem>
-
-          <UserItem>
-            <div className="div">
-              <UserAvatar />
-              <UserDetails>
-                <span>mozway</span>
-                <UserLocation>Mare Tranquillitatis</UserLocation>
-                <UserReputation>2,310</UserReputation>
-              </UserDetails>
-            </div>
-            <UserTags>python, pandas, dataframe</UserTags>
-          </UserItem>
-
-          <UserItem>
-            <div className="div">
-              <UserAvatar />
-              <UserDetails>
-                <span>mozway</span>
-                <UserLocation>Mare Tranquillitatis</UserLocation>
-                <UserReputation>2,310</UserReputation>
-              </UserDetails>
-            </div>
-            <UserTags>python, pandas, dataframe</UserTags>
-          </UserItem>
-
-          <UserItem>
-            <div className="div">
-              <UserAvatar />
-              <UserDetails>
-                <span>mozway</span>
-                <UserLocation>Mare Tranquillitatis</UserLocation>
-                <UserReputation>2,310</UserReputation>
-              </UserDetails>
-            </div>
-            <UserTags>python, pandas, dataframe</UserTags>
-          </UserItem>
-
-          <UserItem>
-            <div className="div">
-              <UserAvatar />
-              <UserDetails>
-                <span>mozway</span>
-                <UserLocation>Mare Tranquillitatis</UserLocation>
-                <UserReputation>2,310</UserReputation>
-              </UserDetails>
-            </div>
-            <UserTags>python, pandas, dataframe</UserTags>
-          </UserItem>
-
-          <UserItem>
-            <div className="div">
-              <UserAvatar />
-              <UserDetails>
-                <span>mozway</span>
-                <UserLocation>Mare Tranquillitatis</UserLocation>
-                <UserReputation>2,310</UserReputation>
-              </UserDetails>
-            </div>
-            <UserTags>python, pandas, dataframe</UserTags>
-          </UserItem>
-
-          <UserItem>
-            <div className="div">
-              <UserAvatar />
-              <UserDetails>
-                <span>mozway</span>
-                <UserLocation>Mare Tranquillitatis</UserLocation>
-                <UserReputation>2,310</UserReputation>
-              </UserDetails>
-            </div>
-            <UserTags>python, pandas, dataframe</UserTags>
-          </UserItem>
-
-          <UserItem>
-            <div className="div">
-              <UserAvatar />
-              <UserDetails>
-                <span>mozway</span>
-                <UserLocation>Mare Tranquillitatis</UserLocation>
-                <UserReputation>2,310</UserReputation>
-              </UserDetails>
-            </div>
-            <UserTags>python, pandas, dataframe</UserTags>
-          </UserItem>
+          {users &&
+            users.map(user => (
+              <UserItem key={user.user_id}>
+                <div className="div">
+                  <UserAvatar src={user.profile_image} />
+                  <UserDetails>
+                    <span>{user.display_name}</span>
+                    <UserLocation>{user.location}</UserLocation>
+                    <UserReputation>{user.reputation}</UserReputation>
+                  </UserDetails>
+                </div>
+                <UserTags>python, pandas, dataframe</UserTags>
+              </UserItem>
+            ))}
         </UserBrowser>
       </MainBar>
     </SearchUserPage>
