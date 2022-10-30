@@ -24,6 +24,7 @@ ${reset}
 * {
   box-sizing: border-box;
   font-family: Helvetica!important;
+  letter-spacing: 0.2px;
 }
 `;
 

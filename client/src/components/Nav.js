@@ -80,7 +80,7 @@ const Icon = styled.span`
 `;
 
 function Nav() {
-  const [clicked, setClicked] = useState();
+  const [clicked, setClicked] = useState('Questions');
 
   const onClick = useCallback(e => {
     const text = e.target.innerText;

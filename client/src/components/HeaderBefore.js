@@ -30,7 +30,6 @@ const Front = styled.div`
   display: flex;
   flex: 1;
   align-items: center;
-  }
 `;
 
 const Logo = styled.img`
