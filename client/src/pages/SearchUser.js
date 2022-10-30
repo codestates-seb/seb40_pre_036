@@ -77,13 +77,11 @@ const FilterBtn = styled.div`
   color: hsl(210deg 8% 45%);
 
   &:first-child {
-    border-right: transparent;
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
   }
 
   &:last-child {
-    border-left: transparent;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
   }
@@ -114,6 +112,7 @@ const UserBrowser = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
 `;
 
 const UserItem = styled.div`
@@ -131,7 +130,6 @@ const UserItem = styled.div`
 const UserAvatar = styled.img`
   width: 48px;
   height: 48px;
-  // background-image: url(https://www.gravatar.com/avatar/0555bd0deb416a320a0069abef08078a?s=96&d=identicon&r=PG&f=1);
   border-radius: 2px;
 `;
 
@@ -140,19 +138,22 @@ const UserDetails = styled.div`
   height: 20px;
   font-size: 15px;
 
+  a {
+    text-decoration: none;
+    outline: none;
+    display: block;
+    margin-bottom: 5px;
+    color: hsl(206deg 100% 40%);
+
+    &:hover {
+      color: #0a95ff;
+      cursor: pointer;
+    }
+  }
+
   span {
     display: block;
     margin-bottom: 5px;
-    &:first-child {
-      color: hsl(206deg 100% 40%);
-    }
-
-    &:hover {
-      &:first-child {
-        color: #0a95ff;
-        cursor: pointer;
-      }
-    }
   }
 `;
 
@@ -170,40 +171,88 @@ const UserReputation = styled.span`
   font-weight: bold;
 `;
 
-const UserTags = styled.div`
-  color: hsl(206deg 100% 40%);
+const UserBadge = styled.div`
+  display: flex;
+  color: #838c95;
   font-size: 12px;
   margin: 5px 0 2px 57px;
+`;
 
-  &:hover {
-    color: #0a95ff;
-    cursor: pointer;
+const Badges = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .gold-badge {
+    margin-right: 3px;
+    width: 6px;
+    height: 6px;
+    background: #ffcc01;
+    border-radius: 50%;
+  }
+
+  .silver-badge {
+    margin-right: 3px;
+    margin-left: 8px;
+    width: 6px;
+    height: 6px;
+    background: #b4b8be;
+    border-radius: 50%;
+  }
+
+  .bronze-badge {
+    margin-right: 3px;
+    margin-left: 8px;
+    width: 6px;
+    height: 6px;
+    background: #d2a685;
+    border-radius: 50%;
   }
 `;
 
 function SearchUser() {
-  const [clicked, setClicked] = useState();
-  const [users, setUsers] = useState([{}]);
+  const [clicked, setClicked] = useState('reputation');
+  const [users, setUsers] = useState([]);
 
-  const onClick = useCallback(e => {
-    const text = e.target.innerText;
-    setClicked(text);
-  }, []);
+  // const newUserList = ['Reputation', ...new Set(users.map(user => user.creation_date))];
 
-  const setAllUsers = () => {
-    fetch('https://api.stackexchange.com/2.3/users?order=desc&sort=reputation&site=stackoverflow')
+  const fetchUsers = filter => {
+    fetch(`https://api.stackexchange.com/2.3/users?order=desc&sort=${filter}&site=stackoverflow`)
       .then(res => res.json())
       .then(res => setUsers(res.items));
   };
-  console.log(users);
+
+  const onClick = useCallback(e => {
+    const text = e.target.innerText;
+    console.log(text);
+
+    if (text === 'Reputation') {
+      setClicked('reputation');
+      fetchUsers('reputation');
+    } else {
+      setClicked('creation');
+      fetchUsers('creation');
+    }
+  }, []);
+  // console.log(users);
+
+  // const setNewUsers = () => {
+  //   fetch('https://api.stackexchange.com/2.3/users?order=desc&sort=creation&site=stackoverflow')
+  //     .then(res => res.json())
+  //     .then(res => setUsers(res.items));
+  // };
 
   useEffect(() => {
-    setAllUsers();
+    fetchUsers(clicked);
   }, []);
+
+  // useEffect(() => {
+  //   activeBtn === "All" ? setUsers() :
+  // })
 
   return (
     <SearchUserPage>
-      <Nav />
+      <Nav path="Users" />
       <MainBar>
         <Start>
           <Title>Users</Title>
@@ -218,30 +267,42 @@ function SearchUser() {
             </Form>
           </UserSearch>
           <SerchFilter>
-            <FilterBtn className={clicked === 'Reputation' ? 'clicked' : ''} onClick={onClick}>
+            <FilterBtn className={clicked === 'reputation' ? 'clicked' : ''} onClick={onClick}>
               Reputation
             </FilterBtn>
-            <FilterBtn className={clicked === 'New users' ? 'clicked' : ''} onClick={onClick}>
+            <FilterBtn className={clicked === 'creation' ? 'clicked' : ''} onClick={onClick}>
               New users
-            </FilterBtn>
-            <FilterBtn className={clicked === 'Name' ? 'clicked' : ''} onClick={onClick}>
-              Name
             </FilterBtn>
           </SerchFilter>
         </Search>
         <UserBrowser>
           {users &&
             users.map(user => (
-              <UserItem key={user.user_id}>
+              <UserItem key={user.account_id}>
                 <div className="div">
                   <UserAvatar src={user.profile_image} />
                   <UserDetails>
-                    <span>{user.display_name}</span>
+                    <a href={user.link}>{user.display_name}</a>
                     <UserLocation>{user.location}</UserLocation>
-                    <UserReputation>{user.reputation}</UserReputation>
+                    <UserReputation>
+                      {user.reputation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                    </UserReputation>
                   </UserDetails>
                 </div>
-                <UserTags>python, pandas, dataframe</UserTags>
+                <UserBadge>
+                  <Badges>
+                    <span className="gold-badge" />
+                    <span>{user.badge_counts.gold}</span>
+                  </Badges>
+                  <Badges>
+                    <span className="silver-badge" />
+                    <span>{user.badge_counts.silver}</span>
+                  </Badges>
+                  <Badges>
+                    <span className="bronze-badge" />
+                    <span>{user.badge_counts.bronze}</span>
+                  </Badges>
+                </UserBadge>
               </UserItem>
             ))}
         </UserBrowser>
