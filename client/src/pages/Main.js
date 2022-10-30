@@ -20,7 +20,7 @@ const ListContainer = styled.ul`
 function Main() {
   return (
     <Allcontent>
-      <Nav />
+      <Nav path="Questions" />
       <ListContainer>
         <QuestionListHeader />
         <QuestionsList />

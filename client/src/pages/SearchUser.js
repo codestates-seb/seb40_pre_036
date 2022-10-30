@@ -191,7 +191,7 @@ function SearchUser() {
 
   return (
     <SearchUserPage>
-      <Nav />
+      <Nav path="Users" />
       <MainBar>
         <Start>
           <Title>Users</Title>
