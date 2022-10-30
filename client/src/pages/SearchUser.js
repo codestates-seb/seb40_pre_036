@@ -213,8 +213,7 @@ const Badges = styled.span`
 function SearchUser() {
   const [clicked, setClicked] = useState('reputation');
   const [users, setUsers] = useState([]);
-
-  // const newUserList = ['Reputation', ...new Set(users.map(user => user.creation_date))];
+  const [value, setValue] = useState('');
 
   const fetchUsers = filter => {
     fetch(`https://api.stackexchange.com/2.3/users?order=desc&sort=${filter}&site=stackoverflow`)
@@ -224,7 +223,6 @@ function SearchUser() {
 
   const onClick = useCallback(e => {
     const text = e.target.innerText;
-    console.log(text);
 
     if (text === 'Reputation') {
       setClicked('reputation');
@@ -234,21 +232,30 @@ function SearchUser() {
       fetchUsers('creation');
     }
   }, []);
-  // console.log(users);
 
-  // const setNewUsers = () => {
-  //   fetch('https://api.stackexchange.com/2.3/users?order=desc&sort=creation&site=stackoverflow')
-  //     .then(res => res.json())
-  //     .then(res => setUsers(res.items));
-  // };
+  const onChange = e => {
+    e.preventDefault();
+    setValue(e.target.value);
+  };
+
+  const onSearch = e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      // 키를 눌렀을 때 동작할 코드
+      // const filtered = users.filter(user => {
+      //   return user.display_name.toUpperCase().includes(value.toUpperCase());
+      // });
+      fetch(
+        `https://api.stackexchange.com/2.3/users?order=desc&sort=${clicked}&inname=${value}&site=stackoverflow`,
+      )
+        .then(res => res.json())
+        .then(res => setUsers(res.items));
+    }
+  };
 
   useEffect(() => {
     fetchUsers(clicked);
   }, []);
-
-  // useEffect(() => {
-  //   activeBtn === "All" ? setUsers() :
-  // })
 
   return (
     <SearchUserPage>
@@ -263,7 +270,13 @@ function SearchUser() {
               <svg className="search" width="18" height="18" viewBox="0 0 18 18">
                 <path d="m18 16.5-5.14-5.18h-.35a7 7 0 1 0-1.19 1.19v.35L16.5 18l1.5-1.5ZM12 7A5 5 0 1 1 2 7a5 5 0 0 1 10 0Z" />
               </svg>
-              <Input placeholder="Filter by user" type="text" />
+              <Input
+                placeholder="Filter by user"
+                type="search"
+                value={value}
+                onChange={onChange}
+                onKeyPress={onSearch}
+              />
             </Form>
           </UserSearch>
           <SerchFilter>
