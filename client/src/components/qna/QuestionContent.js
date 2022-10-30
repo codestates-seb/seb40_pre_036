@@ -1,6 +1,7 @@
 // 질문 상세 페이지의 질문 본문
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const QueContent = styled.div`
   color: #232629;
@@ -74,6 +75,11 @@ const Menu = styled.span`
   margin-right: 10px;
 `;
 
+const PageMove = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+`;
+
 const PostInfoBox = styled.div`
   width: 200px;
   height: 67px;
@@ -144,7 +150,9 @@ function QuestionContent() {
         <MenuUserContainer>
           <MenuContainer>
             <Menu>Share</Menu>
-            <Menu>Edit</Menu>
+            <Menu>
+              <PageMove to="*/edit">Edit</PageMove>
+            </Menu>
             <Menu>Follow</Menu>
           </MenuContainer>
           <PostInfoBox>

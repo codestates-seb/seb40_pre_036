@@ -2,6 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 // import QuestionsHeader from './QuestionsHeader';
+import { Link } from 'react-router-dom';
 
 // 질문 li
 const List = styled.li`
@@ -44,7 +45,7 @@ const Question = styled.article`
 `;
 
 // 질문 제목
-const QuestionTitle = styled.a`
+const QuestionTitle = styled(Link)`
   display: inline-block;
   text-decoration: none;
   color: #0074cc;
@@ -167,7 +168,7 @@ function QuestionsList() {
         </div>
       </Counts>
       <Question>
-        <QuestionTitle href="http://localhost:3000/qna">
+        <QuestionTitle to="*">
           Capture all network requests and full response data when loading a page in Chrome - not
           working well
         </QuestionTitle>
