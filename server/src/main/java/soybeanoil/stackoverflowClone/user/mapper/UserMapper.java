@@ -1,5 +1,8 @@
 package soybeanoil.stackoverflowClone.user.mapper;
 
+import org.mapstruct.Mapper;
+import soybeanoil.stackoverflowClone.user.dto.UserPostDto;
+import soybeanoil.stackoverflowClone.user.dto.UserResponseDto;
 import soybeanoil.stackoverflowClone.user.entity.User;
 
 import java.util.List;

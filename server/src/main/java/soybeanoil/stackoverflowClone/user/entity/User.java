@@ -1,9 +1,6 @@
 package soybeanoil.stackoverflowClone.user.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import soybeanoil.stackoverflowClone.answer.entity.Answer;
 import soybeanoil.stackoverflowClone.question.entity.Question;
 
@@ -11,6 +8,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Builder
 @Setter
 @Getter
 @NoArgsConstructor
@@ -51,11 +49,11 @@ public class User {
 //    @OneToMany
 //    private List<AnswerVote> answerVotes = new ArrayList<>();
 
-//    public User(String displayName, String email, String password) {
-//        this.displayName = displayName;
-//        this.email = email;
-//        this.password = password;
-//    }
+    public User(String displayName, String email, String password) {
+        this.displayName = displayName;
+        this.email = email;
+        this.password = password;
+    }
 
     public enum UserStatus {
         USER_EXIST("활동중"),

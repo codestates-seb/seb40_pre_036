@@ -2,6 +2,10 @@ package soybeanoil.stackoverflowClone.auth.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import soybeanoil.stackoverflowClone.user.dto.LoginDto;
 import soybeanoil.stackoverflowClone.user.entity.User;
 

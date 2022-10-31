@@ -6,8 +6,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import soybeanoil.stackoverflowClone.auth.PrincipalDetails;
 import soybeanoil.stackoverflowClone.auth.jwt.UserDetailService;
+import soybeanoil.stackoverflowClone.auth.utils.CustomAuthorityUtils;
+import soybeanoil.stackoverflowClone.exception.BusinessLogicException;
+import soybeanoil.stackoverflowClone.exception.ExceptionCode;
 import soybeanoil.stackoverflowClone.user.entity.User;
 import soybeanoil.stackoverflowClone.user.repository.UserRepository;
 
@@ -18,10 +20,12 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final CustomAuthorityUtils authorityUtils;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, CustomAuthorityUtils authorityUtils) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.authorityUtils = authorityUtils;
     }
 
     public User createUser(User user) {

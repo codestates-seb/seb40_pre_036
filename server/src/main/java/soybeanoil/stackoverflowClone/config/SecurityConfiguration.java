@@ -3,11 +3,26 @@ package soybeanoil.stackoverflowClone.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import soybeanoil.stackoverflowClone.auth.handler.UserAuthenticationFailureHandler;
+import soybeanoil.stackoverflowClone.auth.handler.UserAuthenticationSuccessHandler;
+import soybeanoil.stackoverflowClone.auth.jwt.JwtAuthenticationFilter;
+import soybeanoil.stackoverflowClone.auth.jwt.JwtTokenizer;
+import soybeanoil.stackoverflowClone.auth.jwt.JwtVerificationFilter;
+import soybeanoil.stackoverflowClone.auth.utils.CustomAuthorityUtils;
 
 import java.util.Arrays;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 //@EnableWebSecurity(debug = true)
