@@ -3,7 +3,6 @@ package soybeanoil.stackoverflowClone.question.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Range;
 import soybeanoil.stackoverflowClone.audit.Auditable;
 import soybeanoil.stackoverflowClone.user.entity.User;
 
@@ -20,8 +19,7 @@ public class QuestionVote extends Auditable {
     private Long questionVoteId;
 
     @Column
-    @Range(min = -1, max = 1) // up(1) 또는 down(-1)
-    private byte vote = 0;
+    private int vote = 0;
 
     @ManyToOne
     @JoinColumn(name = "QUESTION_ID")
