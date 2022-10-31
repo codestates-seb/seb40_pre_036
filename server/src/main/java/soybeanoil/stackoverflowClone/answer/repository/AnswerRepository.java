@@ -15,8 +15,10 @@ import java.util.Optional;
 
 @Repository
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
-
-    Page<Answer> finaAllByQuestionAndAnswerStatus(Pageable pageable,
+    Page<Answer> findAllByQuestionAndAnswerStatus(Pageable pageable,
                                                   @Param("question") Question question,
                                                   @Param("answerStatus") Answer.AnswerStatus answerStatus);
+
+    List<Answer> findAllByUserId(long userId); // AnswerRepository에 추가
+
 }
