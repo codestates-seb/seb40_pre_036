@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.data.domain.Auditable;
+import soybeanoil.stackoverflowClone.audit.Auditable;
 import soybeanoil.stackoverflowClone.question.entity.Question;
 import soybeanoil.stackoverflowClone.user.entity.User;
 
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity(name = "answer")
-public class Answer {
+public class Answer extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
