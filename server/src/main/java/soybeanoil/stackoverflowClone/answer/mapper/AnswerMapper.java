@@ -35,8 +35,7 @@ public interface AnswerMapper {
         answer.setAnswerContent(answerPostDto.getAnswerContent());
         answer.setVote(0);
         answer.setQuestion(questionService.findVerifiedQuestion(answerPostDto.getQuestionId()));
-
-//        answer.setUser(userService.getLoginUser());// 로그인 중 회원정보
+        answer.setUser(userService.getLoginUser());// 로그인 중 회원정보
 
         return answer;
     }
