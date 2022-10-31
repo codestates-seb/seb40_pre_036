@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const Header = styled.header`
   display: flex;
@@ -25,6 +26,10 @@ const BtnContainer = styled.div`
   .questions-num {
     font-size: 17px;
   }
+`;
+
+const PageMove = styled(Link)`
+  text-decoration: none;
 `;
 
 const AskBtn = styled.button`
@@ -107,7 +112,9 @@ function QuestionListHeader() {
     <Header>
       <Info>
         All Questions
-        <AskBtn>Ask Question</AskBtn>
+        <PageMove to="ask">
+          <AskBtn>Ask Question</AskBtn>
+        </PageMove>
       </Info>
       <BtnContainer>
         <div className="questions-num">23,142,797 questions</div>

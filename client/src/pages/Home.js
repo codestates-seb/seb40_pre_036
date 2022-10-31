@@ -34,13 +34,13 @@ function Home() {
       <br />
       <Member>
         <h1>상훈님🔥</h1>
-        <Link to="signup">
+        <Link to="users/signup">
           <Button>회원가입</Button>
         </Link>
-        <Link to="login">
+        <Link to="users/login">
           <Button>로그인</Button>
         </Link>
-        <Link to="logout">
+        <Link to="users/logout">
           <Button>로그아웃</Button>
         </Link>
       </Member>
@@ -49,7 +49,7 @@ function Home() {
         <Link to="questions">
           <Button>질문목록</Button>
         </Link>
-        <Link to="qna">
+        <Link to="questions/*">
           <Button>질문상세</Button>
         </Link>
         <Link to="tags">
@@ -58,13 +58,13 @@ function Home() {
       </Member>
       <Member>
         <h1>경민님🔥</h1>
-        <Link to="mypage">
+        <Link to="users/*">
           <Button>마이페이지</Button>
         </Link>
-        <Link to="updateq">
+        <Link to="questions/*/edit">
           <Button>질문수정</Button>
         </Link>
-        <Link to="updatea">
+        <Link to="answer/*/edit">
           <Button>답변수정</Button>
         </Link>
       </Member>
@@ -73,7 +73,7 @@ function Home() {
         <Link to="search">
           <Button>검색</Button>
         </Link>
-        <Link to="ask">
+        <Link to="questions/ask">
           <Button>질문등록</Button>
         </Link>
         <Link to="users">

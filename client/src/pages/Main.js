@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Aside from '../components/Aside';
 import Nav from '../components/Nav';
@@ -18,26 +18,39 @@ const ListContainer = styled.ul`
 `;
 
 function Main() {
+  const [lists, setLists] = useState([]);
+
+  useEffect(() => {
+    // question list data 요청
+    fetch('http://localhost:3001/questions')
+      .then(res => {
+        if (!res.ok) {
+          throw Error('could not fetch the data for that resource');
+        }
+        return res.json();
+      })
+      .then(data => setLists(data))
+      .catch(err => console.log(err));
+  }, []);
+
   return (
     <Allcontent>
-      <Nav />
+      <Nav path="Questions" />
       <ListContainer>
         <QuestionListHeader />
-        <QuestionsList />
-        <QuestionsList />
-        <QuestionsList />
-        <QuestionsList />
-        <QuestionsList />
-        <QuestionsList />
-        <QuestionsList />
-        <QuestionsList />
-        <QuestionsList />
-        <QuestionsList />
-        <QuestionsList />
-        <QuestionsList />
-        <QuestionsList />
-        <QuestionsList />
-        <QuestionsList />
+        {lists.map(list => (
+          <QuestionsList
+            key={list.id}
+            answerCount={list.answer_count}
+            body={list.body}
+            score={list.score}
+            tags={list.tags}
+            time={list.time}
+            title={list.title}
+            user={list.user}
+            viewCount={list.view_count}
+          />
+        ))}
       </ListContainer>
       <Aside />
     </Allcontent>

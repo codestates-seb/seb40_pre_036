@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import React from 'react';
 import { faIdCard, faInbox, faTrophy, faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
-
+import { Link } from 'react-router-dom';
 import { faStackExchange } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import sofLogo from '../sofLogo.png';
@@ -87,7 +87,6 @@ const Input = styled.input`
   height: 2rem;
   border: 1px solid hsl(210deg 8% 75%);
   border-radius: 3px;
-  max-length: 240;
 
   &:focus {
     outline: none;
@@ -125,6 +124,11 @@ const CardInfo = styled.span`
   margin-left: 0.2rem;
 `;
 
+const PageMove = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+`;
+
 function HeaderAfter() {
   return (
     <div>
@@ -142,10 +146,12 @@ function HeaderAfter() {
           </Form>
         </Container>
         <Ol>
-          <Li>
-            <FontAwesomeIcon icon={faIdCard} />
-            <CardInfo>1</CardInfo>
-          </Li>
+          <PageMove to="/users/*">
+            <Li>
+              <FontAwesomeIcon icon={faIdCard} />
+              <CardInfo>1</CardInfo>
+            </Li>
+          </PageMove>
           <Li>
             <FontAwesomeIcon icon={faInbox} />
           </Li>

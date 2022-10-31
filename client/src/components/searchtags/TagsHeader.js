@@ -13,7 +13,7 @@ const Header = styled.header`
   color: #232639;
   line-height: 1.4;
   p {
-    max-width: 580px;
+    max-width: 590px;
     font-size: 15px;
     margin: 0 0 16px;
   }

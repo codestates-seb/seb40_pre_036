@@ -156,10 +156,10 @@ function HeaderBefore() {
             <Input placeholder="Search..." type="text" />
           </Form>
         </Container>
-        <PageMove to="/login">
+        <PageMove to="/users/login">
           <LoginBtn>Log in</LoginBtn>
         </PageMove>
-        <PageMove to="/signup">
+        <PageMove to="/users/signup">
           <SignupBtn>Sign up</SignupBtn>
         </PageMove>
       </Header>
