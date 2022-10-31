@@ -1,0 +1,328 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "user": "seyeon",
+      "title": "How Do I Use a json-server?",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "tags": [
+        "javascript",
+        "css",
+        "html"
+      ],
+      "view_count": 5238,
+      "answer_count": 5,
+      "score": 65,
+      "time": "3"
+    },
+    {
+      "id": 2,
+      "user": "user2",
+      "title": "How Do I get data?",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "tags": [
+        "react",
+        "javascript"
+      ],
+      "view_count": 3,
+      "answer_count": 10,
+      "score": -12,
+      "time": "12"
+    },
+    {
+      "user": "user3",
+      "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "tags": [
+        "javascript",
+        "css",
+        "html"
+      ],
+      "view_count": 5238,
+      "answer_count": 5,
+      "score": 65,
+      "time": "21",
+      "id": 3
+    },
+    {
+      "user": "user4",
+      "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "tags": [
+        "react",
+        "javascript"
+      ],
+      "view_count": 5238,
+      "answer_count": 5,
+      "score": 65,
+      "time": "26",
+      "id": 4
+    },
+    {
+      "user": "user5",
+      "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "tags": [
+        "react",
+        "javascript"
+      ],
+      "view_count": 5238,
+      "answer_count": 5,
+      "score": 65,
+      "time": "32",
+      "id": 5
+    },
+    {
+      "user": "user6",
+      "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "tags": [
+        "react",
+        "javascript"
+      ],
+      "view_count": 5238,
+      "answer_count": 5,
+      "score": 65,
+      "time": "34",
+      "id": 6
+    },
+    {
+      "user": "user7",
+      "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "tags": [
+        "react",
+        "javascript"
+      ],
+      "view_count": 5238,
+      "answer_count": 5,
+      "score": 65,
+      "time": "39",
+      "id": 7
+    },
+    {
+      "user": "user8",
+      "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "tags": [
+        "react",
+        "javascript"
+      ],
+      "view_count": 5238,
+      "answer_count": 5,
+      "score": 65,
+      "time": "40",
+      "id": 8
+    },
+    {
+      "user": "user9",
+      "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "tags": [
+        "react",
+        "javascript"
+      ],
+      "view_count": 5238,
+      "answer_count": 5,
+      "score": 65,
+      "time": "45",
+      "id": 9
+    },
+    {
+      "user": "user10",
+      "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "tags": [
+        "react",
+        "javascript"
+      ],
+      "view_count": 5238,
+      "answer_count": 5,
+      "score": 65,
+      "time": "48",
+      "id": 10
+    },
+    {
+      "user": "user11",
+      "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "tags": [
+        "react",
+        "javascript"
+      ],
+      "view_count": 5238,
+      "answer_count": 5,
+      "score": 65,
+      "time": "52",
+      "id": 11
+    },
+    {
+      "user": "user12",
+      "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "tags": [
+        "react",
+        "javascript"
+      ],
+      "view_count": 5238,
+      "answer_count": 5,
+      "score": 65,
+      "time": "53",
+      "id": 12
+    },
+    {
+      "user": "user13",
+      "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "tags": [
+        "react",
+        "javascript"
+      ],
+      "view_count": 5238,
+      "answer_count": 5,
+      "score": 65,
+      "time": "54",
+      "id": 13
+    },
+    {
+      "user": "user14",
+      "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "tags": [
+        "react",
+        "javascript"
+      ],
+      "view_count": 5238,
+      "answer_count": 5,
+      "score": 65,
+      "time": "55",
+      "id": 14
+    },
+    {
+      "user": "user15",
+      "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "tags": [
+        "react",
+        "javascript"
+      ],
+      "view_count": 5238,
+      "answer_count": 5,
+      "score": 65,
+      "time": "56",
+      "id": 15
+    },
+    {
+      "user": "user16",
+      "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "tags": [
+        "react",
+        "javascript"
+      ],
+      "view_count": 5238,
+      "answer_count": 5,
+      "score": 65,
+      "time": "57",
+      "id": 16
+    },
+    {
+      "user": "user17",
+      "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "tags": [
+        "react",
+        "javascript"
+      ],
+      "view_count": 5238,
+      "answer_count": 5,
+      "score": 65,
+      "time": "58",
+      "id": 17
+    },
+    {
+      "user": "user18",
+      "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "tags": [
+        "react",
+        "javascript"
+      ],
+      "view_count": 5238,
+      "answer_count": 5,
+      "score": 65,
+      "time": "59",
+      "id": 18
+    },
+    {
+      "user": "user19",
+      "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "tags": [
+        "react",
+        "javascript"
+      ],
+      "view_count": 5238,
+      "answer_count": 5,
+      "score": 65,
+      "time": "59",
+      "id": 19
+    },
+    {
+      "user": "user20",
+      "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "tags": [
+        "react",
+        "javascript"
+      ],
+      "view_count": 5238,
+      "answer_count": 5,
+      "score": 65,
+      "time": "59",
+      "id": 20
+    },
+    {
+      "user": "user21",
+      "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "tags": [
+        "react",
+        "javascript"
+      ],
+      "view_count": 5238,
+      "answer_count": 5,
+      "score": 65,
+      "time": "1665031918",
+      "id": 21
+    },
+    {
+      "user": "user22",
+      "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "tags": [
+        "react",
+        "javascript"
+      ],
+      "view_count": 5238,
+      "answer_count": 5,
+      "score": 65,
+      "time": "1665031918",
+      "id": 22
+    },
+    {
+      "user": "user23",
+      "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "tags": [
+        "react",
+        "javascript"
+      ],
+      "view_count": 5238,
+      "answer_count": 5,
+      "score": 65,
+      "time": "60",
+      "id": 23
+    }
+  ]
+}

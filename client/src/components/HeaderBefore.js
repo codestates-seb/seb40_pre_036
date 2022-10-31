@@ -30,7 +30,6 @@ const Front = styled.div`
   display: flex;
   flex: 1;
   align-items: center;
-  }
 `;
 
 const Logo = styled.img`
@@ -157,10 +156,10 @@ function HeaderBefore() {
             <Input placeholder="Search..." type="text" />
           </Form>
         </Container>
-        <PageMove to="/login">
+        <PageMove to="/users/login">
           <LoginBtn>Log in</LoginBtn>
         </PageMove>
-        <PageMove to="/signup">
+        <PageMove to="/users/signup">
           <SignupBtn>Sign up</SignupBtn>
         </PageMove>
       </Header>

@@ -24,6 +24,7 @@ ${reset}
 * {
   box-sizing: border-box;
   font-family: Helvetica!important;
+  letter-spacing: 0.2px;
 }
 `;
 
@@ -36,17 +37,17 @@ function App() {
         {/* <HeaderAfter /> */}
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/logout" element={<Logout />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/users/signup" element={<Signup />} />
+          <Route path="/users/logout" element={<Logout />} />
+          <Route path="/users/login" element={<Login />} />
           <Route path="/questions" element={<Main />} />
-          <Route path="/qna" element={<QnA />} />
+          <Route path="/questions/*" element={<QnA />} />
           <Route path="/tags" element={<SearchTag />} />
-          <Route path="/mypage/*" element={<MyPage />} />
-          <Route path="/updateq" element={<UpdateQ />} />
-          <Route path="/updatea" element={<UpdateA />} />
+          <Route path="/users/*" element={<MyPage />} />
+          <Route path="/questions/*/edit" element={<UpdateQ />} />
+          <Route path="/answer/*/edit" element={<UpdateA />} />
           <Route path="/search" element={<Search />} />
-          <Route path="/ask" element={<CreateQ />} />
+          <Route path="/questions/ask" element={<CreateQ />} />
           <Route path="/users" element={<SearchUser />} />
         </Routes>
         <Footer />
