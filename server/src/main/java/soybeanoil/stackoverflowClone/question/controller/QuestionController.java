@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import soybeanoil.stackoverflowClone.answer.mapper.AnswerMapper;
+import soybeanoil.stackoverflowClone.answer.service.AnswerService;
 import soybeanoil.stackoverflowClone.question.dto.QuestionDto;
 import soybeanoil.stackoverflowClone.question.entity.Question;
 import soybeanoil.stackoverflowClone.question.mapper.QuestionMapper;
@@ -100,9 +101,9 @@ public class QuestionController {
     }
 
     @DeleteMapping("/{question-id}")
-    public ResponseEntity deleteQuestions(@PathVariable("question-id") @Positive long questionId) {
+    public ResponseEntity deleteQuestion(@PathVariable("question-id") @Positive long questionId) {
         questionService.deleteQuestion(questionId);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
-    }가
+    }
 }
