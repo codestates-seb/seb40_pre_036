@@ -27,11 +27,17 @@ public class UserDetailService implements UserDetailsService {
     }
 
     public class UserDetail extends User implements UserDetails {
+        private User user;
+
         UserDetail(User user) {
             setUserId(user.getUserId());
             setEmail(user.getEmail());
             setPassword(user.getPassword());
             setRoles(user.getRoles());
+        }
+
+        public User getUser() {
+            return user;
         }
 
         @Override

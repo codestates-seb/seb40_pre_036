@@ -7,6 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import soybeanoil.stackoverflowClone.auth.PrincipalDetails;
+import soybeanoil.stackoverflowClone.auth.jwt.UserDetailService;
 import soybeanoil.stackoverflowClone.user.entity.User;
 import soybeanoil.stackoverflowClone.user.repository.UserRepository;
 
@@ -31,6 +32,16 @@ public class UserService {
         user.setRoles(roles);
 
         return userRepository.save(user);
+    }
+
+    public User getLoginUser() {
+        return getUserByToken();
+    }
+
+    public User getUserByToken() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetailService.UserDetail userDetail = (UserDetailService.UserDetail) principal;
+        return userDetail.getUser();
     }
 
     public User findUser(long userId) {
