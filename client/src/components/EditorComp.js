@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import styled from 'styled-components';
+import MDEditor from '@uiw/react-md-editor';
+import rehypeSanitize from 'rehype-sanitize';
 
 const Container = styled.div`
   width: 800px;
@@ -13,13 +13,14 @@ const Container = styled.div`
     border-color: hsl(206deg 100% 52%);
     box-shadow: 0px 0px 0px 5px #e1ecf4;
   }
+  li {
+    list-style: inside;
+    color: red;
+  }
 `;
 
 function EditorComp() {
-  const [questionContent, setQuestionContent] = useState({
-    title: '',
-    content: '',
-  });
+  const [content, setContent] = useState('');
   // const [viewContent, setViewContent] = useState([]);
   // const getValue = e => {
   //   const { name, value } = e.target;
@@ -34,30 +35,12 @@ function EditorComp() {
   // }}
   return (
     <Container>
-      <CKEditor
-        editor={ClassicEditor}
-        data=""
-        config={{
-          placeholder: '내용을 입력하세요.',
-        }}
-        onReady={editor => {
-          // You can store the "editor" and use when it is needed.
-          console.log('Editor is ready to use!', editor);
-        }}
-        onChange={(event, editor) => {
-          const data = editor.getData();
-          console.log({ event, editor, data });
-          setQuestionContent({
-            ...questionContent,
-            content: data,
-          });
-          console.log(questionContent);
-        }}
-        onBlur={(event, editor) => {
-          console.log('Blur.', editor);
-        }}
-        onFocus={(event, editor) => {
-          console.log('Focus.', editor);
+      <MDEditor
+        className="list"
+        value={content}
+        onChange={setContent}
+        previewOptions={{
+          rehypePlugins: [[rehypeSanitize]],
         }}
       />
     </Container>
