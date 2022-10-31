@@ -10,6 +10,7 @@ import soybeanoil.stackoverflowClone.auth.PrincipalDetails;
 import soybeanoil.stackoverflowClone.user.entity.User;
 import soybeanoil.stackoverflowClone.user.repository.UserRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,7 +27,8 @@ public class UserService {
         verifyExistsEmail(user.getEmail());
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole("ROLE_USER");
+        List<String> roles = authorityUtils.createRoles(user.getEmail());
+        user.setRoles(roles);
 
         return userRepository.save(user);
     }
@@ -58,10 +60,4 @@ public class UserService {
             throw new BusinessLogicException(ExceptionCode.USER_NOT_FOUND);
         return findUser;
     }
-
-//    public User getUserByToken(){
-//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        PrincipalDetails principalDetails = (PrincipalDetails)principal;
-//        return principalDetails.getUser();
-//    }
 }

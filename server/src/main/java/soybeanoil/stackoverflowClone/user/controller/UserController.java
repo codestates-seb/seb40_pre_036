@@ -39,11 +39,8 @@ public class UserController {
     }
 
     // 마이페이지
-    @GetMapping("/my-page")
-    public ResponseEntity getUser(long userId) {
-        // 수정 필요!!!!
-        // 로그인된 회원인지 확인해야함
-        // userService.getLoginUser();
+    @GetMapping("/{user-id}")
+    public ResponseEntity getUser(@PathVariable("user-id") @Positive long userId) {
         User user = userService.findUser(userId);
         return new ResponseEntity(
                 new SingleResponseDto<>(mapper.userToUserResponseDto(user)),

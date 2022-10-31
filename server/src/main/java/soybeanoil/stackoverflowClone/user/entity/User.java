@@ -35,8 +35,8 @@ public class User {
     @Column(length = 20, nullable = false, name = "STATUS")
     private UserStatus userStatus = UserStatus.USER_EXIST;
 
-    @Column(nullable = false)
-    private String role;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();;
 
     // 연관관계
     @OneToMany(mappedBy = "USERS")
