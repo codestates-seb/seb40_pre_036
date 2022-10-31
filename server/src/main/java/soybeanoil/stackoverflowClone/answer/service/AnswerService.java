@@ -32,11 +32,13 @@ public class AnswerService {
 
         return createAnswer(findAnswer);
     }
+
     public Answer findAnswer(long answerId) {
         Answer findAnswer = findVerifiedAnswer(answerId);
         // 별도의 태그 처리 로직이 필요할 경우 이곳에 작성
         return findAnswer;
     }
+
     private Answer findVerifiedAnswer(Long answerId) {  // SOF-A-002 답변 맞는지 확인
         Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
         Answer findAnswer = optionalAnswer.orElseThrow(() ->
@@ -62,24 +64,31 @@ public class AnswerService {
             throw new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND);
         }
     }
-    public User findAnswerUser(long answerId){
+
+    public User findAnswerUser(long answerId) {
         Answer findAnswer = findVerifiedAnswer(answerId);
         return findAnswer.getUser();
     }
-    public Page<Answer> findAnswers(Question question, int answerPage, int answerSize, String answerSort) throws BusinessLogicException{
+
+    public Page<Answer> findAnswers(Question question, int answerPage, int answerSize, String answerSort) throws BusinessLogicException {
         Page<Answer> findAllAnswer = answerRepository.findAllByQuestionAndAnswerStatus(
-                PageRequest.of(answerPage-1,answerSize, Sort.by(answerSort).descending()),
+                PageRequest.of(answerPage - 1, answerSize, Sort.by(answerSort).descending()),
                 question, Answer.AnswerStatus.ANSWER_EXIST);
         VerifiedNoAnswer(findAllAnswer);
 
         return findAllAnswer;
-        }
-// 투표
+    }
+
+    // 투표
     public void refreshVotes(User userid) {
         Answer answer = answerRepository.findById(userid.getUserId()).get();
         answer.setVotes(answerVoteService.getVoteValue(new AnswerVote()));
         answerRepository.save(answer);
     }
+
+//    List<Answer> findAnswers(long userId) {
+//        return AnswerRepository.findAllByUserId(userId);// AnswerService에 추가
+//    }
 
 }
 
