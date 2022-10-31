@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Nav from '../components/Nav';
 import TagsHeader from '../components/searchtags/TagsHeader';
@@ -32,24 +32,36 @@ const TagBoxGrid = styled.ul`
 `;
 
 function SearchTag() {
+  const [tags, setTags] = useState([]); // setTags
+
+  useEffect(() => {
+    // name, count 요청
+    fetch('https://api.stackexchange.com/2.3/tags?order=desc&sort=popular&site=stackoverflow')
+      .then(res => {
+        if (!res.ok) {
+          throw Error('could not fetch the data for that resource');
+        }
+        return res.json();
+      })
+      .then(data => data.items)
+      .then(items => setTags(items))
+      .catch(err => console.log(err));
+    //   // tag info 요청
+    //   fetch('https://api.stackexchange.com/2.3/tags?order=desc&sort=popular&site=stackoverflow')
+    //     .then(res => res.json())
+    //     .then(data => data.items)
+    //     .then(items => setTags(items));
+  }, []);
+
   return (
     <Container>
-      <Nav />
+      <Nav path="Tags" />
       <ContentContainer>
         <TagsHeader />
         <TagBoxGrid>
-          <TagBox />
-          <TagBox />
-          <TagBox />
-          <TagBox />
-          <TagBox />
-          <TagBox />
-          <TagBox />
-          <TagBox />
-          <TagBox />
-          <TagBox />
-          <TagBox />
-          <TagBox />
+          {tags.map(tag => (
+            <TagBox key={tag.count} name={tag.name} count={tag.count} />
+          ))}
         </TagBoxGrid>
       </ContentContainer>
     </Container>

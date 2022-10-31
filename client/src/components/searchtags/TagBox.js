@@ -62,10 +62,10 @@ const QuestionNum = styled.div`
   font-size: 13px;
 `;
 
-function TagBox() {
+function TagBox({ name, count }) {
   return (
     <TagContainer>
-      <Tag>javascript</Tag>
+      <Tag>{name}</Tag>
       <TagDescriptionContainer>
         <TagDescription>
           {`For questions about programming in ECMAScript (JavaScript/JS) and its different
@@ -76,7 +76,7 @@ function TagBox() {
         </TagDescription>
       </TagDescriptionContainer>
       <TagInfo>
-        <QuestionNum>2440284 questions</QuestionNum>
+        <QuestionNum>{count} questions</QuestionNum>
       </TagInfo>
     </TagContainer>
   );
