@@ -12,10 +12,10 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class AnswerResponseDto {
-    private int answerId;
+    private long answerId;
     private String answerContent;
     private QuestionAnswerResponseDto questionId; // Uesr? 어느데이타 표시할지 질문=> questionId
-    private int vote;
+    private long vote;
     private UserResponseDto user;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
