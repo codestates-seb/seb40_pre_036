@@ -11,6 +11,7 @@ const List = styled.li`
   box-sizing: border-box;
   padding: 16px;
   margin-right: 20px;
+  width: 751px;
 `;
 
 // votes, answers, views 수
@@ -129,64 +130,32 @@ const Time = styled.time`
   color: #6a737c;
 `;
 
-function QuestionsList() {
-  // const [clicked, setClicked] = useState('Newest');
-
-  // const onBtnClick = useCallback(
-  //   e => {
-  //     // console.log(e);
-  //     setClicked(e.target.innerText);
-  //     console.log(e.target);
-  //     console.log(clicked);
-  //   },
-  //   [clicked],
-  // );
-
-  // const onBtnClick = useCallback(e => {
-  //   // console.log(e);
-  //   setClicked(e.target.innerText);
-  //   console.log(e.target);
-  //   console.log(clicked);
-  // }, []);
-
-  // list 컴포넌트 따로 만들어야 하는 지? todolist에서 확인, 아니면 나만의 아고라스테이츠어쩌고에서 화긴
-
+function QuestionsList({ answerCount, body, tags, score, time, title, user, viewCount }) {
   return (
     <List>
       <Counts>
         <div className="vote">
-          <span className="count">0 </span>
+          <span className="count">{score} </span>
           votes
         </div>
         <div>
-          <span className="count">0 </span>
+          <span className="count">{answerCount} </span>
           answers
         </div>
         <div>
-          <span className="count">2 </span>
+          <span className="count">{viewCount} </span>
           views
         </div>
       </Counts>
       <Question>
-        <QuestionTitle to="*">
-          Capture all network requests and full response data when loading a page in Chrome - not
-          working well
-        </QuestionTitle>
-        <Content>
-          I&apos;m abling to fetch some data but not all with the function describe in similar
-          question and copied to this question. The function does exactly what it is meant to do.
-          do. But my problem is with this ...
-        </Content>
+        <QuestionTitle to="*">{title}</QuestionTitle>
+        <Content>{body}</Content>
         <InfoContainer>
-          <TagsContainer>
-            <Tag>html</Tag>
-            <Tag>css</Tag>
-            <Tag>javascript</Tag>
-          </TagsContainer>
+          <TagsContainer>{tags && tags.map(tag => <Tag>{tag}</Tag>)}</TagsContainer>
           <PostInfo>
             <UserPic />
-            <User href="https://stackoverflow.com/users/20315421/seyeon-kim">uxolrv</User>
-            <Time>asked 46 secs ago</Time>
+            <User href="https://stackoverflow.com/users/20315421/seyeon-kim">{user}</User>
+            <Time>asked {time} secs ago</Time>
           </PostInfo>
         </InfoContainer>
       </Question>
