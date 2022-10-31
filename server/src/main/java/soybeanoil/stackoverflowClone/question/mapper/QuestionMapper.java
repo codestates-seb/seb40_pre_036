@@ -3,6 +3,8 @@ package soybeanoil.stackoverflowClone.question.mapper;
 import org.mapstruct.Mapper;
 import org.springframework.data.domain.Page;
 import soybeanoil.stackoverflowClone.answer.entity.Answer;
+import soybeanoil.stackoverflowClone.answer.mapper.AnswerMapper;
+import soybeanoil.stackoverflowClone.answer.service.AnswerService;
 import soybeanoil.stackoverflowClone.exception.BusinessLogicException;
 import soybeanoil.stackoverflowClone.exception.ExceptionCode;
 import soybeanoil.stackoverflowClone.question.dto.QuestionAnswerResponseDto;
@@ -11,7 +13,11 @@ import soybeanoil.stackoverflowClone.question.dto.TagDto;
 import soybeanoil.stackoverflowClone.question.dto.TagResponseDto;
 import soybeanoil.stackoverflowClone.question.entity.Question;
 import soybeanoil.stackoverflowClone.question.entity.Tag;
+import soybeanoil.stackoverflowClone.question.service.QuestionService;
+import soybeanoil.stackoverflowClone.response.MultiResponseDto;
 import soybeanoil.stackoverflowClone.user.entity.User;
+import soybeanoil.stackoverflowClone.user.mapper.UserMapper;
+import soybeanoil.stackoverflowClone.user.service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +42,7 @@ public interface QuestionMapper {
 
     default List<Tag> tagsDtosToTags(List<TagDto> tagsDtos, Question question){
 
-        return tagsDtos.stream().map(tagDto -> {
+        return tagsDtos.stream().distinct().map(tagDto -> {
             Tag tag = new Tag();
             tag.addQuestion(question);
             tag.setTagName(tagDto.getTagName());
@@ -51,13 +57,14 @@ public interface QuestionMapper {
                         .builder()
                         .tagName(tag.getTagName())
                         .build())
+                .distinct()
                 .collect(Collectors.toList());
     }
 
     default Question questionPatchDtoToQuestion(
             QuestionService questionService, UserService userService, QuestionDto.Patch questionPatchDto) {
         if(userService.getLoginUser().getUserId() !=
-                questionService.findQuestionUser(questionPatchDto.getQuestionId()).getUserId()) { //해당 유저가 쓴 질문글 아니므로 수정 삭제 불가
+                questionService.findQuestionWriter(questionPatchDto.getQuestionId()).getUserId()) { //해당 유저가 쓴 질문글 아니므로 수정 삭제 불가
             throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED_USER);
         }
 
@@ -103,7 +110,7 @@ public interface QuestionMapper {
 
     List<QuestionDto.Response> questionsToQuestionResponseDtos(List<Question> questions);
 
-    default QuestionAnswerResponseDto questionToQuestionAndAnswerResponseDto(
+    default QuestionAnswerResponseDto questionToQuestionAnswerResponseDto(
             AnswerService answerService, AnswerMapper answerMapper, UserMapper userMapper,
             Question question, Integer answerPage, Integer answerSize, String answerSort) {
 
