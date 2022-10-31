@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Nav from '../components/Nav';
 import EditorComp from '../components/EditorComp';
-import '@toast-ui/editor/dist/toastui-editor.css';
 
 const Main = styled.div`
   display: flex;

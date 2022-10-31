@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Editor } from '@toast-ui/react-editor';
-import '@toast-ui/editor/dist/toastui-editor.css'; // Editor 스타일
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -16,26 +16,49 @@ const Container = styled.div`
 `;
 
 function EditorComp() {
-  const textRef = React.createRef();
-
-  const [descriptions, setDescriptions] = useState('');
-
-  const handleChangeInput = () => {
-    setDescriptions(textRef.current.getInstance().getMarkdown());
-  };
+  const [questionContent, setQuestionContent] = useState({
+    title: '',
+    content: '',
+  });
+  // const [viewContent, setViewContent] = useState([]);
+  // const getValue = e => {
+  //   const { name, value } = e.target;
+  //   setMovieContent({
+  //     ...movieContent,
+  //     [name]: value,
+  //   });
+  //   console.log(movieContent);
+  // };
+  // const onClick = {() => {
+  //   setViewContent(viewContent.concat({...questionContent}));
+  // }}
   return (
     <Container>
-      <Editor
-        ref={textRef} // input값을 가져오기 위해 ref생성
-        previewStyle="tab" // 미리보기 유형 (tab , vertical)
-        initialValue={descriptions} // input 입력 값
-        height="500px" // 에디터의 높이값  width 값의 변경을 원한다면 상위 컴포넌트의 값을 변경해주세요 !
-        autofocus={false} // 페이지 들어올 시 자동으로 포커스
-        initialEditType="markdown" // 타입  : 'markdown' 과 일반 텍스트형태인 'wvsiwyg' 존재
-        theme="dark" // 테마입니다 다크모드 가능!
-        useCommandShortcut
-        onChange={handleChangeInput} // 해당 이벤트를 통해 값을 status에 저장합니다
-        placeholder="내용을 입력해주세요 :)"
+      <CKEditor
+        editor={ClassicEditor}
+        data=""
+        config={{
+          placeholder: '내용을 입력하세요.',
+        }}
+        onReady={editor => {
+          // You can store the "editor" and use when it is needed.
+          console.log('Editor is ready to use!', editor);
+        }}
+        onChange={(event, editor) => {
+          const data = editor.getData();
+          console.log({ event, editor, data });
+          setQuestionContent({
+            ...questionContent,
+            content: data,
+          });
+          console.log(questionContent);
+        }}
+        onBlur={(event, editor) => {
+          console.log('Blur.', editor);
+        }}
+        onFocus={(event, editor) => {
+          console.log('Focus.', editor);
+        }}
       />
     </Container>
   );
