@@ -8,7 +8,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Builder
 @Setter
 @Getter
 @NoArgsConstructor
@@ -49,6 +48,7 @@ public class User {
 //    @OneToMany
 //    private List<AnswerVote> answerVotes = new ArrayList<>();
 
+    @Builder
     public User(String displayName, String email, String password) {
         this.displayName = displayName;
         this.email = email;
