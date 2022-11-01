@@ -4,6 +4,11 @@ import { faEarthAmericas } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 
+const Container = styled.div`
+  margin: 1px;
+  border-right: 1px solid rgb(216, 217, 220);
+`;
+
 const Navbar = styled.nav`
   display: flex;
   flex-direction: column;
@@ -15,9 +20,10 @@ const Navbar = styled.nav`
   /* min-width: 156px; */
   padding-top: 25px;
   /* padding-left: 5%; */
-  border-right: 1px solid rgb(216, 217, 220);
   font-size: 13px;
   color: rgb(83, 89, 95);
+  position: sticky;
+  top: 0px;
 `;
 
 const PageMove = styled(Link)`
@@ -104,37 +110,39 @@ function Nav({ path }) {
   // }, []);
 
   return (
-    <Navbar>
-      <PageMove to="/">
-        <Home className={clicked === 'Home' ? 'clicked' : ''} onClick={onClick}>
-          Home
-        </Home>
-      </PageMove>
-      <PublicLists>
-        <Li className="public">PUBLIC</Li>
-        <PageMove to="/questions">
-          <Li className={clicked === 'Questions' ? 'clicked' : ''} onClick={onClick}>
-            <Icon>
-              <FontAwesomeIcon icon={faEarthAmericas} className="icon" />
-            </Icon>
-            Questions
-          </Li>
+    <Container>
+      <Navbar>
+        <PageMove to="/">
+          <Home className={clicked === 'Home' ? 'clicked' : ''} onClick={onClick}>
+            Home
+          </Home>
         </PageMove>
-        <PageMove to="/tags">
-          <Li className={clicked === 'Tags' ? 'no-icon clicked' : 'no-icon'} onClick={onClick}>
-            Tags
+        <PublicLists>
+          <Li className="public">PUBLIC</Li>
+          <PageMove to="/questions">
+            <Li className={clicked === 'Questions' ? 'clicked' : ''} onClick={onClick}>
+              <Icon>
+                <FontAwesomeIcon icon={faEarthAmericas} className="icon" />
+              </Icon>
+              Questions
+            </Li>
+          </PageMove>
+          <PageMove to="/tags">
+            <Li className={clicked === 'Tags' ? 'no-icon clicked' : 'no-icon'} onClick={onClick}>
+              Tags
+            </Li>
+          </PageMove>
+          <PageMove to="/users">
+            <Li className={clicked === 'Users' ? 'no-icon clicked' : 'no-icon'} onClick={onClick}>
+              Users
+            </Li>
+          </PageMove>
+          <Li className={clicked === 'Companies' ? 'no-icon clicked' : 'no-icon'} onClick={onClick}>
+            Companies
           </Li>
-        </PageMove>
-        <PageMove to="/users">
-          <Li className={clicked === 'Users' ? 'no-icon clicked' : 'no-icon'} onClick={onClick}>
-            Users
-          </Li>
-        </PageMove>
-        <Li className={clicked === 'Companies' ? 'no-icon clicked' : 'no-icon'} onClick={onClick}>
-          Companies
-        </Li>
-      </PublicLists>
-    </Navbar>
+        </PublicLists>
+      </Navbar>
+    </Container>
   );
 }
 export default Nav;
