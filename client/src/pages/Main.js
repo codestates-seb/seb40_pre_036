@@ -4,6 +4,7 @@ import Aside from '../components/Aside';
 import Nav from '../components/Nav';
 import QuestionsList from '../components/main/QuestionList';
 import QuestionListHeader from '../components/main/QuestionListHeader';
+import Pagination from '../components/Pagination';
 
 const Allcontent = styled.div`
   display: flex;
@@ -18,7 +19,10 @@ const ListContainer = styled.ul`
 `;
 
 function Main() {
-  const [lists, setLists] = useState([]);
+  const [lists, setLists] = useState([]); // pagination이 필요한 페이지가 여러 개이니, 이 상태들 전역에서 관리해야하지 않을까?
+  const [limit, setLimit] = useState(15); // pagination이 필요한 페이지마다 Limit이 다름 // setLimit
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
 
   useEffect(() => {
     // question list data 요청
@@ -38,7 +42,7 @@ function Main() {
       <Nav path="Questions" />
       <ListContainer>
         <QuestionListHeader />
-        {lists.map(list => (
+        {lists.slice(offset, offset + limit).map(list => (
           <QuestionsList
             key={list.id}
             answerCount={list.answer_count}
@@ -51,6 +55,13 @@ function Main() {
             viewCount={list.view_count}
           />
         ))}
+        <Pagination
+          total={lists.length}
+          limit={limit}
+          page={page}
+          setPage={setPage}
+          setLimit={setLimit}
+        />
       </ListContainer>
       <Aside />
     </Allcontent>
