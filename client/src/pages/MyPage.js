@@ -11,6 +11,7 @@ import Settings from '../components/mypages/Settings';
 
 const Main = styled.div`
   display: flex;
+  margin: var(--margin-main-side);
 `;
 
 const Content = styled.div`
