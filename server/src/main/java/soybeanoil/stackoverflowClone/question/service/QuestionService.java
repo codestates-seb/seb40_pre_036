@@ -49,7 +49,7 @@ public class QuestionService {
                 PageRequest.of(page, size, Sort.by(sort).descending()),
                 Question.QuestionStatus.QUESTION_EXIST);
 
-        verifiedNoQuestion(findAllQuestion); // QUESTION_EXIST 상태의 질문이 존재하는지 확인
+//        verifiedNoQuestion(findAllQuestion); // QUESTION_EXIST 상태의 질문이 존재하는지 확인
 
         return findAllQuestion;
     }
@@ -99,11 +99,11 @@ public class QuestionService {
         return findQuestion;
     }
 
-    private void verifiedNoQuestion(Page<Question> findAllQuestion) {
-        // QUESTION_EXIST 인 질문이 한 개도 없을 경우 에러 발생
-        if(findAllQuestion.getTotalElements()==0) {
-            throw new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND);
-        }
-    }
+//    private void verifiedNoQuestion(Page<Question> findAllQuestion) {
+//        // QUESTION_EXIST 인 질문이 한 개도 없을 경우 에러 발생
+//        if(findAllQuestion.getTotalElements()==0) {
+//            throw new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND);
+//        }
+//    }
 }
 

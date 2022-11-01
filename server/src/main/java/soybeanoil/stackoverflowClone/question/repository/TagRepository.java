@@ -11,8 +11,8 @@ import java.util.Optional;
 public interface TagRepository extends JpaRepository<Tag, Long> {
 
     // 특정 QuestionId 의 모든 태그를 찾아서 리스트로 불러옴
-    @Query(value = "select t from Tag t where t.question.questionId = :questionId")
-    List<Tag> findAllByQuestionId(@Param("questionId") long questionId);
+    @Query("SELECT t FROM Tag t WHERE t.question.questionId = :questionId")
+    List<Tag> findAllByQuestion(@Param("questionId") long questionId);
 
     Optional<Tag> findByTagName(String tagName);
 }

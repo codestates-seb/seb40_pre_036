@@ -23,11 +23,12 @@ public class QuestionVoteController {
         this.userService = userService;
     }
 
-    @PostMapping("/{question-id}/votes/{vote}")
-    public void voteQuestion(@PathVariable("question-id") @Positive @NotNull long questionId,
+    @PostMapping("/{question-id}/votes/{vote}/{user-id}")
+    public void voteQuestion(@PathVariable("user-id") @Positive @NotNull long userId,
+                             @PathVariable("question-id") @Positive @NotNull long questionId,
                              @PathVariable("vote") int vote) {
 
-        questionVoteService.voteQuestion(questionId, vote, userService.getLoginUser().getUserId());
+        questionVoteService.voteQuestion(questionId, vote, userId);
     }
 
     @GetMapping("/{question-id}/votes")

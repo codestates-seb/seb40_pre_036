@@ -28,19 +28,19 @@ public class Tag extends Auditable {
         this.question = question;
     }
 
-    @Enumerated(EnumType.STRING)
-    @Column(length = 20, nullable = false)
-    private TagStatus tagStatus = TagStatus.TAG_EXIST;
-
-    public enum TagStatus {
-        TAG_EXIST("존재하는 태그"),
-        TAG_NOT_EXIST("존재하지 않는 태그");
-
-        @Getter
-        private String status;
-
-        TagStatus(String status) {
-            this.status = status;
-        }
-    }
+//    @Enumerated(EnumType.STRING)
+//    @Column(length = 20, nullable = false)
+//    private TagStatus tagStatus = TagStatus.TAG_EXIST;
+//
+//    public enum TagStatus {
+//        TAG_EXIST("존재하는 태그"),
+//        TAG_NOT_EXIST("존재하지 않는 태그");
+//
+//        @Getter
+//        private String status;
+//
+//        TagStatus(String status) {
+//            this.status = status;
+//        }
+//    }
 }

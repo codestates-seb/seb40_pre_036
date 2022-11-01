@@ -48,24 +48,26 @@ public class QuestionController {
         this.answerMapper = answerMapper;
     }
 
-    @PostMapping("/ask")
-    public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post questionPostDto) {
+    @PostMapping("/ask/{user-id}")
+    public ResponseEntity postQuestion(@PathVariable("user-id") @Positive @NotNull long userId,
+                                       @Valid @RequestBody QuestionDto.Post questionPostDto) {
 
         Question question = questionService.createQuestion(
-                questionMapper.questionPostDtoToQuestion(questionPostDto)
+                questionMapper.questionPostDtoToQuestion(userId, userService, questionPostDto)
         );
 
         return new ResponseEntity<>(
-                new SingleResponseDto<>(questionMapper.questionToQuestionResponseDto(userMapper,question)), HttpStatus.CREATED);
+                new SingleResponseDto<>(questionMapper.questionToQuestionResponseDto(userMapper, question)), HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{question-id}")
+    @PatchMapping("/{question-id}/{user-id}")
     public ResponseEntity patchQuestion(@PathVariable("question-id") @Positive @NotNull long questionId,
+                                        @PathVariable("user-id") @Positive @NotNull long userId,
                                         @Valid @RequestBody QuestionDto.Patch questionPatchDto) {
 
         questionPatchDto.setQuestionId(questionId);
-        Question question = questionMapper.questionPatchDtoToQuestion(
-            questionService, userService, questionPatchDto);
+        Question question = questionMapper.questionPatchDtoToQuestion(userId,
+            questionService, questionPatchDto);
 
         Question updatedQuestion = questionService.updateQuestion(question);
 

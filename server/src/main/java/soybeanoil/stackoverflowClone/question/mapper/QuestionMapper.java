@@ -26,7 +26,8 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring")
 public interface QuestionMapper {
 
-    default Question questionPostDtoToQuestion(QuestionDto.Post questionPostDto) {
+    default Question questionPostDtoToQuestion(long userId, UserService userService,
+                                               QuestionDto.Post questionPostDto) {
 
         Question question = new Question();
         question.setVotes(0);
@@ -36,7 +37,7 @@ public interface QuestionMapper {
         question.setTitle(questionPostDto.getTitle());
         question.setContent(questionPostDto.getContent());
         question.setTags(tags);
-//        question.setUser(userService.getLoginUser()); // 현재 로그인한 회원의 정보를 불러옴
+        question.setUser(userService.findUser(userId)); // 현재 로그인한 회원의 정보를 불러옴
         return question;
     }
 
@@ -61,9 +62,9 @@ public interface QuestionMapper {
                 .collect(Collectors.toList());
     }
 
-    default Question questionPatchDtoToQuestion(
-            QuestionService questionService, UserService userService, QuestionDto.Patch questionPatchDto) {
-        if(userService.getLoginUser().getUserId() !=
+    default Question questionPatchDtoToQuestion(long userId,
+            QuestionService questionService, QuestionDto.Patch questionPatchDto) {
+        if(userId !=
                 questionService.findQuestionWriter(questionPatchDto.getQuestionId()).getUserId()) { //해당 유저가 쓴 질문글 아니므로 수정 삭제 불가
             throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED_USER);
         }

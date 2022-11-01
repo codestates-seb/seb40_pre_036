@@ -1,6 +1,8 @@
 package soybeanoil.stackoverflowClone.question.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import soybeanoil.stackoverflowClone.question.entity.Question;
 import soybeanoil.stackoverflowClone.user.dto.UserResponseDto;
@@ -13,6 +15,7 @@ import java.util.List;
 public class QuestionDto {
 
     @Getter
+    @AllArgsConstructor
     public static class Post {
 
         @NotBlank(message = "질문의 제목을 적어주세요")
@@ -27,6 +30,7 @@ public class QuestionDto {
 
     @Getter
     @Setter
+    @AllArgsConstructor
     public static class Patch {
 
         private Long questionId;
@@ -40,6 +44,8 @@ public class QuestionDto {
 
     @Getter
     @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class Response {
 
         private Long questionId;
