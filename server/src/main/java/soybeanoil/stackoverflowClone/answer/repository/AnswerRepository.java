@@ -19,6 +19,6 @@ public interface AnswerRepository extends JpaRepository<Answer, Long> {
                                                   @Param("question") Question question,
                                                   @Param("answerStatus") Answer.AnswerStatus answerStatus);
 
-    List<Answer> findAllByUserId(long userId); // AnswerRepository에 추가
+//    List<Answer> findAllByUserId(long userId); // AnswerRepository에 추가
 
 }

@@ -26,7 +26,7 @@ public class AnswerVoteService {
 
     public String voteAnswer(long answerId, int vote, long userId) {
         if (vote == -1 || vote == 0 || vote == 1) {
-            AnswerVote answerVote = answerVoteRepository.findByAnswerIdAndUserId(answerId, userId);
+            AnswerVote answerVote = answerVoteRepository.findByAnswerAndUser(answerId, userId);
 
             if (answerVote == null) {
                 AnswerVote newVote = new AnswerVote();
@@ -45,7 +45,7 @@ public class AnswerVoteService {
     }
 
     public List<AnswerVote> getVoteList(long answerId) {
-        return answerVoteRepository.findAllByAnswerId(answerId);
+        return answerVoteRepository.findAllByAnswer(answerId);
     }
 
     public int getVotes(long questionId) {

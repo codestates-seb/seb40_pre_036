@@ -31,7 +31,7 @@ public class Question extends Auditable {
     private QuestionStatus questionStatus = QuestionStatus.QUESTION_EXIST;
 
     @ManyToOne
-    @Column(name = "QUESTION_WRITER")
+//    @Column(name = "QUESTION_WRITER")
     @JoinColumn(name = "USER_ID")
     private User user;
 

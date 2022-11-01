@@ -25,8 +25,8 @@ public class AnswerVoteController {
     }
 
     @PostMapping("/{answer-id}/votes/{vote}")
-    public void voteAnswer(@PathVariable @Positive @NotNull long answerId,
-                             @PathVariable int vote) {
+    public void voteAnswer(@PathVariable("answer-id") @Positive @NotNull long answerId,
+                             @PathVariable("vote") int vote) {
 
         answerVoteService.voteAnswer(answerId, vote, userService.getLoginUser().getUserId());
     }

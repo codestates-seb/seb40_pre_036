@@ -23,7 +23,7 @@ public class QuestionVoteService {
 
     public String voteQuestion(long questionId, int vote, long userId) {
         if(vote == -1 || vote == 0 || vote == 1) {
-            QuestionVote questionVote = questionVoteRepository.findByQuestionIdAndUserId(questionId, userId);
+            QuestionVote questionVote = questionVoteRepository.findByQuestionAndUser(questionId, userId);
 
             if(questionVote == null) {
                 QuestionVote newVote = new QuestionVote();
@@ -42,7 +42,7 @@ public class QuestionVoteService {
     }
 
     public List<QuestionVote> getVoteList(long questionId) {
-        return questionVoteRepository.findAllByQuestionId(questionId);
+        return questionVoteRepository.findAllByQuestion(questionId);
     }
 
     public int getVotes(long questionId) {

@@ -36,11 +36,11 @@ public class User {
     private List<String> roles = new ArrayList<>();;
 
     // 연관관계
-    @OneToMany(mappedBy = "USERS")
+    @OneToMany(mappedBy = "user")
     private List<Question> questions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "USERS")
-    private List<Answer> answer = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<Answer> answers = new ArrayList<>();
 
 //    @OneToMany
 //    private List<QuestionVote> questionVotes = new ArrayList<>();

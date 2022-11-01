@@ -19,7 +19,6 @@ import java.util.UUID;
 
 @Service
 public class AnswerService {
-    @Autowired
     private AnswerVoteService answerVoteService;
     private AnswerRepository answerRepository;
 

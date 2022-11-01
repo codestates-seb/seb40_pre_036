@@ -88,7 +88,7 @@ public class QuestionController {
     }
 
     @GetMapping
-    public ResponseEntity getQuestions(@Positive @RequestParam() int page,
+    public ResponseEntity getQuestions(@Positive @RequestParam("page") int page,
                                        @Positive @RequestParam("size") int size,
                                        @RequestParam("sort") String sort) {
         Page<Question> pageQuestions = questionService.findQuestions(page-1, size, sort);

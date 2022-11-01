@@ -9,8 +9,8 @@ import soybeanoil.stackoverflowClone.answer.entity.AnswerVote;
 import java.util.List;
 
 public interface AnswerVoteRepository extends JpaRepository<AnswerVote, Long> {
-        AnswerVote findByAnswerIdAndUserId(long answerId, long userId);
-        List<AnswerVote> findAllByAnswerId(long answerId);
+        AnswerVote findByAnswerAndUser(long answerId, long userId);
+        List<AnswerVote> findAllByAnswer(long answerId);
 
     @Query("SELECT sum(qv.answerVote) from AnswerVote qv where qv.answer.answerId = :answerId")
     int findVoteValue(@Param("answerId") long answerId);

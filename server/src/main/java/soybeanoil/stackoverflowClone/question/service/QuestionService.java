@@ -1,5 +1,6 @@
 package soybeanoil.stackoverflowClone.question.service;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -22,7 +23,7 @@ public class QuestionService {
     private final QuestionVoteService questionVoteService;
 
     public QuestionService(QuestionRepository questionRepository, TagService tagService,
-                           QuestionVoteService questionVoteService) {
+                           @Lazy QuestionVoteService questionVoteService) {
         this.questionRepository = questionRepository;
         this.tagService = tagService;
         this.questionVoteService = questionVoteService;
@@ -54,7 +55,7 @@ public class QuestionService {
     }
 
     List<Question> findQuestions(long userId) {
-        return questionRepository.findAllByUserId(userId);
+        return questionRepository.findAllByUser(userId);
     }
 
     public Question updateQuestion(Question question) {
