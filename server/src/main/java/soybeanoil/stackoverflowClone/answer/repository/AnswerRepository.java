@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import soybeanoil.stackoverflowClone.answer.entity.Answer;
 import soybeanoil.stackoverflowClone.question.entity.Question;
+import soybeanoil.stackoverflowClone.user.entity.User;
 
 import java.lang.reflect.Member;
 import java.util.List;
@@ -19,6 +20,6 @@ public interface AnswerRepository extends JpaRepository<Answer, Long> {
                                                   @Param("question") Question question,
                                                   @Param("answerStatus") Answer.AnswerStatus answerStatus);
 
-//    List<Answer> findAllByUserId(long userId); // AnswerRepository에 추가
+    List<Answer> findAllByUser(User user); // AnswerRepository에 추가
 
 }

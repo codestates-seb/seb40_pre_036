@@ -54,8 +54,8 @@ public class QuestionService {
         return findAllQuestion;
     }
 
-    List<Question> findQuestions(long userId) {
-        return questionRepository.findAllByUser(userId);
+    public List<Question> findQuestions(User user) {
+        return questionRepository.findAllByUser(user);
     }
 
     public Question updateQuestion(Question question) {

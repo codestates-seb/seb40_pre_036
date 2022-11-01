@@ -1,6 +1,6 @@
 package soybeanoil.stackoverflowClone.answer.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -15,12 +15,16 @@ import soybeanoil.stackoverflowClone.user.entity.User;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class AnswerService {
-    private AnswerVoteService answerVoteService;
-    private AnswerRepository answerRepository;
+    private final AnswerVoteService answerVoteService;
+    private final AnswerRepository answerRepository;
+
+    public AnswerService(@Lazy AnswerVoteService answerVoteService, AnswerRepository answerRepository) {
+        this.answerVoteService = answerVoteService;
+        this.answerRepository = answerRepository;
+    }
 
     public Answer createAnswer(Answer answer) {  //  SOF-A-001 답변 작성
         return answerRepository.save(answer);
@@ -85,9 +89,9 @@ public class AnswerService {
         answerRepository.save(answer);
     }
 
-//    List<Answer> findAnswers(long userId) {
-//        return AnswerRepository.findAllByUserId(userId);// AnswerService에 추가
-//    }
+    public List<Answer> findAnswers(User user) {
+        return answerRepository.findAllByUser(user);// AnswerService에 추가
+    }
 
 }
 

@@ -1,10 +1,15 @@
 package soybeanoil.stackoverflowClone.user.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import soybeanoil.stackoverflowClone.answer.entity.Answer;
+import soybeanoil.stackoverflowClone.answer.service.AnswerService;
+import soybeanoil.stackoverflowClone.question.entity.Question;
+import soybeanoil.stackoverflowClone.question.service.QuestionService;
 import soybeanoil.stackoverflowClone.response.MultiResponseDto;
 import soybeanoil.stackoverflowClone.response.SingleResponseDto;
 import soybeanoil.stackoverflowClone.user.dto.UserPostDto;
@@ -19,15 +24,13 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @Validated
+@RequiredArgsConstructor
 @RequestMapping("/users")
 public class UserController {
     private final UserService userService;
     private final UserMapper mapper;
-
-    public UserController(UserService userService, UserMapper mapper) {
-        this.userService = userService;
-        this.mapper = mapper;
-    }
+    private final QuestionService questionService;
+    private final AnswerService answerService;
 
     // 회원가입
     @PostMapping("/signup")
@@ -42,8 +45,10 @@ public class UserController {
     @GetMapping("/{user-id}")
     public ResponseEntity getUser(@PathVariable("user-id") @Positive long userId) {
         User user = userService.findUser(userId);
+        List<Question> questions = questionService.findQuestions(user);
+        List<Answer> answers = answerService.findAnswers(user);
         return new ResponseEntity(
-                new SingleResponseDto<>(mapper.userToUserResponseDto(user)),
+                new SingleResponseDto<>(mapper.userToUserQuestionAnswerResponseDto(user, questions, answers)),
                 HttpStatus.OK);
     }
 
