@@ -63,8 +63,20 @@ const QuestionTitle = styled(Link)`
 
 // 질문 내용
 const Content = styled.div`
+  display: inline-block;
+  /* width: 99%; */
   color: #3b4045;
-  margin-top: 7px;
+  margin-top: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  line-height: 1.4;
+  height: 2.8em;
+  text-align: left;
+  word-wrap: break-word; // 단어 단위로 줄바꿈
+  display: -webkit-box; // 유연하게 height를 증감시킬 수 있는 플렉스 박스형태로 변환
+  -webkit-line-clamp: 2; // 보여줄 줄 수
+  -webkit-box-orient: vertical; // 플렉스 박스의 방향 설정(가로)
 `;
 
 // 태그 + 유저 + 작성일을 담은 컨테이너
@@ -72,8 +84,7 @@ const InfoContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 12px;
-  margin-bottom: 5px;
+  margin: 9px 0 14px 0;
 `;
 
 // 태그 컨테이너
