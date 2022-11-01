@@ -1,6 +1,7 @@
 // 질문 상세 페이지의 질문 헤더 (질문 제목, 작성일, 수정일, 조회수)
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const Header = styled.header`
   display: flex;
@@ -48,6 +49,11 @@ const Time = styled.time`
   color: #232639;
 `;
 
+const PageMove = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+`;
+
 function QnAHeader() {
   return (
     <Header>
@@ -56,7 +62,9 @@ function QnAHeader() {
         working well
         {/* Capture all network requests and full response data when loading a page in Chrome - not
     working well */}
-        <AskBtn>Ask Question</AskBtn>
+        <PageMove to="/questions/ask">
+          <AskBtn>Ask Question</AskBtn>
+        </PageMove>
       </Title>
       <PostInfo>
         <div>
