@@ -22,6 +22,7 @@ import Home from './pages/Home';
 const GlobalStyles = createGlobalStyle`
 ${reset}
 * {
+  list-style: inside;
   box-sizing: border-box;
   font-family: Helvetica!important;
   letter-spacing: 0.2px;
