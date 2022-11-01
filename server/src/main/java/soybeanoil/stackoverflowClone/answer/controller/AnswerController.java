@@ -19,6 +19,7 @@ import soybeanoil.stackoverflowClone.user.mapper.UserMapper;
 import soybeanoil.stackoverflowClone.user.service.UserService;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 @RestController //HTTP모든 요청 받기
@@ -34,29 +35,30 @@ public class AnswerController {
     private QuestionService questionService;
 
 
-    public AnswerController(AnswerService answerService, AnswerMapper answerMapper){
-        this.answerService=answerService;
-        this.answerMapper=answerMapper;
-    }
+//    public AnswerController(AnswerService answerService, AnswerMapper answerMapper){
+//        this.answerService=answerService;
+//        this.answerMapper=answerMapper;
+//    }
 
-    @PostMapping("/{question-id}/answer")
+    @PostMapping("/{user-id}/answer")
     public ResponseEntity postAnswer(@Valid @RequestBody AnswerPostDto answerPostDto,
-                                     @PathVariable("question-id")
-                                     @AuthenticationPrincipal User user) {
+                                     @PathVariable("user-id")
+                                     @Positive long userId
+                                     ) {
         Answer question = answerService.createAnswer(
-                answerMapper.answerPostDtoToAnswer(questionService,userService,answerPostDto));
+                answerMapper.answerPostDtoToAnswer(questionService, userId, userService,answerPostDto));
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(answerMapper.answerToAnswerResponseDto(userMapper,question)), HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{answer-id}/")
+    @PatchMapping("/{answer-id}/{user-id}")
     public ResponseEntity patchAnswer(@Valid @RequestBody AnswerPatchDto answerPatchDto,
-                                      @PathVariable("answer-id")
-                                      @Positive long answerId){
+                                      @PathVariable("answer-id") @Positive long answerId,
+                                      @PathVariable("user-id") @Positive long userId){
 
         answerPatchDto.setAnswerId(answerId);
-        Answer answer = answerMapper.answerPatchDtoToAnswer(answerService,userService,answerPatchDto);
+        Answer answer = answerMapper.answerPatchDtoToAnswer(answerService,userService,answerPatchDto,userId);
         Answer updatedAnswer = answerService.modifyAnswer(answer);
 
         return new ResponseEntity<>(
