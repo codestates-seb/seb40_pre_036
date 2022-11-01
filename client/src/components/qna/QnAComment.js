@@ -1,6 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 64px;
+`;
+
 const CommentContent = styled.div`
   color: #232629;
   font-size: 13px;
@@ -67,7 +73,7 @@ const CommentInput = styled.textarea`
 
 function QnAComment() {
   return (
-    <>
+    <Container>
       <CommentContent>
         <p>
           I don&apos;t think example.com is your real site. Whatever the real site is is probably
@@ -86,7 +92,7 @@ function QnAComment() {
       <CommentForm>
         <CommentInput placeholder="Add a comment" />
       </CommentForm>
-    </>
+    </Container>
   );
 }
 

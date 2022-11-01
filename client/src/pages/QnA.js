@@ -4,9 +4,9 @@ import Nav from '../components/Nav';
 import Aside from '../components/Aside';
 import QuestionContent from '../components/qna/QuestionContent';
 import QnAHeader from '../components/qna/QnAHeader';
-import AnswerContent from '../components/qna/AnswerContent';
-import QnASideBar from '../components/qna/QnASideBar';
 import QnAComment from '../components/qna/QnAComment';
+import AnswerContent from '../components/qna/AnswerContent';
+import AnswerForm from '../components/qna/AnswerForm';
 
 const Container = styled.div`
   display: flex;
@@ -91,11 +91,11 @@ function QnA() {
       <MainContainer>
         <QnAHeader />
         <ContentContainer>
-          <QnASideBar />
           <QnAContainer>
             <QuestionContent />
             <QnAComment />
             <AnswerContent />
+            <AnswerForm />
           </QnAContainer>
           <AsideContainer>
             <RelatedContainer>
