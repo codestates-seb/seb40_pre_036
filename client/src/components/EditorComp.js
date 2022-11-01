@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import MDEditor from '@uiw/react-md-editor';
 import rehypeSanitize from 'rehype-sanitize';
@@ -21,14 +21,18 @@ const Container = styled.div`
   }
 `;
 
-function EditorComp() {
-  const [content, setContent] = useState('');
+function EditorComp({ value, onChange }) {
+  // const [content, setContent] = useState('');
+
+  // useEffect(() => {
+  //   console.log(content);
+  // }, [content]);
 
   return (
     <Container>
       <MDEditor
-        value={content}
-        onChange={setContent}
+        value={value}
+        onChange={onChange}
         previewOptions={{
           rehypePlugins: [[rehypeSanitize]],
         }}

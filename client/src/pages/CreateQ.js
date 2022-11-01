@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+// import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+// import axios from 'axios';
 import EditorComp from '../components/EditorComp';
 import Tag from '../components/Tag';
 
@@ -109,7 +111,19 @@ const QuestionBody = styled.div`
   background: white;
   border: 1px solid hsl(210deg 8% 90%);
   border-radius: 3px;
+  position: relative;
 `;
+
+// const DimmedLayerBody = styled.div`
+//   position: absolute;
+//   top: 0px;
+//   left: 0px;
+//   width: 100%;
+//   height: 100%;
+//   background: white;
+//   opacity: 0.7;
+//   z-index: 5;
+// `;
 
 const Title = styled.div`
   color: #0c0d0e;
@@ -130,7 +144,19 @@ const QuestionTags = styled.div`
   background: white;
   border: 1px solid hsl(210deg 8% 90%);
   border-radius: 3px;
+  position: relative;
 `;
+
+// const DimmedLayerTags = styled.div`
+//   position: absolute;
+//   top: 0px;
+//   left: 0px;
+//   width: 100%;
+//   height: 100%;
+//   background: white;
+//   opacity: 0.7;
+//   z-index: 5;
+// `;
 
 // 질문 입력 및 취소 버튼
 const BtnContainer = styled.div`
@@ -218,6 +244,56 @@ const CardText = styled.div`
 `;
 
 function CreateQ() {
+  const [title, setTitle] = useState('');
+  const [firstBody, setFirstBody] = useState('');
+  const [secondBody, setSecondBody] = useState('');
+  const [tags, setTags] = useState([]);
+
+  // const navigate = useNavigate();
+
+  const handleTitleChange = e => {
+    setTitle(e.target.value);
+  };
+
+  const handleFirstEditorChange = value => {
+    setFirstBody(value);
+  };
+
+  const handleSecondEditorChange = value => {
+    setSecondBody(value);
+  };
+
+  // 질문 추가하기
+  const addQuestion = () => {
+    fetch('http://localhost:3001/questions', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        title,
+        body: firstBody + secondBody,
+        questionTags: tags,
+        createdAt: new Date().toString(),
+      }),
+    })
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+      });
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    addQuestion();
+  };
+
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (inputRef.current !== null) inputRef.current.focus();
+  }, []);
+
   return (
     <Content>
       <Start>
@@ -251,7 +327,14 @@ function CreateQ() {
           <Title>Title</Title>
           <Desc>Be specific and imagine you’re asking a question to another person.</Desc>
           <Form>
-            <Input placeholder="e.g.Is there an R function for finding the index of an element in a vector?" />
+            <Input
+              name="title"
+              ref={inputRef}
+              placeholder="e.g.Is there an R function for finding the index of an element in a vector?"
+              value={title}
+              onChange={handleTitleChange}
+              required
+            />
           </Form>
           <NextBtn>Next</NextBtn>
         </QuestionTitle>
@@ -285,38 +368,41 @@ function CreateQ() {
       </Container>
       <Container>
         <QuestionBody>
+          {/* <DimmedLayerBody /> */}
           <Title>What are the details of your problem?</Title>
           <Desc>
             Introduce the problem and expand on what you put in the title. Minimum 20 characters.
           </Desc>
-          <EditorComp />
+          <EditorComp name="firstBody" value={firstBody} onChange={handleFirstEditorChange} />
           <NextBtn>Next</NextBtn>
         </QuestionBody>
       </Container>
       <Container>
         <QuestionBody>
+          {/* <DimmedLayerBody /> */}
           <Title>What did you try and what were you expecting?</Title>
           <Desc>
             Describe what you tried, what you expected to happen, and what actually resulted.
             Minimum 20 characters.
           </Desc>
-          <EditorComp />
+          <EditorComp name="secondBody" value={secondBody} onChange={handleSecondEditorChange} />
           <NextBtn>Next</NextBtn>
         </QuestionBody>
       </Container>
       <Container>
         <QuestionTags>
+          {/* <DimmedLayerTags /> */}
           <Title>Tags</Title>
           <Desc>
             Add up to 5 tags to describe what your question is about. Start typing to see
             suggestions.
           </Desc>
-          <Tag className="tag" />
+          <Tag name="tags" tags={tags} setTags={setTags} />
           <NextBtn>Next</NextBtn>
         </QuestionTags>
       </Container>
       <BtnContainer>
-        <NextBtn>Post your question</NextBtn>
+        <NextBtn onClick={handleSubmit}>Post your question</NextBtn>
         <DiscardBtn>Discard draft</DiscardBtn>
       </BtnContainer>
       <ErrorMessage>
