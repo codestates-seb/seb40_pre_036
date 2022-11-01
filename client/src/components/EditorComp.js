@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import MDEditor from '@uiw/react-md-editor';
 import rehypeSanitize from 'rehype-sanitize';
 
+document.documentElement.setAttribute('data-color-mode', 'light');
+
 const Container = styled.div`
-  width: 800px;
   height: 500px;
   border: 1px solid transparent;
   border-radius: 5px;

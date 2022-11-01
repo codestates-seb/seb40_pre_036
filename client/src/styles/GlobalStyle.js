@@ -11,6 +11,8 @@ ${reset}
   font-family: Helvetica!important;
   margin: 0;
   padding: 0;
+  letter-spacing: 0.2px;
+  list-style : inside
 }
   :root{
     // font
@@ -27,6 +29,8 @@ ${reset}
     --color-light-blue: #e1ecf4;
     --color-font-blue: #39739d;
     --color-font-light-blue: #0074cc;
+    //margin
+    --margin-main-side: 0 0 0 10%;
   }
 `;
 

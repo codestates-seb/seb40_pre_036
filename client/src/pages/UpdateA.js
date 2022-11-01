@@ -23,7 +23,6 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   padding: 15px;
-  width: 70%;
 `;
 const Alert = styled.div`
   background-color: #fdf7e2;
@@ -103,11 +102,11 @@ const Button2 = styled.button`
     background-color: #efefef;
   }
 `;
-
-const Body = styled.div``;
-const Bodyeditor = styled.div`
-  width: 400px;
+const Title = styled.h2`
+  margin-bottom: 10px;
 `;
+const Body = styled.div``;
+const Bodyeditor = styled.div``;
 function UpdateA() {
   return (
     <Main>
@@ -125,7 +124,7 @@ function UpdateA() {
           </Alert>
           <Body>
             <Bodyeditor>
-              <h2>Body</h2>
+              <Title>Body</Title>
               <EditorComp />
             </Bodyeditor>
             <Buttons>

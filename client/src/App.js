@@ -1,5 +1,3 @@
-import { createGlobalStyle } from 'styled-components';
-import reset from 'styled-reset';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Footer from './components/Footer';
@@ -18,20 +16,12 @@ import Search from './pages/Search';
 import CreateQ from './pages/CreateQ';
 import SearchUser from './pages/SearchUser';
 import Home from './pages/Home';
-
-const GlobalStyles = createGlobalStyle`
-${reset}
-* {
-  box-sizing: border-box;
-  font-family: Helvetica!important;
-  letter-spacing: 0.2px;
-}
-`;
+import GlobalStyle from './styles/GlobalStyle';
 
 function App() {
   return (
     <BrowserRouter>
-      <GlobalStyles />
+      <GlobalStyle />
       <div className="App">
         <HeaderBefore />
         {/* <HeaderAfter /> */}
