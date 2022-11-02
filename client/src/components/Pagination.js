@@ -24,6 +24,10 @@ const LimitBtnContainer = styled.div`
   div {
     margin-left: 10px;
   }
+
+  &[disabled] {
+    display: none;
+  }
 `;
 
 const Button = styled.button`
@@ -59,8 +63,8 @@ const Button = styled.button`
   }
 `;
 
-function Pagination({ total, limit, page, setPage, setLimit }) {
-  const numPages = Math.ceil(total / limit); // 한 페이지에 나타낼 개수 limit
+function Pagination({ total, limit, page, setPage, setLimit, disable }) {
+  const numPages = Math.ceil(total / limit); // limit: 한 페이지에 나타낼 개수
   const limitNums = [15, 30, 50];
 
   return (
@@ -84,17 +88,18 @@ function Pagination({ total, limit, page, setPage, setLimit }) {
           Next
         </Button>
       </MoveBtnContainer>
-      <LimitBtnContainer>
-        {limitNums.map(num => (
-          <Button
-            onClick={({ target: { innerText } }) => {
-              setLimit(Number(innerText));
-            }}
-            aria-current={limit === num ? 'page' : null}
-          >
-            {num}
-          </Button>
-        ))}
+      <LimitBtnContainer disabled={disable}>
+        {!disable &&
+          limitNums.map(num => (
+            <Button
+              onClick={({ target: { innerText } }) => {
+                setLimit(Number(innerText));
+              }}
+              aria-current={limit === num ? 'page' : null}
+            >
+              {num}
+            </Button>
+          ))}
         <div>per page</div>
       </LimitBtnContainer>
     </Nav>
