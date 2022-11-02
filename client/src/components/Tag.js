@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Container = styled.div`
   display: flex;
   overflow: scroll;
-  width: 750px;
+  // width: 750px;
   max-width: 100%;
   padding-left: 10px;
   border: 1px solid #babfc4;
@@ -51,9 +51,9 @@ const Button = styled.button`
   cursor: pointer;
   color: #4a80a7;
 `;
-function Tag() {
+function Tag({ tags, setTags }) {
   const [input, setInput] = useState('');
-  const [tags, setTags] = useState([]);
+  // const [tags, setTags] = useState([]);
   const [isKeyReleased, setIsKeyReleased] = useState(false);
 
   const onChange = e => {
@@ -88,7 +88,7 @@ function Tag() {
   return (
     <Container>
       {tags.map((tag, index) => (
-        <Tags>
+        <Tags key={`${index.toString()}-${tag}`}>
           {tag}
           <Button onClick={() => deleteTag(index)}>x</Button>
         </Tags>
