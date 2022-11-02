@@ -30,23 +30,23 @@ public interface AnswerMapper {
 //    }
 //
 
-    default  Answer answerPostDtoToAnswer(QuestionService questionService,
-                                          long userId,
-                                          UserService userService, AnswerPostDto answerPostDto){
+    default  Answer answerPostDtoToAnswer(long questionId, QuestionService questionService,
+                                          UserService userService,
+                                          AnswerPostDto answerPostDto){
         Answer answer = new Answer();
         answer.setAnswerContent(answerPostDto.getAnswerContent());
         answer.setVote(0);
         answer.setQuestion(questionService.findVerifiedQuestion(answerPostDto.getQuestionId()));
-        answer.setUser(userService.findUser(userId));// 로그인 중 회원정보
+        answer.setUser(userService.getLoginUser());// 로그인 중 회원정보
 
         return answer;
     }
 
-    default Answer answerPatchDtoToAnswer(AnswerService answerService,
+    default Answer answerPatchDtoToAnswer(long questionId,
+                                          AnswerService answerService,
                                           UserService userService,
-                                          AnswerPatchDto answerPatchDto,
-                                          long userId) {
-        if (userId != answerService.findAnswerUser(answerPatchDto.getAnswerId()).getUserId()) { //본인외 답 수정 삭제 불가
+                                          AnswerPatchDto answerPatchDto) {
+        if (userService.getLoginUser().getUserId() != answerService.findAnswerUser(answerPatchDto.getAnswerId()).getUserId()) { //본인외 답 수정 삭제 불가
             throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED_USER);
         }
         Answer answer = new Answer();
