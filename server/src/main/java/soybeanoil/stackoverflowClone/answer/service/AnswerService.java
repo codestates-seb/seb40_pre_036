@@ -39,7 +39,7 @@ public class AnswerService {
 
     public Answer findAnswer(long answerId) {
         Answer findAnswer = findVerifiedAnswer(answerId);
-        // 별도의 태그 처리 로직이 필요할 경우 이곳에 작성
+        answerRepository.save(findAnswer);
         return findAnswer;
     }
 
@@ -84,9 +84,9 @@ public class AnswerService {
     }
 
     // 투표
-    public void refreshVotes(User userid) {
-        Answer answer = answerRepository.findById(userid.getUserId()).get();
-        answer.setVotes(answerVoteService.getVoteValue(new AnswerVote()));
+    public void refreshVotes(long answerId) {
+        Answer answer = findVerifiedAnswer(answerId);
+        answer.setAnsVotes(answerVoteService.getVotes(answerId));
         answerRepository.save(answer);
     }
 

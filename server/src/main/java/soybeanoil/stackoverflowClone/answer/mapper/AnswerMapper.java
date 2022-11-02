@@ -30,13 +30,13 @@ public interface AnswerMapper {
 //    }
 //
 
-    default  Answer answerPostDtoToAnswer(long questionId, QuestionService questionService,
+    default  Answer answerPostDtoToAnswer(long questionId,
+                                          QuestionService questionService,
                                           UserService userService,
                                           AnswerPostDto answerPostDto){
         Answer answer = new Answer();
         answer.setQuestion(questionService.findQuestion(questionId));
         answer.setAnswerContent(answerPostDto.getAnswerContent());
-        answer.setVote(0);
         answer.setQuestion(questionService.findVerifiedQuestion(answerPostDto.getQuestionId()));
         answer.setUser(userService.getLoginUser());// 로그인 중 회원정보
 
@@ -67,8 +67,9 @@ public interface AnswerMapper {
 
         User user = answer.getUser();
         answerResponseDto.setUser(userMapper.userToUserResponseDto(user));
-        answerResponseDto.setVote(answer.getVote());
         answerResponseDto.setModifiedAt(answer.getModifiedAt());
+
+        answerResponseDto.setVote(answer.getAnsVotes());
 
         return answerResponseDto;
     }

@@ -24,37 +24,40 @@ public class AnswerVoteService {
         this.answerVoteRepository = answerVoteRepository;
     }
 
-    public String voteAnswer(long answerId, int vote, long userId) {
-        if (vote == -1 || vote == 0 || vote == 1) {
-            AnswerVote answerVote = answerVoteRepository.findByAnswerAndUser(answerId, userId);
+    public AnswerVote voteAnswer(long answerId, int vote) {
+
+            User user = userService.getLoginUser();
+
+            AnswerVote answerVote = answerVoteRepository.findByAnswerAndUser(
+                    answerService.findAnswer(answerId), user);
+
 
             if (answerVote == null) {
                 AnswerVote newVote = new AnswerVote();
                 newVote.addAnswer(answerService.findAnswer(answerId));
-                newVote.addUser(userService.findUser(userId));
+                newVote.addUser(user);
+                newVote.setAnswerVote(vote);
                 answerVoteRepository.save(newVote);
+                answerService.refreshVotes(answerId);
+                return newVote;
+
             } else {
                 answerVote.setAnswerVote(vote);
                 answerVoteRepository.save(answerVote);
+                answerService.refreshVotes(answerId);
+                return answerVote;
             }
-            answerService.refreshVotes(new User()); //?...
-            return "Vote success";
-        } else {
-            return "Invalid vote value";
-        }
+//        if (vote == -1 || vote == 0 || vote == 1) {
+//    }
     }
 
-    public List<AnswerVote> getVoteList(long answerId) {
-        return answerVoteRepository.findAllByAnswer(answerId);
-    }
+//    public List<AnswerVote> getVoteList(long answerId) {
+//        return answerVoteRepository.findAllByAnswer(answerId);
+//    }
 
-    public int getVotes(long questionId) {
-        int votes = answerVoteRepository.findVoteValue(questionId);
+    public int getVotes(long answerId) {
+        int votes = answerVoteRepository.findVoteValue(answerId);
         return votes;
     }
 
-    public long getVoteValue(AnswerVote answerId) {
-        long voteValue = this.answerVoteRepository.findVoteValue(answerId.getAnswerVoteId());
-        return voteValue;
-    }
 }

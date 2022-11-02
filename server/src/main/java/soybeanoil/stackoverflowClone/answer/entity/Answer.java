@@ -11,6 +11,8 @@ import soybeanoil.stackoverflowClone.user.entity.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor  // (생성자 자동 생성) 매개변수 없는 생성자 자동 생성
 @Getter
@@ -41,6 +43,11 @@ public class Answer extends Auditable {
     @Column(nullable = false, name = "UPDATED")
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
+    @Column(length =5,nullable = false)
+    private Integer ansVotes = 0;
+
+    @OneToMany(mappedBy = "answer", cascade = CascadeType.PERSIST)
+    private List<AnswerVote> answerVotes = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, name = "STATUS")
@@ -56,11 +63,5 @@ public class Answer extends Auditable {
         AnswerStatus(String status) {
             this.status = status;
         }
-    }
-    @Column(nullable = false)
-    private long vote;
-
-    public void setVotes(long votes) {
-        this.vote = votes;
     }
 }
