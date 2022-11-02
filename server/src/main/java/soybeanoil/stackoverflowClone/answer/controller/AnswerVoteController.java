@@ -24,14 +24,14 @@ public class AnswerVoteController {
         this.userService = userService;
     }
 
-    @PostMapping("/{answer-id}/votes/{vote}")
+    @PostMapping("answer/{answer-id}/votes/{vote}")
     public void voteAnswer(@PathVariable("answer-id") @Positive @NotNull long answerId,
-                             @PathVariable("vote") int vote) {
+                           @PathVariable("vote") int vote) {
 
         answerVoteService.voteAnswer(answerId, vote, userService.getLoginUser().getUserId());
     }
 
-    @GetMapping("/{answer-id}/votes")
+    @GetMapping("/answer/{answer-id}/votes")
     public List<AnswerVote> getVoteList(@PathVariable long answerId) {
         return answerVoteService.getVoteList(answerId);
     }
