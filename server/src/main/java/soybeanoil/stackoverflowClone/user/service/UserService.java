@@ -39,19 +39,17 @@ public class UserService {
     }
 
     public User getLoginUser() {
-        return getUserByToken();
-    }
-
-    public User getUserByToken() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        UserDetailService.UserDetail userDetail = (UserDetailService.UserDetail) principal;
-        return userDetail.getUser();
+        Optional<User> user = userRepository.findByEmail(principal.toString());
+        return user.get();
     }
 
+    // 마이페이지
     public User findUser(long userId) {
         return findVerifiedUser(userId);
     }
 
+    // 전체 유저 찾기
     public Page<User> findUsers(int page, int size) {
         return userRepository.findAll(PageRequest.of(page, size,
                 Sort.by("userId").descending()));

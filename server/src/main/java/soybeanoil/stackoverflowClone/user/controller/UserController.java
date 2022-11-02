@@ -42,9 +42,9 @@ public class UserController {
     }
 
     // 마이페이지
-    @GetMapping("/{user-id}")
-    public ResponseEntity getUser(@PathVariable("user-id") @Positive long userId) {
-        User user = userService.findUser(userId);
+    @GetMapping("/me")
+    public ResponseEntity getUser() {
+        User user = userService.getLoginUser();
         List<Question> questions = questionService.findQuestions(user);
         List<Answer> answers = answerService.findAnswers(user);
         return new ResponseEntity(

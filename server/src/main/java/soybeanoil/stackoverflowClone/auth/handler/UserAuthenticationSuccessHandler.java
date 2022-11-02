@@ -23,15 +23,15 @@ public class UserAuthenticationSuccessHandler implements AuthenticationSuccessHa
                                         Authentication authentication) throws IOException {
         log.info("# Authenticated successfully!");
 //        response.sendRedirect("/questions");
-        sendErrorResponse(response, authentication);
+//        sendErrorResponse(response, authentication);
     }
 
-    private void sendErrorResponse(HttpServletResponse response, Authentication authentication) throws IOException {
-        Gson gson = new Gson();
-//        ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.UNAUTHORIZED);
-        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        response.setHeader("userId", String.valueOf(((User)authentication.getPrincipal()).getUserId()));
-//        response.setStatus(HttpStatus.UNAUTHORIZED.value());
-//        response.getWriter().write(gson.toJson(errorResponse, ErrorResponse.class));
-    }
+//    private void sendErrorResponse(HttpServletResponse response, Authentication authentication) throws IOException {
+//        Gson gson = new Gson();
+////        ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.UNAUTHORIZED);
+//        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+//        response.setHeader("userId", String.valueOf(((User)authentication.getPrincipal()).getUserId()));
+////        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+////        response.getWriter().write(gson.toJson(errorResponse, ErrorResponse.class));
+//    }
 }
