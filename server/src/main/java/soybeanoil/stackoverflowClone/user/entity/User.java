@@ -1,5 +1,6 @@
 package soybeanoil.stackoverflowClone.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import soybeanoil.stackoverflowClone.answer.entity.Answer;
 import soybeanoil.stackoverflowClone.question.entity.Question;
@@ -36,9 +37,11 @@ public class User {
     private List<String> roles = new ArrayList<>();;
 
     // 연관관계
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Question> questions = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Answer> answers = new ArrayList<>();
 

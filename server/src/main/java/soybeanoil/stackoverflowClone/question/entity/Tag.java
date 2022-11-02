@@ -1,5 +1,6 @@
 package soybeanoil.stackoverflowClone.question.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,6 +26,7 @@ public class Tag extends Auditable {
     @JoinColumn(name = "USER_ID")
     private User user;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "QUESTION_ID")
     private Question question;
