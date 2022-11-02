@@ -34,6 +34,7 @@ public interface AnswerMapper {
                                           UserService userService,
                                           AnswerPostDto answerPostDto){
         Answer answer = new Answer();
+        answer.setQuestion(questionService.findQuestion(questionId));
         answer.setAnswerContent(answerPostDto.getAnswerContent());
         answer.setVote(0);
         answer.setQuestion(questionService.findVerifiedQuestion(answerPostDto.getQuestionId()));
@@ -42,8 +43,7 @@ public interface AnswerMapper {
         return answer;
     }
 
-    default Answer answerPatchDtoToAnswer(long questionId,
-                                          AnswerService answerService,
+    default Answer answerPatchDtoToAnswer(AnswerService answerService,
                                           UserService userService,
                                           AnswerPatchDto answerPatchDto) {
         if (userService.getLoginUser().getUserId() != answerService.findAnswerUser(answerPatchDto.getAnswerId()).getUserId()) { //본인외 답 수정 삭제 불가
@@ -57,9 +57,10 @@ public interface AnswerMapper {
         return answer;
     }
 
-    default AnswerResponseDto answerToAnswerResponseDto(UserMapper userMapper, Answer answer){
+    default AnswerResponseDto answerToAnswerResponseDto(UserMapper userMapper, Answer answer, long questionId){
         AnswerResponseDto answerResponseDto = new AnswerResponseDto();
         answerResponseDto.setAnswerId(answer.getAnswerId());
+        answerResponseDto.setQuestionId(questionId);
         answerResponseDto.setAnswerStatus(answer.getAnswerStatus());
         answerResponseDto.setAnswerContent(answer.getAnswerContent());
         answerResponseDto.setCreatedAt(answer.getCreatedAt());

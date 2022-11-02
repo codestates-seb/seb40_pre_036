@@ -32,8 +32,9 @@ public class AnswerService {
 
     public Answer modifyAnswer(Answer answer) {  // SOF-A-002 답변 수정
         Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
-
-        return createAnswer(findAnswer);
+        Optional.ofNullable(answer.getAnswerContent())
+                .ifPresent(findAnswer::setAnswerContent);
+        return answerRepository.save(findAnswer);
     }
 
     public Answer findAnswer(long answerId) {

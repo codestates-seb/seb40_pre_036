@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class AnswerResponseDto {
     private long answerId;
     private String answerContent;
-    private QuestionAnswerResponseDto questionId; // Uesr? 어느데이타 표시할지 질문=> questionId
+    private long questionId; // Uesr? 어느데이타 표시할지 질문=> questionId
     private long vote;
     private UserResponseDto user;
     private LocalDateTime createdAt;

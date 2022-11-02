@@ -15,8 +15,7 @@ import javax.validation.constraints.Positive;
 @AllArgsConstructor
 public class AnswerPatchDto {
 
-    @NotNull
-    @Positive
+//    @Positive
     private long answerId;
 
     @NotBlank(message="내용을 입력하세요.") // 필드 값에 null 값을 허용하지 않는다

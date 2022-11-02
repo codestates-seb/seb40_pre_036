@@ -54,7 +54,7 @@ public class AnswerController {
                 answerMapper.answerPostDtoToAnswer(questionId,questionService, userService,answerPostDto));
 
         return new ResponseEntity<>(
-                new SingleResponseDto<>(answerMapper.answerToAnswerResponseDto(userMapper,question)), HttpStatus.CREATED);
+                new SingleResponseDto<>(answerMapper.answerToAnswerResponseDto(userMapper,question, questionId)), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{question-id}/answer/{answer-id}")
@@ -63,11 +63,11 @@ public class AnswerController {
                                       @PathVariable("question-id") @Positive long questionId){
 
         answerPatchDto.setAnswerId(answerId);
-        Answer answer = answerMapper.answerPatchDtoToAnswer(questionId,answerService,userService,answerPatchDto);
+        Answer answer = answerMapper.answerPatchDtoToAnswer(answerService,userService,answerPatchDto);
         Answer updatedAnswer = answerService.modifyAnswer(answer);
 
         return new ResponseEntity<>(
-                new SingleResponseDto<>(answerMapper.answerToAnswerResponseDto(userMapper,updatedAnswer)),
+                new SingleResponseDto<>(answerMapper.answerToAnswerResponseDto(userMapper,updatedAnswer, questionId)),
                 HttpStatus.OK);
     }
 
