@@ -32,19 +32,22 @@ public interface QuestionMapper {
         Question question = new Question();
         question.setVotes(0);
 
-        List<Tag> tags = tagsDtosToTags(questionPostDto.getTags(), question);
+        // 태그에 유저 설정하기 위한 유저 생성
+        User user = userService.findUser(userId);
+        List<Tag> tags = tagsDtosToTags(questionPostDto.getTags(), question, user);
 
         question.setTitle(questionPostDto.getTitle());
         question.setContent(questionPostDto.getContent());
         question.setTags(tags);
-        question.setUser(userService.findUser(userId)); // 현재 로그인한 회원의 정보를 불러옴
+        question.setUser(user); // 현재 로그인한 회원의 정보를 불러옴
         return question;
     }
 
-    default List<Tag> tagsDtosToTags(List<TagDto> tagsDtos, Question question){
+    default List<Tag> tagsDtosToTags(List<TagDto> tagsDtos, Question question, User user){
 
         return tagsDtos.stream().distinct().map(tagDto -> {
             Tag tag = new Tag();
+            tag.setUser(user);
             tag.addQuestion(question);
             tag.setTagName(tagDto.getTagName());
             return tag;
@@ -63,7 +66,7 @@ public interface QuestionMapper {
     }
 
     default Question questionPatchDtoToQuestion(long userId,
-            QuestionService questionService, QuestionDto.Patch questionPatchDto) {
+            QuestionService questionService, QuestionDto.Patch questionPatchDto, User user) {
         if(userId !=
                 questionService.findQuestionWriter(questionPatchDto.getQuestionId()).getUserId()) { //해당 유저가 쓴 질문글 아니므로 수정 삭제 불가
             throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED_USER);
@@ -76,7 +79,7 @@ public interface QuestionMapper {
             questionPatchDto.setTags(new ArrayList<>());
         }
 
-        List<Tag> tags = tagsDtosToTags(questionPatchDto.getTags(),question);
+        List<Tag> tags = tagsDtosToTags(questionPatchDto.getTags(),question, user);
 
         question.setTitle(questionPatchDto.getTitle());
         question.setContent(questionPatchDto.getContent());

@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import soybeanoil.stackoverflowClone.answer.entity.Answer;
 import soybeanoil.stackoverflowClone.answer.service.AnswerService;
 import soybeanoil.stackoverflowClone.question.entity.Question;
+import soybeanoil.stackoverflowClone.question.entity.Tag;
 import soybeanoil.stackoverflowClone.question.service.QuestionService;
+import soybeanoil.stackoverflowClone.question.service.TagService;
 import soybeanoil.stackoverflowClone.response.MultiResponseDto;
 import soybeanoil.stackoverflowClone.response.SingleResponseDto;
 import soybeanoil.stackoverflowClone.user.dto.UserPostDto;
@@ -31,6 +33,7 @@ public class UserController {
     private final UserMapper mapper;
     private final QuestionService questionService;
     private final AnswerService answerService;
+    private final TagService tagService;
 
     // 회원가입
     @PostMapping("/signup")
@@ -47,8 +50,9 @@ public class UserController {
         User user = userService.getLoginUser();
         List<Question> questions = questionService.findQuestions(user);
         List<Answer> answers = answerService.findAnswers(user);
+        List<Tag> tags = tagService.findUserTags(user);
         return new ResponseEntity(
-                new SingleResponseDto<>(mapper.userToUserQuestionAnswerResponseDto(user, questions, answers)),
+                new SingleResponseDto<>(mapper.userToUserDataDto(user, questions, answers, tags)),
                 HttpStatus.OK);
     }
 

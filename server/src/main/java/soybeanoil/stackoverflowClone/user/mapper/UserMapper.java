@@ -3,8 +3,9 @@ package soybeanoil.stackoverflowClone.user.mapper;
 import org.mapstruct.Mapper;
 import soybeanoil.stackoverflowClone.answer.entity.Answer;
 import soybeanoil.stackoverflowClone.question.entity.Question;
+import soybeanoil.stackoverflowClone.question.entity.Tag;
 import soybeanoil.stackoverflowClone.user.dto.UserPostDto;
-import soybeanoil.stackoverflowClone.user.dto.UserQuestionAnswerResponseDto;
+import soybeanoil.stackoverflowClone.user.dto.UserDataDto;
 import soybeanoil.stackoverflowClone.user.dto.UserResponseDto;
 import soybeanoil.stackoverflowClone.user.entity.User;
 
@@ -31,14 +32,18 @@ public interface UserMapper {
         return userResponseDto;
     }
 
-    default UserQuestionAnswerResponseDto userToUserQuestionAnswerResponseDto(User user, List<Question> questions, List<Answer> answers) {
-        UserQuestionAnswerResponseDto userQuestionAnswerResponseDto = new UserQuestionAnswerResponseDto();
-        userQuestionAnswerResponseDto.setUserId(user.getUserId());
-        userQuestionAnswerResponseDto.setDisplayName(user.getDisplayName());
-        userQuestionAnswerResponseDto.setEmail(user.getEmail());
-        userQuestionAnswerResponseDto.setUserStatus(user.getUserStatus());
-        userQuestionAnswerResponseDto.setQuestionList(questions);
-        userQuestionAnswerResponseDto.setAnswerList(answers);
-        return userQuestionAnswerResponseDto;
+    default UserDataDto userToUserDataDto(User user, List<Question> questions, List<Answer> answers,
+                                                            List<Tag> tags) {
+        UserDataDto userDataDto = new UserDataDto();
+        userDataDto.setUserId(user.getUserId());
+        userDataDto.setDisplayName(user.getDisplayName());
+        userDataDto.setEmail(user.getEmail());
+        userDataDto.setUserStatus(user.getUserStatus());
+        userDataDto.setQuestions(questions);
+        userDataDto.setAnswers(answers);
+        userDataDto.setTags(tags);
+//        userDataDto.setAnswerVotes(answerVotes);
+//        userDataDto.setQuestionVotes(questionVotes);
+        return userDataDto;
     }
 }

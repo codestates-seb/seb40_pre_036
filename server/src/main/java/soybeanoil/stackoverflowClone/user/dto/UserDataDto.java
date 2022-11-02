@@ -13,7 +13,7 @@ import java.util.List;
 
 @Setter
 @Getter
-public class UserQuestionAnswerResponseDto {
+public class UserDataDto {
     private long userId;
     private String displayName;
     private String email;
@@ -25,7 +25,4 @@ public class UserQuestionAnswerResponseDto {
     private List<Question> questions;
 //    // tag
     private List<Tag> tags;
-    // vote
-    private List<AnswerVote> answerVotes;
-    private List<QuestionVote> questionVotes;
 }
