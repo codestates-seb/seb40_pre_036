@@ -1,14 +1,17 @@
 package soybeanoil.stackoverflowClone.question.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import soybeanoil.stackoverflowClone.question.entity.QuestionVote;
+import soybeanoil.stackoverflowClone.question.mapper.QuestionVoteMapper;
 import soybeanoil.stackoverflowClone.question.service.QuestionVoteService;
+import soybeanoil.stackoverflowClone.response.SingleResponseDto;
 import soybeanoil.stackoverflowClone.user.service.UserService;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-import java.util.List;
 
 @RestController
 @Validated
@@ -16,23 +19,29 @@ import java.util.List;
 public class QuestionVoteController {
 
     private final QuestionVoteService questionVoteService;
+    private final QuestionVoteMapper questionVoteMapper;
     private final UserService userService;
 
-    public QuestionVoteController(QuestionVoteService questionVoteService, UserService userService) {
+    public QuestionVoteController(QuestionVoteService questionVoteService,
+                                  QuestionVoteMapper questionVoteMapper,
+                                  UserService userService) {
         this.questionVoteService = questionVoteService;
+        this.questionVoteMapper = questionVoteMapper;
         this.userService = userService;
     }
 
-    @PostMapping("/{question-id}/votes/{vote}")
-    public void voteQuestion(@PathVariable("user-id") @Positive @NotNull long userId,
-                             @PathVariable("question-id") @Positive @NotNull long questionId,
-                             @PathVariable("vote") int vote) {
+    @PostMapping("/votes/{question-id}")
+    public ResponseEntity voteQuestion(@PathVariable("question-id") @Positive @NotNull long questionId,
+                                       @RequestParam(value="vote", defaultValue="0") int vote) {
 
-        questionVoteService.voteQuestion(questionId, vote, userId);
+        QuestionVote questionVote = questionVoteService.voteQuestion(questionId, vote);
+
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(questionVoteMapper.questionVoteToQuestionVoteDto(questionVote)), HttpStatus.OK);
     }
 
-    @GetMapping("/{question-id}/votes")
-    public List<QuestionVote> getVoteList(@PathVariable long questionId) {
-        return questionVoteService.getVoteList(questionId);
-    }
+//    @GetMapping("/{question-id}/votes")
+//    public List<QuestionVote> getVoteList(@PathVariable long questionId) {
+//        return questionVoteService.getVoteList(questionId);
+//    }
 }

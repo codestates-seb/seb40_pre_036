@@ -3,9 +3,9 @@ package soybeanoil.stackoverflowClone.question.service;
 import org.springframework.stereotype.Service;
 import soybeanoil.stackoverflowClone.question.entity.QuestionVote;
 import soybeanoil.stackoverflowClone.question.repository.QuestionVoteRepository;
+import soybeanoil.stackoverflowClone.user.entity.User;
 import soybeanoil.stackoverflowClone.user.service.UserService;
 
-import java.util.List;
 
 @Service
 public class QuestionVoteService {
@@ -21,29 +21,34 @@ public class QuestionVoteService {
         this.questionVoteRepository = questionVoteRepository;
     }
 
-    public String voteQuestion(long questionId, int vote, long userId) {
-        if(vote == -1 || vote == 0 || vote == 1) {
-            QuestionVote questionVote = questionVoteRepository.findByQuestionAndUser(questionId, userId);
+    public QuestionVote voteQuestion(long questionId, int vote) {
+        User user = userService.getLoginUser();
 
-            if(questionVote == null) {
-                QuestionVote newVote = new QuestionVote();
-                newVote.addQuestion(questionService.findQuestion(questionId));
-                newVote.addUser(userService.findUser(userId));
-                questionVoteRepository.save(newVote);
-            } else {
-                questionVote.setVote(vote);
-                questionVoteRepository.save(questionVote);
-            }
+        QuestionVote questionVote = questionVoteRepository.findByQuestionAndUser(
+                questionService.findQuestion(questionId), user);
+
+        if(questionVote == null) {
+            QuestionVote newVote = new QuestionVote();
+            newVote.addQuestion(questionService.findQuestion(questionId));
+            newVote.addUser(user);
+            newVote.setVote(vote);
+            questionVoteRepository.save(newVote);
             questionService.refreshVotes(questionId);
-            return "Vote success";
+            return newVote;
+
         } else {
-            return "Invalid vote value";
+            questionVote.setVote(vote);
+            questionVoteRepository.save(questionVote);
+            questionService.refreshVotes(questionId);
+            return questionVote;
         }
+
+
     }
 
-    public List<QuestionVote> getVoteList(long questionId) {
-        return questionVoteRepository.findAllByQuestion(questionId);
-    }
+//    public List<QuestionVote> getVoteList(long questionId) {
+//        return questionVoteRepository.findAllByQuestion(questionId);
+//    }
 
     public int getVotes(long questionId) {
         int votes = questionVoteRepository.findVoteValue(questionId);
