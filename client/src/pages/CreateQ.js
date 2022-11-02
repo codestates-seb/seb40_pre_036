@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 // import axios from 'axios';
 import EditorComp from '../components/EditorComp';
@@ -248,8 +248,7 @@ function CreateQ() {
   const [firstBody, setFirstBody] = useState('');
   const [secondBody, setSecondBody] = useState('');
   const [tags, setTags] = useState([]);
-
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleTitleChange = e => {
     setTitle(e.target.value);
@@ -289,6 +288,7 @@ function CreateQ() {
   const handleSubmit = e => {
     e.preventDefault();
     addQuestion();
+    navigate('/questions');
   };
 
   const inputRef = useRef(null);
