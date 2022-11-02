@@ -12,6 +12,7 @@ import soybeanoil.stackoverflowClone.answer.dto.AnswerPostDto;
 import soybeanoil.stackoverflowClone.answer.entity.Answer;
 import soybeanoil.stackoverflowClone.answer.mapper.AnswerMapper;
 import soybeanoil.stackoverflowClone.answer.service.AnswerService;
+import soybeanoil.stackoverflowClone.question.mapper.QuestionMapper;
 import soybeanoil.stackoverflowClone.question.service.QuestionService;
 import soybeanoil.stackoverflowClone.response.SingleResponseDto;
 import soybeanoil.stackoverflowClone.user.entity.User;
@@ -28,37 +29,41 @@ import javax.validation.constraints.Positive;
 @RequestMapping("/questions")
 public class AnswerController {
 
-    private AnswerService answerService;
-    private AnswerMapper answerMapper;
-    private UserService userService;
-    private UserMapper userMapper;
-    private QuestionService questionService;
+    private final AnswerService answerService;
+    private final AnswerMapper answerMapper;
+    private final UserService userService;
+    private final UserMapper userMapper;
+    private final QuestionService questionService;
+    private final QuestionMapper questionMapper;
 
 
-//    public AnswerController(AnswerService answerService, AnswerMapper answerMapper){
-//        this.answerService=answerService;
-//        this.answerMapper=answerMapper;
-//    }
+    public AnswerController(AnswerService answerService, AnswerMapper answerMapper, UserService userService,
+                            UserMapper userMapper, QuestionService questionService, QuestionMapper questionMapper){
+        this.answerService=answerService;
+        this.answerMapper=answerMapper;
+        this.userService=userService;
+        this.userMapper=userMapper;
+        this.questionService=questionService;
+        this.questionMapper=questionMapper;
+    }
 
-    @PostMapping("/{user-id}/answer")
+    @PostMapping("/{question-id}/answer")
     public ResponseEntity postAnswer(@Valid @RequestBody AnswerPostDto answerPostDto,
-                                     @PathVariable("user-id")
-                                     @Positive long userId
-                                     ) {
+                                     @PathVariable("question-id") @Positive long questionId) {
         Answer question = answerService.createAnswer(
-                answerMapper.answerPostDtoToAnswer(questionService, userId, userService,answerPostDto));
+                answerMapper.answerPostDtoToAnswer(questionId,questionService, userService,answerPostDto));
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(answerMapper.answerToAnswerResponseDto(userMapper,question)), HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{answer-id}/{user-id}")
+    @PatchMapping("/{question-id}/answer/{answer-id}")
     public ResponseEntity patchAnswer(@Valid @RequestBody AnswerPatchDto answerPatchDto,
                                       @PathVariable("answer-id") @Positive long answerId,
-                                      @PathVariable("user-id") @Positive long userId){
+                                      @PathVariable("question-id") @Positive long questionId){
 
         answerPatchDto.setAnswerId(answerId);
-        Answer answer = answerMapper.answerPatchDtoToAnswer(answerService,userService,answerPatchDto,userId);
+        Answer answer = answerMapper.answerPatchDtoToAnswer(questionId,answerService,userService,answerPatchDto);
         Answer updatedAnswer = answerService.modifyAnswer(answer);
 
         return new ResponseEntity<>(
@@ -66,8 +71,9 @@ public class AnswerController {
                 HttpStatus.OK);
     }
 
-    @DeleteMapping("/{answer-id}")
-    public ResponseEntity deleteAnswer(@PathVariable("answer-id") long answerId){
+    @DeleteMapping("/{question-id}/answer/{answer-id}")
+    public ResponseEntity deleteAnswer(@PathVariable("answer-id") @Positive long answerId,
+                                       @PathVariable("question-id") @Positive long questionId){
 
         answerService.deleteAnswer(answerId);
 
