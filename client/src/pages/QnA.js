@@ -10,6 +10,7 @@ import AnswerForm from '../components/qna/AnswerForm';
 
 const Container = styled.div`
   display: flex;
+  margin: 0 5rem 0 3rem;
 `;
 
 const MainContainer = styled.div`

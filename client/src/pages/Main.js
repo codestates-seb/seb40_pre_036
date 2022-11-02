@@ -8,6 +8,7 @@ import Pagination from '../components/Pagination';
 
 const Allcontent = styled.div`
   display: flex;
+  margin: 0 5rem 0 3rem;
 `;
 
 // li 태그를 담을 ul태그
