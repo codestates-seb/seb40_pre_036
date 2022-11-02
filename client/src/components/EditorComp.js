@@ -24,10 +24,6 @@ const Container = styled.div`
 function EditorComp({ value, onChange }) {
   // const [content, setContent] = useState('');
 
-  // useEffect(() => {
-  //   console.log(content);
-  // }, [content]);
-
   return (
     <Container>
       <MDEditor

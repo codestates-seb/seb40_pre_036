@@ -273,8 +273,11 @@ function CreateQ() {
       body: JSON.stringify({
         title,
         body: firstBody + secondBody,
-        questionTags: tags,
+        tags,
         createdAt: new Date().toString(),
+        score: 0,
+        view_count: 0,
+        answer_count: 0,
       }),
     })
       .then(res => res.json())
