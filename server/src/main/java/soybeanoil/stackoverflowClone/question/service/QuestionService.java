@@ -43,6 +43,7 @@ public class QuestionService {
     public void deleteQuestion(long questionId) {
         Question findQuestion = findVerifiedQuestion(questionId);
         findQuestion.setQuestionStatus(Question.QuestionStatus.QUESTION_NOT_EXIST);
+        questionRepository.save(findQuestion);
     }
 
     public Page<Question> findQuestions(int page, int size, String sort) {

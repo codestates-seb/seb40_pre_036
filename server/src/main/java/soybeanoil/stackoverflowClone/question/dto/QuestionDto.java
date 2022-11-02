@@ -15,6 +15,7 @@ import java.util.List;
 public class QuestionDto {
 
     @Getter
+    @NoArgsConstructor
     @AllArgsConstructor
     public static class Post {
 
