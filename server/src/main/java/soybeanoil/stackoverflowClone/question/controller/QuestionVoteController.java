@@ -23,7 +23,7 @@ public class QuestionVoteController {
         this.userService = userService;
     }
 
-    @PostMapping("/{question-id}/votes/{vote}/{user-id}")
+    @PostMapping("/{question-id}/votes/{vote}")
     public void voteQuestion(@PathVariable("user-id") @Positive @NotNull long userId,
                              @PathVariable("question-id") @Positive @NotNull long questionId,
                              @PathVariable("vote") int vote) {

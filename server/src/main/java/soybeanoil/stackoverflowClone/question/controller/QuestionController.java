@@ -48,31 +48,29 @@ public class QuestionController {
         this.answerMapper = answerMapper;
     }
 
-    @PostMapping("/ask/{user-id}")
-    public ResponseEntity postQuestion(@PathVariable("user-id") @Positive @NotNull long userId,
-                                       @Valid @RequestBody QuestionDto.Post questionPostDto) {
+    @PostMapping("/ask")
+    public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post questionPostDto) {
 
         Question question = questionService.createQuestion(
-                questionMapper.questionPostDtoToQuestion(userId, userService, questionPostDto)
+                questionMapper.questionPostDtoToQuestion(userService, questionPostDto)
         );
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(questionMapper.questionToQuestionResponseDto(userMapper, question)), HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{question-id}/{user-id}")
+    @PatchMapping("/{question-id}")
     public ResponseEntity patchQuestion(@PathVariable("question-id") @Positive @NotNull long questionId,
-                                        @PathVariable("user-id") @Positive @NotNull long userId,
                                         @Valid @RequestBody QuestionDto.Patch questionPatchDto) {
 
         questionPatchDto.setQuestionId(questionId);
-        Question question = questionMapper.questionPatchDtoToQuestion(userId,
+        Question question = questionMapper.questionPatchDtoToQuestion(userService,
             questionService, questionPatchDto);
 
         Question updatedQuestion = questionService.updateQuestion(question);
 
         return new ResponseEntity<>(
-                new SingleResponseDto<>(questionMapper.questionToQuestionResponseDto(userMapper, question)), HttpStatus.OK);
+                new SingleResponseDto<>(questionMapper.questionToQuestionResponseDto(userMapper, updatedQuestion)), HttpStatus.OK);
     }
 
     @GetMapping("/{question-id}")
@@ -90,9 +88,9 @@ public class QuestionController {
     }
 
     @GetMapping
-    public ResponseEntity getQuestions(@Positive @RequestParam("page") int page,
-                                       @Positive @RequestParam("size") int size,
-                                       @RequestParam("sort") String sort) {
+    public ResponseEntity getQuestions(@Positive @RequestParam(value="page", defaultValue="1") int page,
+                                       @Positive @RequestParam(value="size", defaultValue="10") int size,
+                                       @RequestParam(value="sort", defaultValue="questionId") String sort) {
         Page<Question> pageQuestions = questionService.findQuestions(page-1, size, sort);
 
         List<Question> questions = pageQuestions.getContent();
