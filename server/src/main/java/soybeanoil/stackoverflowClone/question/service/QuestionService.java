@@ -35,6 +35,8 @@ public class QuestionService {
 
     public Question findQuestion(long questionId) {
         Question findQuestion = findVerifiedQuestion(questionId);
+        findQuestion.setView(findQuestion.getView()+1);
+        questionRepository.save(findQuestion);
         return findQuestion;
     }
 

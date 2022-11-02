@@ -45,7 +45,10 @@ public class Question extends Auditable {
     private List<Tag> tags = new ArrayList<>();
 
     @Column(length = 5, nullable = false)
-    private Integer votes = 0; // questionVote 를 스트림으로 votes 값 합계
+    private Integer votes = 0;
+
+    @Column(length = 5, nullable = false)
+    private Integer view = 0;
 
     public enum QuestionStatus {
         QUESTION_EXIST("존재하는 질문"),

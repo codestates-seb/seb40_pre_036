@@ -26,14 +26,15 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring")
 public interface QuestionMapper {
 
-    default Question questionPostDtoToQuestion(long userId, UserService userService,
+    default Question questionPostDtoToQuestion(UserService userService,
                                                QuestionDto.Post questionPostDto) {
 
         Question question = new Question();
-        question.setVotes(0);
+//        question.setVotes(0);
+//        question.setView(0);
 
         // 태그에 유저 설정하기 위한 유저 생성
-        User user = userService.findUser(userId);
+        User user = userService.getLoginUser();
         List<Tag> tags = tagsDtosToTags(questionPostDto.getTags(), question, user);
 
         question.setTitle(questionPostDto.getTitle());
@@ -65,9 +66,10 @@ public interface QuestionMapper {
                 .collect(Collectors.toList());
     }
 
-    default Question questionPatchDtoToQuestion(long userId,
-            QuestionService questionService, QuestionDto.Patch questionPatchDto, User user) {
-        if(userId !=
+    default Question questionPatchDtoToQuestion(UserService userService,
+            QuestionService questionService, QuestionDto.Patch questionPatchDto) {
+        User user = userService.getLoginUser();
+        if(user.getUserId() !=
                 questionService.findQuestionWriter(questionPatchDto.getQuestionId()).getUserId()) { //해당 유저가 쓴 질문글 아니므로 수정 삭제 불가
             throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED_USER);
         }
@@ -84,7 +86,8 @@ public interface QuestionMapper {
         question.setTitle(questionPatchDto.getTitle());
         question.setContent(questionPatchDto.getContent());
         question.setTags(tags);
-        question.setQuestionStatus(questionPatchDto.getQuestionStatus());
+        question.setUser(user);
+//        question.setQuestionStatus(questionPatchDto.getQuestionStatus());
 
         return question;
     }
@@ -98,6 +101,7 @@ public interface QuestionMapper {
         questionResponseDto.setTitle(question.getTitle());
         questionResponseDto.setContent(question.getContent());
         questionResponseDto.setVotes(question.getVotes());
+        questionResponseDto.setView(question.getView());
 
         User user = question.getUser();//질문 작성자 속성 추가
         questionResponseDto.setUser(userMapper.userToUserResponseDto(user));
@@ -124,6 +128,7 @@ public interface QuestionMapper {
         questionAnswerResponseDto.setTitle(question.getTitle());
         questionAnswerResponseDto.setContent(question.getContent());
         questionAnswerResponseDto.setVotes(question.getVotes());
+        questionAnswerResponseDto.setView(question.getView());
 
         User user = question.getUser();
         questionAnswerResponseDto.setUser(userMapper.userToUserResponseDto(user));

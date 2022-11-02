@@ -39,20 +39,21 @@ public class QuestionDto {
         private String content;
         private List<TagDto> tags;
 
-        private Question.QuestionStatus questionStatus;
+//        private Question.QuestionStatus questionStatus;
     }
 
     @Getter
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Response {
+    public static class Response { // 질문 등록, 수정
 
         private Long questionId;
         private String title;
         private String content;
         private Question.QuestionStatus questionStatus;
         private Integer votes;
+        private Integer view;
         private UserResponseDto user;
         private List<TagResponseDto> questionTags;
         private LocalDateTime createdAt;
