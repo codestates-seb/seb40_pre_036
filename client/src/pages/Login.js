@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import footerLogo from '../footerLogo.png';
 import google from '../img/google.png';
 import github from '../img/github.png';
 import facebook from '../img/facebook.png';
+import { loginUser } from '../redux/actions/userAction';
 
 const Container = styled.div`
   background-color: #f1f2f3;
@@ -123,21 +124,39 @@ const SignupGuide = styled.div`
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  // const [isCorrect, setIsCorrect] = useState(false);
   const dispatch = useDispatch();
-  const users = useSelector(state => state.users);
+  // const users = useSelector(state => state.users);
+  // console.log('users', users);
+
+  const body = {
+    email,
+    password,
+  };
 
   const login = () => {
-    const payload = users.find(user => user.email === email && user.password === password);
+    // fetch('http://localhost:4444/login', {
+    console.log('입력 email', email);
+    console.log('입력 password', password);
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-type': 'application/json',
+    //   },
+    //   body: {
+    //     email,
+    //     password,
+    //   },
+    // }).then(res => console.log(res));
 
-    if (payload) {
-      dispatch({
-        type: 'LOGIN',
-        payload,
-      });
-      alert('Success');
-    } else {
-      alert('정보가 틀렸습니다!');
-    }
+    // const payload = users.find(user => user.email === email && user.password === password);
+    // console.log(payload);
+
+    dispatch(loginUser(body));
+    // if (payload) {
+    //   alert('Success');
+    // } else {
+    //   alert('정보가 틀렸습니다!');
+    // }
   };
 
   return (

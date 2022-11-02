@@ -4,13 +4,19 @@ import styled from 'styled-components';
 const Container = styled.div`
   display: flex;
   overflow: scroll;
-  width: 750px;
+  // width: 750px;
   max-width: 100%;
   padding-left: 10px;
-  border: 1px grey solid;
+  border: 1px solid #babfc4;
   border-radius: 5px;
   color: black;
-  margin: 10px 0;
+  margin: 10px 0 0;
+
+  &:focus-within {
+    outline: none;
+    border-color: hsl(206deg 100% 52%);
+    box-shadow: 0px 0px 0px 5px #e1ecf4;
+  }
 `;
 const Input = styled.input`
   width: 100%;
@@ -19,6 +25,10 @@ const Input = styled.input`
   border-radius: 5px;
   padding: 14px;
   padding-left: 14px;
+
+  &:focus {
+    outline: none;
+  }
 `;
 const Tags = styled.div`
   display: flex;
@@ -41,9 +51,9 @@ const Button = styled.button`
   cursor: pointer;
   color: #4a80a7;
 `;
-function Tag() {
+function Tag({ tags, setTags }) {
   const [input, setInput] = useState('');
-  const [tags, setTags] = useState([]);
+  // const [tags, setTags] = useState([]);
   const [isKeyReleased, setIsKeyReleased] = useState(false);
 
   const onChange = e => {
@@ -78,7 +88,7 @@ function Tag() {
   return (
     <Container>
       {tags.map((tag, index) => (
-        <Tags>
+        <Tags key={`${index.toString()}-${tag}`}>
           {tag}
           <Button onClick={() => deleteTag(index)}>x</Button>
         </Tags>

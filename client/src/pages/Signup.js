@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useDispatch, useSelector } from 'react-redux';
+import { registerUser } from '../redux/actions/userAction';
 // icon
 import bookmark from '../img/bookmark.png';
 import msg from '../img/msg.png';
@@ -173,25 +174,23 @@ function Signup() {
 
   const dispatch = useDispatch();
   const users = useSelector(state => state.users);
-
+  console.log('users', users);
   const register = () => {
-    dispatch({
-      type: 'REGISTER',
-      payload: {
-        id: new Date().getTime(),
-        username,
-        email,
-        password,
-      },
-    });
+    const body = {
+      email,
+      name: username,
+      password,
+    };
+    dispatch(registerUser(body));
+    alert('가입완료!!!');
   };
   return (
     <Container>
       <Content>
         {/* 가입 확인 화면 표시 */}
-        {users.map(user => (
+        {/* {users.map(user => (
           <div key={user.id}>{user.email}</div>
-        ))}
+        ))} */}
         <LeftBox>
           <LeftContent>
             <h1>Join the Stack Overflow community</h1>

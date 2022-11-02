@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const Header = styled.header`
   display: flex;
@@ -27,14 +28,23 @@ const BtnContainer = styled.div`
   }
 `;
 
+const PageMove = styled(Link)`
+  text-decoration: none;
+`;
+
 const AskBtn = styled.button`
-  width: 103px;
+  min-width: 103px;
   height: 38px;
   color: white;
   background-color: rgb(0, 137, 254);
   border: 1px solid transparent;
   box-shadow: inset 0 1px 0 0 rgba(250, 250, 250, 0.5);
   border-radius: 3px;
+  white-space: nowrap;
+  margin-left: 10px;
+  &:hover {
+    background-color: #0074cc;
+  }
 `;
 
 const FilterContainer = styled.div`
@@ -78,7 +88,7 @@ const FilterBtn = styled.button`
   }
 `;
 
-function QuestionsHeader() {
+function QuestionListHeader() {
   const [clicked, setClicked] = useState('Newest');
 
   // const onBtnClick = useCallback(
@@ -94,15 +104,17 @@ function QuestionsHeader() {
   const onBtnClick = useCallback(e => {
     // console.log(e);
     setClicked(e.target.innerText);
-    console.log(e.target);
-    console.log(clicked);
+    // console.log(e.target);
+    // console.log(clicked);
   }, []);
 
   return (
     <Header>
       <Info>
         All Questions
-        <AskBtn>Ask Question</AskBtn>
+        <PageMove to="ask">
+          <AskBtn>Ask Question</AskBtn>
+        </PageMove>
       </Info>
       <BtnContainer>
         <div className="questions-num">23,142,797 questions</div>
@@ -125,4 +137,4 @@ function QuestionsHeader() {
   );
 }
 
-export default QuestionsHeader;
+export default QuestionListHeader;

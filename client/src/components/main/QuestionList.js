@@ -2,6 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 // import QuestionsHeader from './QuestionsHeader';
+import { Link } from 'react-router-dom';
 
 // 질문 li
 const List = styled.li`
@@ -10,6 +11,7 @@ const List = styled.li`
   box-sizing: border-box;
   padding: 16px;
   margin-right: 20px;
+  width: 751px;
 `;
 
 // votes, answers, views 수
@@ -44,22 +46,37 @@ const Question = styled.article`
 `;
 
 // 질문 제목
-const QuestionTitle = styled.a`
+const QuestionTitle = styled(Link)`
   display: inline-block;
   text-decoration: none;
   color: #0074cc;
   cursor: pointer;
-  :visited {
-    text-decoration: none;
-  }
   font-size: 17px;
   vertical-align: top;
+  &:hover {
+    color: #0a95ff;
+  }
+  &:visited {
+    text-decoration: none;
+  }
 `;
 
 // 질문 내용
 const Content = styled.div`
+  display: inline-block;
+  /* width: 99%; */
   color: #3b4045;
-  margin-top: 7px;
+  margin-top: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  line-height: 1.4;
+  height: 2.8em;
+  text-align: left;
+  word-wrap: break-word; // 단어 단위로 줄바꿈
+  display: -webkit-box; // 유연하게 height를 증감시킬 수 있는 플렉스 박스형태로 변환
+  -webkit-line-clamp: 2; // 보여줄 줄 수
+  -webkit-box-orient: vertical; // 플렉스 박스의 방향 설정(가로)
 `;
 
 // 태그 + 유저 + 작성일을 담은 컨테이너
@@ -67,8 +84,7 @@ const InfoContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 12px;
-  margin-bottom: 5px;
+  margin: 9px 0 14px 0;
 `;
 
 // 태그 컨테이너
@@ -78,19 +94,18 @@ const TagsContainer = styled.div`
 
 // 태그
 const Tag = styled.button`
-  /* width: 38px;
-  height: 24px; */
   padding: 6px 6px;
+  margin-right: 6px;
   background-color: #e1ecf4;
   font-size: 12px;
   color: #39739d;
   border: none;
   border-radius: 2px;
+  cursor: pointer;
   &:hover {
     background-color: #d0e3f1;
     color: #2c5877;
   }
-  margin-right: 6px;
 `;
 
 // 유저정보 + 작성일
@@ -103,10 +118,13 @@ const User = styled.a`
   text-decoration: none;
   color: #0074cc;
   cursor: pointer;
+  margin-right: 4px;
   :visited {
     text-decoration: none;
   }
-  margin-right: 4px;
+  &:hover {
+    color: #0a95ff;
+  }
 `;
 
 // 유저 프로필사진
@@ -123,64 +141,32 @@ const Time = styled.time`
   color: #6a737c;
 `;
 
-function QuestionsList() {
-  // const [clicked, setClicked] = useState('Newest');
-
-  // const onBtnClick = useCallback(
-  //   e => {
-  //     // console.log(e);
-  //     setClicked(e.target.innerText);
-  //     console.log(e.target);
-  //     console.log(clicked);
-  //   },
-  //   [clicked],
-  // );
-
-  // const onBtnClick = useCallback(e => {
-  //   // console.log(e);
-  //   setClicked(e.target.innerText);
-  //   console.log(e.target);
-  //   console.log(clicked);
-  // }, []);
-
-  // list 컴포넌트 따로 만들어야 하는 지? todolist에서 확인, 아니면 나만의 아고라스테이츠어쩌고에서 화긴
-
+function QuestionsList({ answerCount, body, tags, score, time, title, user, viewCount }) {
   return (
     <List>
       <Counts>
         <div className="vote">
-          <span className="count">0 </span>
+          <span className="count">{score} </span>
           votes
         </div>
         <div>
-          <span className="count">0 </span>
+          <span className="count">{answerCount} </span>
           answers
         </div>
         <div>
-          <span className="count">2 </span>
+          <span className="count">{viewCount} </span>
           views
         </div>
       </Counts>
       <Question>
-        <QuestionTitle href="https://stackoverflow.com/questions/74203351/git-commiting-to-different-remote-repos">
-          Capture all network requests and full response data when loading a page in Chrome - not
-          working well
-        </QuestionTitle>
-        <Content>
-          I&apos;m abling to fetch some data but not all with the function describe in similar
-          question and copied to this question. The function does exactly what it is meant to do.
-          do. But my problem is with this ...
-        </Content>
+        <QuestionTitle to="*">{title}</QuestionTitle>
+        <Content>{body}</Content>
         <InfoContainer>
-          <TagsContainer>
-            <Tag>html</Tag>
-            <Tag>css</Tag>
-            <Tag>javascript</Tag>
-          </TagsContainer>
+          <TagsContainer>{tags && tags.map(tag => <Tag>{tag}</Tag>)}</TagsContainer>
           <PostInfo>
             <UserPic />
-            <User href="https://stackoverflow.com/users/20315421/seyeon-kim">uxolrv</User>
-            <Time>asked 46 secs ago</Time>
+            <User href="https://stackoverflow.com/users/20315421/seyeon-kim">{user}</User>
+            <Time>asked {time} secs ago</Time>
           </PostInfo>
         </InfoContainer>
       </Question>

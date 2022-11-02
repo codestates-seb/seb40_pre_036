@@ -1,8 +1,13 @@
 import styled from 'styled-components';
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react'; // useCallback
 import { faEarthAmericas } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
+
+const Container = styled.div`
+  margin: 1px;
+  border-right: 1px solid rgb(216, 217, 220);
+`;
 
 const Navbar = styled.nav`
   display: flex;
@@ -10,12 +15,15 @@ const Navbar = styled.nav`
   align-items: flex-start;
   justify-content: flex-start;
   box-sizing: border-box;
-  width: 17%;
+  /* width: 17%; */
+  width: 156px;
+  /* min-width: 156px; */
   padding-top: 25px;
-  padding-left: 5%;
-  border-right: 1px solid rgb(216, 217, 220);
+  /* padding-left: 5%; */
   font-size: 13px;
   color: rgb(83, 89, 95);
+  position: sticky;
+  top: 0px;
 `;
 
 const PageMove = styled(Link)`
@@ -25,7 +33,7 @@ const PageMove = styled(Link)`
 
 const Home = styled.div`
   box-sizing: border-box;
-  width: 100%;
+  width: 156px;
   padding: 11px 0 11px 8px;
   cursor: pointer;
   &:hover {
@@ -46,7 +54,7 @@ const Li = styled.li`
   list-style: none;
   display: inline-block;
   box-sizing: border-box;
-  width: 100%;
+  width: 156px;
   padding: 11px 0 11px 8px;
   margin: 0;
   color: rgb(83, 89, 95);
@@ -79,48 +87,62 @@ const Icon = styled.span`
   font-size: 16px;
 `;
 
-function Nav() {
-  const [clicked, setClicked] = useState();
+function Nav({ path }) {
+  const [clicked, setClicked] = useState(path);
 
-  const onClick = useCallback(e => {
-    const text = e.target.innerText;
-    setClicked(text);
-  }, []);
+  const onClick = useCallback(() => {
+    // const text = e.target.innerText;
+    setClicked(path);
+  }, [clicked]);
+
+  // console.log(path);
+
+  // const [clicked, setClicked] = useState('Questions');
+
+  // const onClick = useCallback(e => {
+  //   const text = e.target.innerText;
+  //   setClicked(text);
+  // }, []);
+
+  // const onClick = useEffect(e => {
+  //   const text = e.target.innerText;
+  //   setClicked(text);
+  // }, []);
 
   return (
-    <Navbar>
-      <PageMove to="/home">
-        <Home className={clicked === 'Home' ? 'clicked' : ''} onClick={onClick}>
-          Home
-        </Home>
-      </PageMove>
-      <PublicLists>
-        <Li className="public">PUBLIC</Li>
-        <Link to="/">
-          <Li className={clicked === 'Questions' ? 'clicked' : ''} onClick={onClick}>
-            <Icon>
-              <FontAwesomeIcon icon={faEarthAmericas} className="icon" />
-            </Icon>
-            Questions
-          </Li>
-        </Link>
-        <Link to="/tags">
-          <Li className={clicked === 'Tags' ? 'no-icon clicked' : 'no-icon'} onClick={onClick}>
-            Tags
-          </Li>
-        </Link>
-        <Link to="/users">
-          <Li className={clicked === 'Users' ? 'no-icon clicked' : 'no-icon'} onClick={onClick}>
-            Users
-          </Li>
-        </Link>
-        <Link to="/">
+    <Container>
+      <Navbar>
+        <PageMove to="/">
+          <Home className={clicked === 'Home' ? 'clicked' : ''} onClick={onClick}>
+            Home
+          </Home>
+        </PageMove>
+        <PublicLists>
+          <Li className="public">PUBLIC</Li>
+          <PageMove to="/questions">
+            <Li className={clicked === 'Questions' ? 'clicked' : ''} onClick={onClick}>
+              <Icon>
+                <FontAwesomeIcon icon={faEarthAmericas} className="icon" />
+              </Icon>
+              Questions
+            </Li>
+          </PageMove>
+          <PageMove to="/tags">
+            <Li className={clicked === 'Tags' ? 'no-icon clicked' : 'no-icon'} onClick={onClick}>
+              Tags
+            </Li>
+          </PageMove>
+          <PageMove to="/users">
+            <Li className={clicked === 'Users' ? 'no-icon clicked' : 'no-icon'} onClick={onClick}>
+              Users
+            </Li>
+          </PageMove>
           <Li className={clicked === 'Companies' ? 'no-icon clicked' : 'no-icon'} onClick={onClick}>
             Companies
           </Li>
-        </Link>
-      </PublicLists>
-    </Navbar>
+        </PublicLists>
+      </Navbar>
+    </Container>
   );
 }
 export default Nav;

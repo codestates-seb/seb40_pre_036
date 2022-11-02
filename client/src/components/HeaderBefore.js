@@ -1,11 +1,10 @@
 import styled from 'styled-components';
 import React from 'react';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import sofLogo from '../sofLogo.png';
 
 const Header = styled.header`
+  position: fixed;
   color: black;
   min-width: auto;
   width: 100%;
@@ -15,9 +14,15 @@ const Header = styled.header`
   align-items: center;
   justify-content: space-between;
   vertical-align: baseline;
-  box-shadow: 0 -6px 10px 0px;
+  box-shadow: 0 -5px 10px 0px;
   padding: 1.5rem 6rem;
   border-top: 3px solid #f48123;
+  z-index: 10;
+`;
+
+const Blank = styled.div`
+  width: 100%;
+  height: 3rem;
 `;
 
 const Front = styled.div`
@@ -25,15 +30,6 @@ const Front = styled.div`
   display: flex;
   flex: 1;
   align-items: center;
-  justify-content: center;
-
-  .menu {
-    font-size: 18px;
-    padding: 15px;
-    &:hover {
-      background-color: hsl(210deg 8% 90%);
-    }
-  }
 `;
 
 const Logo = styled.img`
@@ -67,7 +63,7 @@ const Products = styled.div`
 `;
 
 const Container = styled.div`
-  width: 53%;
+  width: 56%;
 `;
 const Form = styled.form`
   display: flex;
@@ -99,7 +95,7 @@ const Input = styled.input`
   }
 `;
 
-const Button = styled.button`
+const LoginBtn = styled.button`
   display: flex;
   margin-left: 5px;
   padding: 10px;
@@ -111,22 +107,33 @@ const Button = styled.button`
   border-radius: 3px;
   color: #3a779e;
   white-space: nowrap;
+
   &:hover {
     cursor: pointer;
     background-color: hsl(205deg 57% 81%);
   }
-  &:last-child {
-    background: #0995fd;
-    color: white;
-    &:hover {
-      background-color: hsl(206deg 100% 40%);
-    }
+`;
+const SignupBtn = styled.button`
+  display: flex;
+  margin-left: 5px;
+  padding: 10px;
+  height: 2rem;
+  justify-content: center;
+  align-items: center;
+  background: #0995fd;
+  border: 1px solid #79a7c7;
+  border-radius: 3px;
+  color: white;
+  white-space: nowrap;
+
+  &:hover {
+    cursor: pointer;
+    background-color: hsl(206deg 100% 40%);
   }
 `;
 
 const PageMove = styled(Link)`
   text-decoration: none;
-  color: inherit;
 `;
 
 function HeaderBefore() {
@@ -134,7 +141,6 @@ function HeaderBefore() {
     <div>
       <Header>
         <Front>
-          <FontAwesomeIcon className="menu" icon={faBars} />
           <PageMove to="/">
             <Logo src={sofLogo} />
           </PageMove>
@@ -150,13 +156,14 @@ function HeaderBefore() {
             <Input placeholder="Search..." type="text" />
           </Form>
         </Container>
-        <PageMove to="/login">
-          <Button>Log in</Button>
+        <PageMove to="/users/login">
+          <LoginBtn>Log in</LoginBtn>
         </PageMove>
-        <PageMove to="/signup">
-          <Button>Sign up</Button>
+        <PageMove to="/users/signup">
+          <SignupBtn>Sign up</SignupBtn>
         </PageMove>
       </Header>
+      <Blank />
     </div>
   );
 }
