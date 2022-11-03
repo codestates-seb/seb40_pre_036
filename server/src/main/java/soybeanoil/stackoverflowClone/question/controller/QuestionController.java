@@ -26,6 +26,7 @@ import java.util.List;
 @Validated
 @Slf4j
 @RequestMapping("/questions")
+@CrossOrigin
 public class QuestionController {
 
     private final QuestionService questionService;
@@ -77,7 +78,7 @@ public class QuestionController {
     public ResponseEntity getQuestion(@PathVariable("question-id") @Positive long questionId,
                                       @Positive @RequestParam(value="page", defaultValue="1") int answerPage,
                                       @Positive @RequestParam(value="size", defaultValue="10") int answerSize,
-                                      @RequestParam(value="sort", defaultValue="answerId") String answerSort) {
+                                      @RequestParam(value="sort", defaultValue="ansVotes") String answerSort) {
 
         Question question = questionService.findQuestion(questionId);
 
@@ -96,7 +97,7 @@ public class QuestionController {
         List<Question> questions = pageQuestions.getContent();
 
         return new ResponseEntity<>(new MultiResponseDto<>(
-                questionMapper.questionsToQuestionResponseDtos(questions),
+                questionMapper.questionsToQuestionResponseDtos(userMapper, questions),
                 pageQuestions),HttpStatus.OK);
     }
 

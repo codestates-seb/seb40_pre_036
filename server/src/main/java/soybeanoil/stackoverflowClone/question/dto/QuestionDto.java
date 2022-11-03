@@ -50,6 +50,7 @@ public class QuestionDto {
         private Question.QuestionStatus questionStatus;
         private Integer votes;
         private Integer view;
+        private Integer answerCount;
         private UserResponseDto user;
         private List<TagResponseDto> questionTags;
         private LocalDateTime createdAt;

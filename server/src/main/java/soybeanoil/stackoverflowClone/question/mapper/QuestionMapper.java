@@ -93,7 +93,6 @@ public interface QuestionMapper {
     }
 
     default QuestionDto.Response questionToQuestionResponseDto(UserMapper userMapper, Question question){
-        List<Tag> tags = question.getTags();
 
         QuestionDto.Response questionResponseDto = new QuestionDto.Response();
         questionResponseDto.setQuestionId(question.getQuestionId());
@@ -102,6 +101,7 @@ public interface QuestionMapper {
         questionResponseDto.setContent(question.getContent());
         questionResponseDto.setVotes(question.getVotes());
         questionResponseDto.setView(question.getView());
+        questionResponseDto.setAnswerCount(question.getAnswers().size());
 
         User user = question.getUser();//질문 작성자 속성 추가
         questionResponseDto.setUser(userMapper.userToUserResponseDto(user));
@@ -116,7 +116,18 @@ public interface QuestionMapper {
         return questionResponseDto;
     }
 
-    List<QuestionDto.Response> questionsToQuestionResponseDtos(List<Question> questions);
+    default List<QuestionDto.Response> questionsToQuestionResponseDtos(UserMapper userMapper, List<Question> questions) {
+        if(questions == null) return null;
+
+        List<QuestionDto.Response> questionResponseDtos = new ArrayList<>(questions.size());
+
+        for(Question question : questions) {
+            questionResponseDtos.add(questionToQuestionResponseDto(userMapper, question));
+        }
+
+
+        return questionResponseDtos;
+    }
 
     default QuestionAnswerResponseDto questionToQuestionAnswerResponseDto(
             AnswerService answerService, AnswerMapper answerMapper, UserMapper userMapper,
