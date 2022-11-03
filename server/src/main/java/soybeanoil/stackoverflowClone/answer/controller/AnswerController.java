@@ -22,7 +22,7 @@ import soybeanoil.stackoverflowClone.user.service.UserService;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-
+@CrossOrigin
 @RestController //HTTP모든 요청 받기
 @Validated
 @Slf4j
@@ -51,8 +51,7 @@ public class AnswerController {
     public ResponseEntity postAnswer(@Valid @RequestBody AnswerPostDto answerPostDto,
                                      @PathVariable("question-id") @Positive long questionId) {
         Answer question = answerService.createAnswer(
-                answerMapper.answerPostDtoToAnswer(questionId,questionService, userService,answerPostDto));
-
+                answerMapper.answerPostDtoToAnswer(questionId,questionService,userService, answerPostDto));
         return new ResponseEntity<>(
                 new SingleResponseDto<>(answerMapper.answerToAnswerResponseDto(userMapper,question, questionId)), HttpStatus.CREATED);
     }
@@ -68,6 +67,20 @@ public class AnswerController {
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(answerMapper.answerToAnswerResponseDto(userMapper,updatedAnswer, questionId)),
+                HttpStatus.OK);
+    }
+
+        @GetMapping("/ans/{answer-id}")
+    public ResponseEntity getAnswer(@PathVariable("answer-id") @Positive long answerId,
+                                    @Positive @RequestParam(value="page", defaultValue="1") int page,
+                                    @Positive @RequestParam(value="size", defaultValue="10") int size
+                                    ) {
+
+        Answer answer = answerService.findAnswer(answerId);
+        Answer updatedAnswer = answerService.modifyAnswer(answer);
+
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(answerMapper.answerToAnswerResponseDto(userMapper,updatedAnswer,answerId)),
                 HttpStatus.OK);
     }
 
