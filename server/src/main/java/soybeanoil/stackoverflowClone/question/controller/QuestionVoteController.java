@@ -16,6 +16,7 @@ import javax.validation.constraints.Positive;
 @RestController
 @Validated
 @RequestMapping("/questions")
+@CrossOrigin
 public class QuestionVoteController {
 
     private final QuestionVoteService questionVoteService;
