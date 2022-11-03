@@ -51,6 +51,16 @@
       "password": "$2a$10$UKvcUaNi.t3w.toxggLlm.GdufE.lwtdCGZkRWVWoKyQdLPns/qhG",
       "name": "1234",
       "id": 9
+    },
+    {
+      "email": "kimcoding@gmail.com",
+      "password": "$2a$10$gLEXRHnsS3uYsCyIh4RjKeCRzaHdaXZACQOdE0Vxo20.A3ea4yY/u",
+      "id": 10
+    },
+    {
+      "email": "kimcoding123@gmail.com",
+      "password": "$2a$10$sTSVjGio0rBK.4w4jz6Ai.tFD.C/v7lO1rLak9NQ3X4WkjwxpYySq",
+      "id": 11
     }
   ],
   "todos": []

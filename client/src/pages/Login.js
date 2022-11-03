@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import footerLogo from '../footerLogo.png';
 import google from '../img/google.png';
 import github from '../img/github.png';
 import facebook from '../img/facebook.png';
-import { loginUser } from '../redux/actions/userAction';
+
+import { loginAction } from '../store/reducer';
 
 const Container = styled.div`
   background-color: #f1f2f3;
@@ -122,42 +125,59 @@ const SignupGuide = styled.div`
 `;
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  // const [isCorrect, setIsCorrect] = useState(false);
   const dispatch = useDispatch();
-  // const users = useSelector(state => state.users);
-  // console.log('users', users);
+  const isLogin = useSelector(state => state.isLogin);
+  const navigate = useNavigate();
 
-  const body = {
-    email,
-    password,
+  const [isCorrect, setIsCorrect] = useState(false);
+  console.log(isLogin, isCorrect);
+  const [account, setAccount] = useState({
+    email: '',
+    password: '',
+  });
+
+  const onChangeAccount = e => {
+    setAccount({
+      ...account,
+      [e.target.name]: e.target.value,
+    });
+
+    console.log('account', account);
+    console.log('account.email', account.email);
+    console.log('account.password', account.password);
   };
+  // useCallback(() => {
+  //   // const text = e.target.innerText;
+  //   setClicked(path);
+  // }, [clicked]);
 
-  const login = () => {
-    // fetch('http://localhost:4444/login', {
-    console.log('입력 email', email);
-    console.log('입력 password', password);
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-type': 'application/json',
-    //   },
-    //   body: {
-    //     email,
-    //     password,
-    //   },
-    // }).then(res => console.log(res));
-
-    // const payload = users.find(user => user.email === email && user.password === password);
-    // console.log(payload);
-
-    dispatch(loginUser(body));
-    // if (payload) {
-    //   alert('Success');
-    // } else {
-    //   alert('정보가 틀렸습니다!');
-    // }
-  };
+  const getLogin = useCallback(() => {
+    // DB에 일치하는 유저가 있는 지 확인
+    axios.get('http://localhost:3001/users').then(res => {
+      console.log('res', res);
+      const correctUser = res.data.filter(
+        user => user.email === account.email && user.password === account.password,
+      );
+      console.log('correctUser', correctUser);
+      // 일치하는 유저가 존재
+      if (correctUser) {
+        console.log('email은?', account.email);
+        console.log('pw?', account.password);
+        setIsCorrect(true);
+        // 일치한다면, 로그인 요청
+        axios.post('http://localhost:3001/login', account).then(data => {
+          dispatch(loginAction.login());
+          localStorage.clear();
+          localStorage.setItem(data.accessToken);
+          navigate('/questions');
+          alert('성공!!');
+        });
+        // 일치하는 유저가 존재 X
+      } else {
+        setIsCorrect(false);
+      }
+    });
+  }, []);
 
   return (
     <Container>
@@ -189,16 +209,23 @@ function Login() {
         <InputForm>
           <InputLable>
             <p>Email</p>
-            <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
+            <input name="email" type="text" value={account.email} onChange={onChangeAccount} />
+            {/* <input type="text" value={email} onChange={e => setEmail(e.target.value)} /> */}
           </InputLable>
           <InputLable>
             <div>
               <p>Password</p>
               <a href="/">Forgot password?</a>
             </div>
-            <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+            <input
+              name="password"
+              type="password"
+              value={account.password}
+              onChange={onChangeAccount}
+            />
+            {/* <input type="password" value={password} onChange={e => setPassword(e.target.value)} /> */}
           </InputLable>
-          <LoginButton value="Login" onClick={login}>
+          <LoginButton value="Login" onClick={getLogin}>
             Log in
           </LoginButton>
         </InputForm>

@@ -1,39 +1,27 @@
-import { createStore } from '@reduxjs/toolkit';
+import { createSlice, configureStore } from '@reduxjs/toolkit';
 
-const initialState = {
-  loggedInUser: null,
-  users: [
-    {
-      id: 1,
-      username: '김코딩',
-      email: '123',
-      password: '123',
+const initialToken = localStorage.getItem('accessToken');
+const initialState = { isLogin: !!initialToken, accessToken: initialToken };
+
+const loginStore = createSlice({
+  name: 'isLogin',
+  initialState,
+  reducers: {
+    Login: state => {
+      const states = state;
+      states.isLogin = true;
     },
-    {
-      id: 2,
-      username: '박해커',
-      email: 'hacker@coding.com',
-      password: '1234',
+    Logout: state => {
+      const states = state;
+      states.isLogin = false;
     },
-  ],
-};
+  },
+});
 
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'REGISTER':
-      return {
-        ...state,
-        users: [...state.users, action.payload],
-      };
-    case 'LOGIN':
-      return {
-        ...state,
-        user: action.payload,
-      };
+const store = configureStore({
+  reducer: loginStore.reducer,
+});
 
-    default:
-      return state;
-  }
-};
+export const loginAction = loginStore.actions;
 
-export default createStore(reducer);
+export default store;
