@@ -6,10 +6,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import soybeanoil.stackoverflowClone.answer.dto.AnswerResponseDto;
 import soybeanoil.stackoverflowClone.answer.entity.Answer;
+import soybeanoil.stackoverflowClone.answer.mapper.AnswerMapper;
 import soybeanoil.stackoverflowClone.answer.service.AnswerService;
+import soybeanoil.stackoverflowClone.question.dto.QuestionDto;
+import soybeanoil.stackoverflowClone.question.dto.TagDto;
+import soybeanoil.stackoverflowClone.question.dto.TagResponseDto;
 import soybeanoil.stackoverflowClone.question.entity.Question;
 import soybeanoil.stackoverflowClone.question.entity.Tag;
+import soybeanoil.stackoverflowClone.question.mapper.QuestionMapper;
 import soybeanoil.stackoverflowClone.question.service.QuestionService;
 import soybeanoil.stackoverflowClone.question.service.TagService;
 import soybeanoil.stackoverflowClone.response.MultiResponseDto;
@@ -32,7 +38,9 @@ public class UserController {
     private final UserService userService;
     private final UserMapper mapper;
     private final QuestionService questionService;
+    private final QuestionMapper questionMapper;
     private final AnswerService answerService;
+    private final AnswerMapper answerMapper;
     private final TagService tagService;
 
     // 회원가입
@@ -48,9 +56,11 @@ public class UserController {
     @GetMapping("/me")
     public ResponseEntity getUser() {
         User user = userService.getLoginUser();
-        List<Question> questions = questionService.findQuestions(user);
-        List<Answer> answers = answerService.findAnswers(user);
-        List<Tag> tags = tagService.findUserTags(user);
+        List<QuestionDto.Response> questions =
+                questionMapper.questionsToQuestionResponseDtos(mapper, questionService.findQuestions(user));
+        List<AnswerResponseDto> answers = answerMapper.answersToAnswerResponseDtos(answerService.findAnswers(user));
+        List<TagResponseDto> tags = questionMapper.tagsToTagResponseDtos(tagService.findUserTags(user));
+
         return new ResponseEntity(
                 new SingleResponseDto<>(mapper.userToUserDataDto(user, questions, answers, tags)),
                 HttpStatus.OK);

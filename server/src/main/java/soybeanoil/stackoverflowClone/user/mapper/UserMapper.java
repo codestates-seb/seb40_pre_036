@@ -1,9 +1,9 @@
 package soybeanoil.stackoverflowClone.user.mapper;
 
 import org.mapstruct.Mapper;
-import soybeanoil.stackoverflowClone.answer.entity.Answer;
-import soybeanoil.stackoverflowClone.question.entity.Question;
-import soybeanoil.stackoverflowClone.question.entity.Tag;
+import soybeanoil.stackoverflowClone.answer.dto.AnswerResponseDto;
+import soybeanoil.stackoverflowClone.question.dto.QuestionDto;
+import soybeanoil.stackoverflowClone.question.dto.TagResponseDto;
 import soybeanoil.stackoverflowClone.user.dto.UserPostDto;
 import soybeanoil.stackoverflowClone.user.dto.UserDataDto;
 import soybeanoil.stackoverflowClone.user.dto.UserResponseDto;
@@ -32,8 +32,8 @@ public interface UserMapper {
         return userResponseDto;
     }
 
-    default UserDataDto userToUserDataDto(User user, List<Question> questions, List<Answer> answers,
-                                                            List<Tag> tags) {
+    default UserDataDto userToUserDataDto(User user, List<QuestionDto.Response> questions,
+                                          List<AnswerResponseDto> answers, List<TagResponseDto> tags) {
         UserDataDto userDataDto = new UserDataDto();
         userDataDto.setUserId(user.getUserId());
         userDataDto.setDisplayName(user.getDisplayName());
@@ -46,4 +46,5 @@ public interface UserMapper {
 //        userDataDto.setQuestionVotes(questionVotes);
         return userDataDto;
     }
+
 }

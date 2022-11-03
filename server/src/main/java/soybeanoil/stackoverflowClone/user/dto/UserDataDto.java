@@ -2,11 +2,9 @@ package soybeanoil.stackoverflowClone.user.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import soybeanoil.stackoverflowClone.answer.entity.Answer;
-import soybeanoil.stackoverflowClone.answer.entity.AnswerVote;
-import soybeanoil.stackoverflowClone.question.entity.Question;
-import soybeanoil.stackoverflowClone.question.entity.QuestionVote;
-import soybeanoil.stackoverflowClone.question.entity.Tag;
+import soybeanoil.stackoverflowClone.answer.dto.AnswerResponseDto;
+import soybeanoil.stackoverflowClone.question.dto.QuestionDto;
+import soybeanoil.stackoverflowClone.question.dto.TagResponseDto;
 import soybeanoil.stackoverflowClone.user.entity.User;
 
 import java.util.List;
@@ -20,9 +18,9 @@ public class UserDataDto {
     private User.UserStatus userStatus;
 
     // answer
-    private List<Answer> answers;
+    private List<AnswerResponseDto> answers;
     // question
-    private List<Question> questions;
+    private List<QuestionDto.Response> questions;
 //    // tag
-    private List<Tag> tags;
+    private List<TagResponseDto> tags;
 }
