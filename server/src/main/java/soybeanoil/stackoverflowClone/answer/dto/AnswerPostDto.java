@@ -19,8 +19,8 @@ public class AnswerPostDto {
 //    @Positive // 필드 값에 null 값을 허용하지 않는다
     private long answerId;
 
-    @Positive // 질문자 아이디
-    private long questionId; ;
+//    @Positive // 질문자 아이디
+//    private long questionId; ;
 
     @NotBlank(message="내용을 입력하세요.")
     private String answerContent;

@@ -30,14 +30,16 @@ public interface AnswerMapper {
 //    }
 //
 
-    default  Answer answerPostDtoToAnswer(long questionId,
+    default  Answer answerPostDtoToAnswer(
+                                          long questionId,
                                           QuestionService questionService,
                                           UserService userService,
-                                          AnswerPostDto answerPostDto){
+                                          AnswerPostDto answerPostDto
+                                          ){
         Answer answer = new Answer();
-        answer.setQuestion(questionService.findQuestion(questionId));
+////      answer.setQuestion(questionService.findQuestion(questionId));
         answer.setAnswerContent(answerPostDto.getAnswerContent());
-        answer.setQuestion(questionService.findVerifiedQuestion(answerPostDto.getQuestionId()));
+        answer.setQuestion(questionService.findVerifiedQuestion(questionId));
         answer.setUser(userService.getLoginUser());// 로그인 중 회원정보
 
         return answer;
