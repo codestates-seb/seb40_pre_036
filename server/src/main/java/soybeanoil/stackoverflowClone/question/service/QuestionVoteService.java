@@ -25,11 +25,11 @@ public class QuestionVoteService {
         User user = userService.getLoginUser();
 
         QuestionVote questionVote = questionVoteRepository.findByQuestionAndUser(
-                questionService.findQuestion(questionId), user);
+                questionService.findVerifiedQuestion(questionId), user);
 
         if(questionVote == null) {
             QuestionVote newVote = new QuestionVote();
-            newVote.addQuestion(questionService.findQuestion(questionId));
+            newVote.addQuestion(questionService.findVerifiedQuestion(questionId));
             newVote.addUser(user);
             newVote.setVote(vote);
             questionVoteRepository.save(newVote);
