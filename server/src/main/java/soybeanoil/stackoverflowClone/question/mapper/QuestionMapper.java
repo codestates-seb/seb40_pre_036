@@ -144,6 +144,7 @@ public interface QuestionMapper {
             Page<Answer> pageAnswers = answerService.findAnswers(
                     question,answerPage,answerSize,answerSort);
             List<Answer> answers = pageAnswers.getContent();
+            questionAnswerResponseDto.setAnswerCount(answers.size());
             questionAnswerResponseDto.setAnswers(new MultiResponseDto<>(
                     answerMapper.answersToAnswerResponseDtos(answers), pageAnswers));
         } catch(BusinessLogicException e){
