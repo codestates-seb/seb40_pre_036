@@ -38,7 +38,12 @@ const EditorContainer = styled.div`
   margin-bottom: 30px;
 `;
 
-function AnswerForm() {
+function AnswerForm({ content, setContent, createAnswer }) {
+  const handleFormChange = e => {
+    setContent(e);
+    console.log('content', content);
+  };
+
   return (
     <AnswerContainer>
       <AnsContent>
@@ -48,9 +53,11 @@ function AnswerForm() {
         </p>
         <h2>Your Answer</h2>
         <EditorContainer>
-          <EditorComp />
+          <EditorComp value={content} onChange={handleFormChange} />
         </EditorContainer>
-        <PostBtn type="submit">Post Your Answer</PostBtn>
+        <PostBtn type="submit" onClick={createAnswer}>
+          Post Your Answer
+        </PostBtn>
       </AnsContent>
     </AnswerContainer>
   );

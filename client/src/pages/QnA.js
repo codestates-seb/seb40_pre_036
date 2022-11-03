@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import Nav from '../components/Nav';
 import Aside from '../components/Aside';
@@ -86,6 +86,24 @@ const RelatedTitle = styled.a`
 `;
 
 function QnA() {
+  const [content, setContent] = useState('');
+
+  const createAnswer = useCallback(() => {
+    fetch('http://localhost:3001/answer', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: content,
+    })
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+      });
+  }, []);
+  // useEffect(() => {
+  // }, []);
+
   return (
     <Container>
       <Nav />
@@ -96,7 +114,12 @@ function QnA() {
             <QuestionContent />
             <QnAComment />
             <AnswerContent />
-            <AnswerForm />
+            <AnswerForm
+              setContent={setContent}
+              content={content}
+              // handleFormChange={handleFormChange}
+              createAnswer={createAnswer}
+            />
           </QnAContainer>
           <AsideContainer>
             <RelatedContainer>
