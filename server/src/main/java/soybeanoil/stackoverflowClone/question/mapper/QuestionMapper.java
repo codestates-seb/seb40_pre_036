@@ -32,13 +32,12 @@ public interface QuestionMapper {
         Question question = new Question();
 //        question.setVotes(0);
 //        question.setView(0);
-
-        // 태그에 유저 설정하기 위한 유저 생성
-        User user = userService.getLoginUser();
-        List<Tag> tags = tagsDtosToTags(questionPostDto.getTags(), question, user);
-
         question.setTitle(questionPostDto.getTitle());
         question.setContent(questionPostDto.getContent());
+
+        User user = userService.getLoginUser(); // 태그에 유저 설정하기 위한 유저 생성
+        List<Tag> tags = tagsDtosToTags(questionPostDto.getTags(), question, user);
+
         question.setTags(tags);
         question.setUser(user); // 현재 로그인한 회원의 정보를 불러옴
         return question;
@@ -76,17 +75,18 @@ public interface QuestionMapper {
 
         Question question = new Question();
         question.setQuestionId(questionPatchDto.getQuestionId());
-
-        if(questionPatchDto.getTags()==null){
-            questionPatchDto.setTags(new ArrayList<>());
-        }
-
-        List<Tag> tags = tagsDtosToTags(questionPatchDto.getTags(),question, user);
-
         question.setTitle(questionPatchDto.getTitle());
         question.setContent(questionPatchDto.getContent());
-        question.setTags(tags);
         question.setUser(user);
+
+        if(questionPatchDto.getTags() == null){ // 태그 수정을 하지 않는 경우 -> 기존 질문에서 태그를 불러옴
+            System.out.println("태그 수정 안하는 경우");
+            question.setTags(questionService.findVerifiedQuestion(question.getQuestionId()).getTags());
+        } else { // 태그 수정을 하는 경우
+            System.out.println("태그 수정 하는 경우");
+            List<Tag> tags = tagsDtosToTags(questionPatchDto.getTags(), question, user);
+            question.setTags(tags);
+        }
 //        question.setQuestionStatus(questionPatchDto.getQuestionStatus());
 
         return question;
@@ -157,7 +157,7 @@ public interface QuestionMapper {
             List<Answer> answers = pageAnswers.getContent();
             questionAnswerResponseDto.setAnswerCount(answers.size());
             questionAnswerResponseDto.setAnswers(new MultiResponseDto<>(
-                    answerMapper.answersToAnswerResponseDtos(answers), pageAnswers));
+                    answerMapper.answersToAnswerResponseDtos(userMapper, answers), pageAnswers));
         } catch(BusinessLogicException e){
 
         }

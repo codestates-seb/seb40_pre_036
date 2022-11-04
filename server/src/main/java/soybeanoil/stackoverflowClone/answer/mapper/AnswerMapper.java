@@ -16,6 +16,7 @@ import soybeanoil.stackoverflowClone.user.entity.User;
 import soybeanoil.stackoverflowClone.user.mapper.UserMapper;
 import soybeanoil.stackoverflowClone.user.service.UserService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
@@ -76,5 +77,15 @@ public interface AnswerMapper {
         return answerResponseDto;
     }
 
-    List<AnswerResponseDto> answersToAnswerResponseDtos(List<Answer> answers);
+    default List<AnswerResponseDto> answersToAnswerResponseDtos(UserMapper userMapper, List<Answer> answers) {
+        if(answers == null) return null;
+
+        List<AnswerResponseDto> answerResponseDtos = new ArrayList<>();
+
+        for(Answer answer : answers) {
+            answerResponseDtos.add(answerToAnswerResponseDto(userMapper, answer, answer.getQuestion().getQuestionId()));
+        }
+
+        return answerResponseDtos;
+    }
 }

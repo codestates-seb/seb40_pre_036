@@ -58,7 +58,7 @@ public class UserController {
         User user = userService.getLoginUser();
         List<QuestionDto.Response> questions =
                 questionMapper.questionsToQuestionResponseDtos(mapper, questionService.findQuestions(user));
-        List<AnswerResponseDto> answers = answerMapper.answersToAnswerResponseDtos(answerService.findAnswers(user));
+        List<AnswerResponseDto> answers = answerMapper.answersToAnswerResponseDtos(mapper, answerService.findAnswers(user));
         List<TagResponseDto> tags = questionMapper.tagsToTagResponseDtos(tagService.findUserTags(user));
 
         return new ResponseEntity(
