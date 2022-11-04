@@ -34,9 +34,9 @@ function App() {
           <Route path="/questions" element={<Main />} />
           <Route path="/questions/*" element={<QnA />} />
           <Route path="/tags" element={<SearchTag />} />
-          <Route path="/users/*" element={<MyPage />} />
-          <Route path="/questions/*/edit" element={<UpdateQ />} />
-          <Route path="/answer/*/edit" element={<UpdateA />} />
+          <Route path="/users/:id" element={<MyPage />} />
+          <Route path="/questions/:id/edit" element={<UpdateQ />} />
+          <Route path="/answer/:id/edit" element={<UpdateA />} />
           <Route path="/search" element={<Search />} />
           <Route path="/questions/ask" element={<CreateQ />} />
           <Route path="/users" element={<SearchUser />} />

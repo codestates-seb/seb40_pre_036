@@ -48,7 +48,7 @@ function QuestionContent({ content, tags, votes, id, user }) {
         <TagsContainer>
           {tags && tags.map((tag, idx) => <Tag key={`${idx.toString()}- ${tag}`}>{tag}</Tag>)}
         </TagsContainer>
-        <ContentMenu path={`${id}/edit`} user={user} />
+        <ContentMenu path="edit" questionUser={user} />
       </QueContent>
     </Container>
   );

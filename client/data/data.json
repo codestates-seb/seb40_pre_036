@@ -277,7 +277,7 @@
       "id": 19
     },
     {
-      "user": "user20",
+      "user": "유저23",
       "title": "This is the 20nd Question!",
       "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
       "tags": [
@@ -753,88 +753,183 @@
       "id": 53
     },
     {
+<<<<<<< HEAD
+      "title": "안냐세연~~~",
+      "body": "반갑슴니다~~ ^ ^우오아아악",
+      "tags": [
+        "javascript"
+      ],
+      "createdAt": "Wed Nov 02 2022 10:57:16 GMT+0900 (한국 표준시)",
+=======
       "title": "최고",
       "body": "1234",
       "tags": [
         "12ㅡ"
       ],
       "createdAt": "Wed Nov 02 2022 10:53:46 GMT+0900 (한국 표준시)",
+>>>>>>> 1f2dcb5e39fd4fbd0cabd9f0c14b8cc462ef42ad
       "score": 0,
       "view_count": 0,
       "answer_count": 0,
       "id": 54
     },
     {
+<<<<<<< HEAD
+      "title": "안냐세연~~~",
+      "body": "반갑슴니다~~ ^ ^우오아아악",
+      "tags": [
+        "javascript"
+      ],
+      "createdAt": "Wed Nov 02 2022 10:57:18 GMT+0900 (한국 표준시)",
+=======
       "title": "최고1",
       "body": "1234",
       "tags": [
         "12ㅡ"
       ],
       "createdAt": "Wed Nov 02 2022 10:53:55 GMT+0900 (한국 표준시)",
+>>>>>>> 1f2dcb5e39fd4fbd0cabd9f0c14b8cc462ef42ad
       "score": 0,
       "view_count": 0,
       "answer_count": 0,
       "id": 55
     },
     {
+<<<<<<< HEAD
+      "title": "안냐세연 !!!!!!",
+      "body": "으뱌뱌ㅏ바바우애배배배ㅐㅇ",
+      "tags": [
+        "javascript"
+      ],
+      "createdAt": "Wed Nov 02 2022 10:57:41 GMT+0900 (한국 표준시)",
+=======
       "title": "최고1",
       "body": "1234",
       "tags": [
         "12ㅡ"
       ],
       "createdAt": "Wed Nov 02 2022 10:53:55 GMT+0900 (한국 표준시)",
+>>>>>>> 1f2dcb5e39fd4fbd0cabd9f0c14b8cc462ef42ad
       "score": 0,
       "view_count": 0,
       "answer_count": 0,
       "id": 56
     },
     {
+<<<<<<< HEAD
+      "title": "안냐세연 !!!!!!",
+      "body": "으뱌뱌ㅏ바바우애배배배ㅐㅇ",
+      "tags": [
+        "javascript"
+      ],
+      "createdAt": "Wed Nov 02 2022 10:57:42 GMT+0900 (한국 표준시)",
+=======
       "title": "최고1",
       "body": "1234",
       "tags": [
         "12ㅡ"
       ],
       "createdAt": "Wed Nov 02 2022 10:53:57 GMT+0900 (한국 표준시)",
+>>>>>>> 1f2dcb5e39fd4fbd0cabd9f0c14b8cc462ef42ad
       "score": 0,
       "view_count": 0,
       "answer_count": 0,
       "id": 57
     },
     {
+<<<<<<< HEAD
+      "title": "안냐세연 ~~~!!!!1",
+      "body": "으뱌뱌뱌뱌뱌뱌으배배버배배배배배배배",
+      "tags": [
+        "javascript"
+      ],
+      "createdAt": "Wed Nov 02 2022 10:58:22 GMT+0900 (한국 표준시)",
+=======
       "title": "최고1",
       "body": "1234",
       "tags": [
         "12ㅡ"
       ],
       "createdAt": "Wed Nov 02 2022 10:53:58 GMT+0900 (한국 표준시)",
+>>>>>>> 1f2dcb5e39fd4fbd0cabd9f0c14b8cc462ef42ad
       "score": 0,
       "view_count": 0,
       "answer_count": 0,
       "id": 58
     },
     {
+<<<<<<< HEAD
+      "title": "안냐세연 ~~~!!!!1",
+      "body": "으뱌뱌뱌뱌뱌뱌으배배버배배배배배배배",
+      "tags": [
+        "javascript"
+      ],
+      "createdAt": "Wed Nov 02 2022 10:58:23 GMT+0900 (한국 표준시)",
+=======
       "title": "최고1",
       "body": "1234",
       "tags": [
         "12ㅡ"
       ],
       "createdAt": "Wed Nov 02 2022 10:53:58 GMT+0900 (한국 표준시)",
+>>>>>>> 1f2dcb5e39fd4fbd0cabd9f0c14b8cc462ef42ad
       "score": 0,
       "view_count": 0,
       "answer_count": 0,
       "id": 59
     },
     {
+<<<<<<< HEAD
+      "title": "안냐세연 ~~~!!!!1",
+      "body": "으뱌뱌뱌뱌뱌뱌으배배버배배배배배배배",
+      "tags": [
+        "javascript"
+      ],
+      "createdAt": "Wed Nov 02 2022 10:58:23 GMT+0900 (한국 표준시)",
+=======
       "title": "1",
       "body": "11",
       "tags": [],
       "createdAt": "Wed Nov 02 2022 15:09:59 GMT+0900 (한국 표준시)",
+>>>>>>> 1f2dcb5e39fd4fbd0cabd9f0c14b8cc462ef42ad
       "score": 0,
       "view_count": 0,
       "answer_count": 0,
       "id": 60
     },
     {
+<<<<<<< HEAD
+      "title": "안냐세연 ~~~!!!!1",
+      "body": "으뱌뱌뱌뱌뱌뱌으배배버배배배배배배배",
+      "tags": [
+        "javascript"
+      ],
+      "createdAt": "Wed Nov 02 2022 10:58:23 GMT+0900 (한국 표준시)",
+      "score": 0,
+      "view_count": 0,
+      "answer_count": 0,
+      "id": 61
+    },
+    {
+      "title": "",
+      "body": "",
+      "tags": [],
+      "createdAt": "Wed Nov 02 2022 10:59:29 GMT+0900 (한국 표준시)",
+      "score": 0,
+      "view_count": 0,
+      "answer_count": 0,
+      "id": 62
+    },
+    {
+      "title": "방가방가~",
+      "body": "방가방가~하이룽~~",
+      "tags": [],
+      "createdAt": "Wed Nov 02 2022 11:38:13 GMT+0900 (한국 표준시)",
+      "score": 0,
+      "view_count": 0,
+      "answer_count": 0,
+      "id": 63
+=======
       "email": "1",
       "name": "1",
       "password": "1",
@@ -1197,6 +1292,7 @@
       "email": "1",
       "password": "1",
       "id": 128
+>>>>>>> 1f2dcb5e39fd4fbd0cabd9f0c14b8cc462ef42ad
     }
   ],
   "answers": [

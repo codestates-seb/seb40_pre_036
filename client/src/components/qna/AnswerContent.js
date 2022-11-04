@@ -29,6 +29,7 @@ function AnswerContent() {
 
   // 상위컴포넌트에서 answer가 없으면 disabled=true 설정
   // disabled={!answer}
+  // {/* <ContentMenu path="/answer/*/edit" /> */}
   return (
     <>
       <Title>1 Answer</Title>
@@ -36,7 +37,6 @@ function AnswerContent() {
         <QnASideBar />
         <AnsContent>
           <EditorViewr content={answer} />
-          <ContentMenu path="/answer/*/edit" />
         </AnsContent>
       </Container>
     </>

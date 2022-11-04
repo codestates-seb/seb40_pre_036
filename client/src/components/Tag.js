@@ -87,12 +87,13 @@ function Tag({ tags, setTags }) {
   };
   return (
     <Container>
-      {tags.map((tag, index) => (
-        <Tags key={`${index.toString()}-${tag}`}>
-          {tag}
-          <Button onClick={() => deleteTag(index)}>x</Button>
-        </Tags>
-      ))}
+      {tags &&
+        tags.map((tag, index) => (
+          <Tags key={`${index.toString()}-${tag}`}>
+            {tag}
+            <Button onClick={() => deleteTag(index)}>x</Button>
+          </Tags>
+        ))}
       <Input
         value={input}
         placeholder="e.g. (angular sql-server string)"
