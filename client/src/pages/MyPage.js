@@ -116,9 +116,9 @@ function Mypage() {
     const text = e.target.innerText;
     setClicked(text);
   }, []);
-  const mypage = () => {
-    fetch(`http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/users/${userid}`, {
-      method: 'POST',
+  useEffect(() => {
+    fetch(`http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/users/me`, {
+      method: 'GET',
       headers: {
         'Content-type': 'application/json',
         Authorization: initialToken,
@@ -134,12 +134,9 @@ function Mypage() {
       }),
     })
       .then(res => res.json())
-      .then(res => {
-        console.log(res);
+      .then(json => {
+        console.log(json.data);
       });
-  };
-  useEffect(() => {
-    mypage();
   }, []);
   return (
     <Main>

@@ -146,7 +146,7 @@ function HeaderAfter() {
           </Form>
         </Container>
         <Ol>
-          <PageMove to="/users/*">
+          <PageMove to="/users/me/*">
             <Li>
               <FontAwesomeIcon icon={faIdCard} />
               <CardInfo>1</CardInfo>

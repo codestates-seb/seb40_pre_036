@@ -34,7 +34,7 @@ function App() {
           <Route path="/questions" element={<Main />} />
           <Route path="/questions/:id" element={<QnA />} />
           <Route path="/tags" element={<SearchTag />} />
-          <Route path="/users/:id" element={<MyPage />} />
+          <Route path="/users/me/*" element={<MyPage />} />
           <Route path="/questions/:id/edit" element={<UpdateQ />} />
           <Route path="/answer/:id/edit" element={<UpdateA />} />
           <Route path="/search" element={<Search />} />

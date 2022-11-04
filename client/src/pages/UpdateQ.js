@@ -146,6 +146,7 @@ function Edit() {
         console.log('json', json);
         console.log('json.data.answers', json.data.answers);
         setUpdateList(json.data);
+        setUpdateTitle(json.data.title);
       })
       .catch(err => console.log(err));
   }, []);
@@ -212,7 +213,11 @@ function Edit() {
                 <EditorComp onChange={handleUpdateChange} value={updateList.content || ''} />
               </Bodyeditor>
               <h2>Tags</h2>
-              <Tag name="tags" updateTags={updateTags} setUpdateTags={setUpdateTags} />
+              <Tag
+                name="tags"
+                updateTags={updateList.map(list => list.questionTags.map(el => el.tagName))}
+                setUpdateTags={setUpdateTags}
+              />
             </Body>
             <Buttons>
               <Button1 onClick={handleSubmit}>Save Edits</Button1>
