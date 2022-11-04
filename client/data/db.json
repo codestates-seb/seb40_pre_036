@@ -1,0 +1,67 @@
+{
+  "users": [
+    {
+      "email": "hacker@coding.com",
+      "password": "$2a$10$ASW.vEYIsqVEs4UKzDpwzOJUBW5OsBpuStebkZVsDa6OcvCXNxVxi",
+      "id": 1
+    },
+    {
+      "email": "user@gmail.com",
+      "password": "$2a$10$x5w8ZSE59jIebdMXUB3RCeuFS9YAXAhDS8UdsY3UgnOPNmBCPyATy",
+      "name": "user",
+      "id": 2
+    },
+    {
+      "email": "user2@gmail.com",
+      "password": "$2a$10$XpxwcgsuTOUm3YSMDcFB4ORaYyM83XYr3xWVTCVsaobgziq9a8Ycu",
+      "name": "유저2",
+      "id": 3
+    },
+    {
+      "email": "user1@coding.com",
+      "password": "$2a$10$e.z93g.HE3onMGT7eayef.L2NqG9ao8LM78.debRLn0NN1KbE/lNi",
+      "id": 4
+    },
+    {
+      "email": "user4@gmail.com",
+      "password": "$2a$10$ipZ6ZKmBmPKNf791fcG/wem0LnN2keiwBAmk4t41Ug3h7vxnGPixu",
+      "name": "user4",
+      "id": 5
+    },
+    {
+      "email": "user5@gmail.com",
+      "password": "$2a$10$9BpWhWZRVRvcxA9eLXKwPu7bdJImoBgbP3ZPJ8asR.KuPP.XP5um6",
+      "name": "user5",
+      "id": 6
+    },
+    {
+      "email": "user7@gamail.com",
+      "password": "$2a$10$LV0w5heqroOpY772iDs/HOIVOS//6McKNxA2Mv6leCPquL1VZDYTC",
+      "name": "user7",
+      "id": 7
+    },
+    {
+      "email": "test@test.com",
+      "password": "$2a$10$DYkRyV98W7t6Dpr/Kar6NO/OLGEqBTB0vgJR1bVKQuHUuV32YaiIS",
+      "name": "123",
+      "id": 8
+    },
+    {
+      "email": "test1@test.com",
+      "password": "$2a$10$UKvcUaNi.t3w.toxggLlm.GdufE.lwtdCGZkRWVWoKyQdLPns/qhG",
+      "name": "1234",
+      "id": 9
+    },
+    {
+      "email": "kimcoding@gmail.com",
+      "password": "$2a$10$gLEXRHnsS3uYsCyIh4RjKeCRzaHdaXZACQOdE0Vxo20.A3ea4yY/u",
+      "id": 10
+    },
+    {
+      "email": "kimcoding123@gmail.com",
+      "password": "$2a$10$sTSVjGio0rBK.4w4jz6Ai.tFD.C/v7lO1rLak9NQ3X4WkjwxpYySq",
+      "id": 11
+    }
+  ],
+  "todos": []
+}

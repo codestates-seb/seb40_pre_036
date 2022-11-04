@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { REGISTER_USER } from '../_actions/type';
 // icon
 import bookmark from '../img/bookmark.png';
 import msg from '../img/msg.png';

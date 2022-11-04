@@ -1,10 +1,11 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import { faUser, faCake, faClock, faPencil } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarDays } from '@fortawesome/free-regular-svg-icons';
 import { faStackExchange } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Nav from '../components/Nav';
 import Acitivity from '../components/mypages/Acitivity';
 import Settings from '../components/mypages/Settings';
@@ -107,10 +108,38 @@ const Left = styled.div`
 
 function Mypage() {
   const [clicked, setClicked] = useState();
-
+  const userid = useSelector(state => state.userId);
+  const initialToken = localStorage.getItem('accessToken');
+  const user = useSelector(state => state);
+  console.log(user);
   const onClick = useCallback(e => {
     const text = e.target.innerText;
     setClicked(text);
+  }, []);
+  const mypage = () => {
+    fetch(`http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/users/${userid}`, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: initialToken,
+      },
+      body: JSON.stringify({
+        userId: user.userId,
+        displayName: user.displayName,
+        email: user.email,
+        userStatus: user.userStatus,
+        answers: user.answers,
+        questions: user.questions,
+        tags: user.tags,
+      }),
+    })
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+      });
+  };
+  useEffect(() => {
+    mypage();
   }, []);
   return (
     <Main>
@@ -120,7 +149,7 @@ function Mypage() {
           <Left>
             <FontAwesomeIcon icon={faUser} size="6x" />
             <Details>
-              <H1>삼육두유</H1>
+              <H1>{user.displayName}</H1>
               <Detail>
                 <FAI>
                   <FontAwesomeIcon icon={faCake} />
@@ -173,8 +202,8 @@ function Mypage() {
           </Link>
         </Tabs>
         <Routes>
-          <Route path="/*" element={<Acitivity />} />
-          <Route path="/activity" element={<Acitivity />} />
+          <Route path="/*" element={<Acitivity user={user} />} />
+          <Route path="/activity" element={<Acitivity user={user} />} />
           <Route path="/settings/*" element={<Settings />} />
         </Routes>
       </Content>
