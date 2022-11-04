@@ -5,10 +5,11 @@ import { faCalendarDays } from '@fortawesome/free-regular-svg-icons';
 import { faStackExchange } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Nav from '../components/Nav';
 import Acitivity from '../components/mypages/Acitivity';
 import Settings from '../components/mypages/Settings';
+import { userActions } from '../store/userReducer';
 
 const Main = styled.div`
   display: flex;
@@ -108,36 +109,41 @@ const Left = styled.div`
 
 function Mypage() {
   const [clicked, setClicked] = useState();
-  const userid = useSelector(state => state.userId);
+  // const userid = useSelector(state => state.userId);
   const initialToken = localStorage.getItem('accessToken');
-  const user = useSelector(state => state);
-  console.log(user);
+  // const user = useSelector(state => state.);
+  const dispatch = useDispatch();
+
+  // console.log(user);
   const onClick = useCallback(e => {
     const text = e.target.innerText;
     setClicked(text);
   }, []);
   const mypage = () => {
-    fetch(`http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/users/${userid}`, {
-      method: 'POST',
+    fetch(`http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/users/me`, {
+      method: 'GET',
       headers: {
         'Content-type': 'application/json',
         Authorization: initialToken,
       },
-      body: JSON.stringify({
-        userId: user.userId,
-        displayName: user.displayName,
-        email: user.email,
-        userStatus: user.userStatus,
-        answers: user.answers,
-        questions: user.questions,
-        tags: user.tags,
-      }),
+      // body: JSON.stringify({
+      //   userId: user.userId,
+      //   displayName: user.displayName,
+      //   email: user.email,
+      //   userStatus: user.userStatus,
+      //   answers: user.answers,
+      //   questions: user.questions,
+      //   tags: user.tags,
+      // }),
     })
       .then(res => res.json())
-      .then(res => {
-        console.log(res);
+      .then(data => {
+        dispatch(userActions.setName(data.data.displayName));
+        dispatch(userActions.setEmail(data.data.email));
+        console.log(data.data.displayName, data.data.email);
       });
   };
+
   useEffect(() => {
     mypage();
   }, []);
@@ -149,7 +155,7 @@ function Mypage() {
           <Left>
             <FontAwesomeIcon icon={faUser} size="6x" />
             <Details>
-              <H1>{user.displayName}</H1>
+              {/* <H1>{user.displayName}</H1> */}
               <Detail>
                 <FAI>
                   <FontAwesomeIcon icon={faCake} />
@@ -202,8 +208,8 @@ function Mypage() {
           </Link>
         </Tabs>
         <Routes>
-          <Route path="/*" element={<Acitivity user={user} />} />
-          <Route path="/activity" element={<Acitivity user={user} />} />
+          {/* <Route path="/*" element={<Acitivity user={user} />} /> */}
+          {/* <Route path="/activity" element={<Acitivity user={user} />} /> */}
           <Route path="/settings/*" element={<Settings />} />
         </Routes>
       </Content>
