@@ -158,16 +158,22 @@ function Login() {
         });
       // 일치하는 유저가 존재 X
     } catch (error) {
-      if (error.response.status === 401) {
-        alert('이메일 혹은 비밀번호가 일치하지 않습니다.');
-        console.log(error);
-      } else {
-        alert(error.response.status);
-        console.log(error);
-      }
+      // if (error.response.status === 401) {
+      //   alert('이메일 혹은 비밀번호가 일치하지 않습니다.');
+      //   console.log(error);
+      // } else {
+      //   alert(error.response.status);
+      console.log(error);
+      // }
     }
   }
   console.log('로그인 여부', isLogin);
+
+  // dispatch(
+  //   loginActions.login({
+  //     name: res.data,
+  //     email: res.data,
+  //   }))
 
   // const LoginHandler = e => {
   //   e.preventDefault();

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-// import axios from 'axios';
 import EditorComp from '../components/EditorComp';
 import Tag from '../components/Tag';
 

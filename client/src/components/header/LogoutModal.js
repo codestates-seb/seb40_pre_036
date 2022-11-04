@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import React, { useState } from 'react';
+import React from 'react';
 
 const LogoutBox = styled.div`
   padding: 15px;
   position: absolute;
   top: 50px;
-  right: -50px;
+  right: 40px;
   border: 1px solid hsl(210deg 8% 85%);
   width: 150px;
   height: 200px;
@@ -48,9 +48,21 @@ const LogoutBtn = styled.button`
   }
 `;
 
-function LogoutModal() {
+const Background = styled.div`
+  position: fixed;
+  z-index: -100;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  background: transparent;
+`;
+
+function LogoutModal({ onOpenLogoutModal }) {
   return (
     <LogoutBox>
+      <Background onClick={onOpenLogoutModal} />
       <img
         src="https://mblogthumb-phinf.pstatic.net/MjAyMDA2MTBfMTY1/MDAxNTkxNzQ2ODcyOTI2.Yw5WjjU3IuItPtqbegrIBJr3TSDMd_OPhQ2Nw-0-0ksg.8WgVjtB0fy0RCv0XhhUOOWt90Kz_394Zzb6xPjG6I8gg.PNG.lamute/user.png?type=w800"
         className="user"

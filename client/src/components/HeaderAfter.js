@@ -4,9 +4,11 @@ import { faIdCard, faInbox, faTrophy, faCircleQuestion } from '@fortawesome/free
 import { Link, useNavigate } from 'react-router-dom';
 import { faStackExchange } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useDispatch, useSelector } from 'react-redux';
 import sofLogo from '../sofLogo.png';
 import LogoutModal from './header/LogoutModal';
 import SearchTip from './header/SearchTip';
+import { loginActions } from '../store/reducer';
 
 const Header = styled.header`
   position: fixed;
@@ -143,6 +145,8 @@ function HeaderAfter() {
   const navigate = useNavigate();
   const [openSearchTip, setOpenSearchTip] = useState(false);
   const [openLogoutModal, setOpenLogoutModal] = useState(false);
+  const dispatch = useDispatch();
+  const isLogin = useSelector(state => state.isLogin);
 
   const onChange = e => {
     e.preventDefault();
@@ -156,13 +160,15 @@ function HeaderAfter() {
     }
   };
 
-  const onOpenSearchTip = () => {
+  const openSearchTip = () => {
     setOpenSearchTip(!openSearchTip);
   };
 
-  const onOpenLogoutModal = () => {
+  const openLogoutModal = () => {
     setOpenLogoutModal(!openLogoutModal);
   };
+
+  console.log('로그인 여부', isLogin);
 
   return (
     <div>
@@ -182,9 +188,9 @@ function HeaderAfter() {
               value={value}
               onChange={onChange}
               onKeyPress={onSearch}
-              onClick={onOpenSearchTip}
+              onClick={openSearchTip}
             />
-            {openSearchTip && <SearchTip onOpenSearchTip={onOpenSearchTip} />}
+            {openSearchTip && <SearchTip openSearchTip={openSearchTip} />}
           </Form>
         </Container>
         <Ol>
@@ -205,9 +211,8 @@ function HeaderAfter() {
           </Li>
           <Li onClick={onOpenLogoutModal}>
             <FontAwesomeIcon icon={faStackExchange} />
-            {/* <Background onClick={onOpenLogoutModal} /> */}
-            {openLogoutModal && <LogoutModal />}
           </Li>
+          {openLogoutModal && <LogoutModal onOpenLogoutModal={onOpenLogoutModal} />}
         </Ol>
       </Header>
       <Blank />
