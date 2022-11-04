@@ -1,8 +1,8 @@
 // import React, { useState, useCallback } from 'react';
 import React from 'react';
 import styled from 'styled-components';
-// import QuestionsHeader from './QuestionsHeader';
 import { Link } from 'react-router-dom';
+import TimeDiff from './TimeDiff';
 
 // 질문 li
 const List = styled.li`
@@ -40,9 +40,8 @@ const Counts = styled.div`
 // 질문
 const Question = styled.article`
   color: #3b4045;
-  /* margin-top: 15px; */
-  /* padding-right: 60px; */
   line-height: 1.3;
+  width: 100%;
 `;
 
 // 질문 제목
@@ -64,7 +63,6 @@ const QuestionTitle = styled(Link)`
 // 질문 내용
 const Content = styled.div`
   display: inline-block;
-  /* width: 99%; */
   color: #3b4045;
   margin-top: 6px;
   overflow: hidden;
@@ -111,7 +109,6 @@ const Tag = styled.button`
 // 유저정보 + 작성일
 const PostInfo = styled.div`
   display: flex;
-  justify-content: flex-end;
 `;
 
 const User = styled.a`
@@ -136,23 +133,17 @@ const UserPic = styled.img`
   margin-right: 4px;
 `;
 
-// 업로드 시간
-const Time = styled.time`
-  color: #6a737c;
-`;
-
 function QuestionsList({
   id,
   answerCount,
   content,
   votes,
   questionTags,
-  updatedAt,
+  createdAt,
   title,
   user,
   viewCount,
 }) {
-  // 시간 계산하여 추가!!
   return (
     <List>
       <Counts>
@@ -176,8 +167,8 @@ function QuestionsList({
           <TagsContainer>{questionTags && questionTags.map(tag => <Tag>{tag}</Tag>)}</TagsContainer>
           <PostInfo>
             <UserPic />
-            <User href="https://stackoverflow.com/users/20315421/seyeon-kim">{user}</User>
-            <Time>asked {updatedAt} secs ago</Time>
+            <User>{user}</User>
+            <TimeDiff createAt={createdAt} />
           </PostInfo>
         </InfoContainer>
       </Question>
