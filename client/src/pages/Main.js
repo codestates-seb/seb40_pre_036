@@ -58,9 +58,8 @@ function Main() {
             answerCount={list.answerCount}
             content={list.content}
             votes={list.votes}
-            questionTags={list.questionTags.tagName}
-            updatedAt={list.pdatedAt}
-            // time={list.time}
+            questionTags={list.questionTags.map(el => el.tagName)}
+            createdAt={list.createdAt}
             title={list.title}
             user={list.user.displayName}
             viewCount={list.view}
