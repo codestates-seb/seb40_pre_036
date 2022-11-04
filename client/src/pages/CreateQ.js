@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 // import axios from 'axios';
 import EditorComp from '../components/EditorComp';
@@ -248,8 +248,8 @@ function CreateQ() {
   const [firstBody, setFirstBody] = useState('');
   const [secondBody, setSecondBody] = useState('');
   const [tags, setTags] = useState([]);
-
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const initialToken = localStorage.getItem('accessToken');
 
   const handleTitleChange = e => {
     setTitle(e.target.value);
@@ -265,19 +265,16 @@ function CreateQ() {
 
   // 질문 추가하기
   const addQuestion = () => {
-    fetch('http://localhost:3001/questions', {
+    fetch('http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/questions/ask', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
+        Authorization: initialToken,
       },
       body: JSON.stringify({
         title,
-        body: firstBody + secondBody,
-        tags,
-        createdAt: new Date().toString(),
-        score: 0,
-        view_count: 0,
-        answer_count: 0,
+        content: firstBody + secondBody,
+        tags: tags.map(tag => ({ tagName: tag })),
       }),
     })
       .then(res => res.json())
@@ -289,6 +286,7 @@ function CreateQ() {
   const handleSubmit = e => {
     e.preventDefault();
     addQuestion();
+    navigate('/questions');
   };
 
   const inputRef = useRef(null);
