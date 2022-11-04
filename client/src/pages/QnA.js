@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import Nav from '../components/Nav';
 import Aside from '../components/Aside';
 import QuestionContent from '../components/qna/QuestionContent';
@@ -10,6 +12,7 @@ import AnswerForm from '../components/qna/AnswerForm';
 
 const Container = styled.div`
   display: flex;
+  margin: 0 5rem 0 3rem;
 `;
 
 const MainContainer = styled.div`
@@ -85,17 +88,60 @@ const RelatedTitle = styled.a`
 `;
 
 function QnA() {
+  const { id } = useParams();
+  console.log(id);
+  const [list, setList] = useState({});
+
+  useEffect(() => {
+    // question list data 요청
+    fetch(`http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`)
+      .then(res => {
+        if (!res.ok) {
+          throw Error('could not fetch the data for that resource');
+        }
+        console.log('요청~!!!!!!!');
+        return res.json();
+      })
+      .then(json => {
+        console.log('json', json);
+        console.log('json.data.answers', json.data.answers);
+        setList(json.data);
+        // console.log('총 질문수!!', data.pageInfo.totalElements);
+        // console.log('data.data', data.data);
+        // setLists(data.data);
+        // setTotalQNum(data.pageInfo.totalElements);
+      })
+      .catch(err => console.log(err));
+  }, []);
+
+  // useEffect(() => {
+  //   axios.get(`http://localhost:3001/questions/${id}`).then(res => {
+  //     console.log('res', res);
+  //     setList(res.data);
+  //   });
+  // }, []);
   return (
     <Container>
       <Nav />
       <MainContainer>
-        <QnAHeader />
+        <QnAHeader
+          title={list.title}
+          view={list.view}
+          createdAt={list.createdAt}
+          updatedAt={list.updatedAt}
+        />
         <ContentContainer>
           <QnAContainer>
-            <QuestionContent />
+            <QuestionContent
+              content={list.content}
+              // tags={list.questionTags}
+              votes={list.votes}
+              id={list.questionId}
+              user={list.user}
+            />
             <QnAComment />
             <AnswerContent />
-            <AnswerForm />
+            <AnswerForm id={id} />
           </QnAContainer>
           <AsideContainer>
             <RelatedContainer>

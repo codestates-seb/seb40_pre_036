@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -140,10 +140,6 @@ function Login() {
       [e.target.name]: e.target.value,
     });
   };
-  // useCallback(() => {
-  //   // const text = e.target.innerText;
-  //   setClicked(path);
-  // }, [clicked]);
 
   async function getLogin() {
     try {

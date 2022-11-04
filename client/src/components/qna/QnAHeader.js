@@ -54,12 +54,11 @@ const PageMove = styled(Link)`
   color: inherit;
 `;
 
-function QnAHeader() {
+function QnAHeader({ title, view }) {
   return (
     <Header>
       <Title>
-        Capture all network requests and full response data when loading a page in Chrome - not
-        working well
+        {title}
         {/* Capture all network requests and full response data when loading a page in Chrome - not
     working well */}
         <PageMove to="/questions/ask">
@@ -77,7 +76,7 @@ function QnAHeader() {
         </div>
         <div>
           Viewed
-          <Time>3 times</Time>
+          <Time>{view} times</Time>
         </div>
       </PostInfo>
     </Header>

@@ -7,6 +7,7 @@ import Pagination from '../components/Pagination';
 
 const Container = styled.div`
   display: flex;
+  margin: 0 5rem 0 3rem;
 `;
 
 const ContentContainer = styled.div`
