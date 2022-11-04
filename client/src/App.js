@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Footer from './components/Footer';
@@ -21,6 +21,7 @@ import GlobalStyle from './styles/GlobalStyle';
 
 function App() {
   const isLogin = useSelector(state => state.isLogin);
+
   return (
     <BrowserRouter>
       <GlobalStyle />

@@ -1,11 +1,12 @@
 import { createSlice, configureStore } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 const initialToken = localStorage.getItem('accessToken');
 const initialState = {
   isLogin: !!initialToken,
   accessToken: initialToken,
-  displayName: null,
-  userId: null,
+  name: '',
+  email: '',
 };
 
 const loginStore = createSlice({
@@ -15,11 +16,14 @@ const loginStore = createSlice({
     login(state, action) {
       const states = state;
       states.isLogin = true;
-      states.userId = action.payload;
-      states.displayName = action.payload.displayName;
-      states.answers = action.payload.answers;
-      states.questions = action.payload.questions;
-      states.tags = action.payload.tags;
+      states.email = action.payload.email;
+      states.name = action.payload.name;
+      // states.userId = action.payload.userId;
+      // states.displayName = action.payload;
+      // states.answers = action.payload.answers;
+      // states.questions = action.payload.questions;
+      // states.tags = action.payload.tags;
+      console.log('payload', action.payload, 'state', state);
     },
     logout(state) {
       const states = state;

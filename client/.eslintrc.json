@@ -6,13 +6,12 @@
     },
     "extends": ["airbnb", "plugin:prettier/recommended"],
     "rules": {
-        "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
-        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-        "default-param-last": "off",
-        "react/prop-types": "off",
-        "no-unused-vars": "warn",
-        "import/prefer-default-export": "off"
-    },
+      "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+      "default-param-last": "off",
+      "react/prop-types": "off",
+      "no-unused-vars": "warn"
+  },
     "settings": {
         "import/resolver": {
           "node": {

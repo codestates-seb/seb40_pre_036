@@ -1,10 +1,14 @@
 import styled from 'styled-components';
-import React from 'react';
+import React, { useState } from 'react';
 import { faIdCard, faInbox, faTrophy, faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { faStackExchange } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useDispatch, useSelector } from 'react-redux';
 import sofLogo from '../sofLogo.png';
+import LogoutModal from './header/LogoutModal';
+import SearchTip from './header/SearchTip';
+import { loginActions } from '../store/reducer';
 
 const Header = styled.header`
   position: fixed;
@@ -65,7 +69,9 @@ const Products = styled.div`
 const Container = styled.div`
   width: 100%;
 `;
+
 const Form = styled.form`
+  position: relative;
   display: flex;
   top: 100%;
   max-width: 100%;
@@ -99,6 +105,7 @@ const Ol = styled.ol`
   display: flex;
   list-style: none;
 `;
+
 const Li = styled.li`
   display: flex;
   align-items: center;
@@ -116,6 +123,10 @@ const Li = styled.li`
     width: 64px;
     margin: 0 5px;
   }
+
+  &:last-child {
+    position: relative;
+  }
 `;
 
 const CardInfo = styled.span`
@@ -130,6 +141,35 @@ const PageMove = styled(Link)`
 `;
 
 function HeaderAfter() {
+  const [value, setValue] = useState('');
+  const navigate = useNavigate();
+  const [openSearchTip, setOpenSearchTip] = useState(false);
+  const [openLogoutModal, setOpenLogoutModal] = useState(false);
+  const dispatch = useDispatch();
+  const isLogin = useSelector(state => state.isLogin);
+
+  const onChange = e => {
+    e.preventDefault();
+    setValue(e.target.value);
+  };
+
+  const onSearch = e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      navigate('/search');
+    }
+  };
+
+  const openSearchTip = () => {
+    setOpenSearchTip(!openSearchTip);
+  };
+
+  const openLogoutModal = () => {
+    setOpenLogoutModal(!openLogoutModal);
+  };
+
+  console.log('로그인 여부', isLogin);
+
   return (
     <div>
       <Header>
@@ -142,7 +182,15 @@ function HeaderAfter() {
             <svg className="search" width="18" height="18" viewBox="0 0 18 18">
               <path d="m18 16.5-5.14-5.18h-.35a7 7 0 1 0-1.19 1.19v.35L16.5 18l1.5-1.5ZM12 7A5 5 0 1 1 2 7a5 5 0 0 1 10 0Z" />
             </svg>
-            <Input placeholder="Search..." />
+            <Input
+              placeholder="Search..."
+              type="search"
+              value={value}
+              onChange={onChange}
+              onKeyPress={onSearch}
+              onClick={openSearchTip}
+            />
+            {openSearchTip && <SearchTip openSearchTip={openSearchTip} />}
           </Form>
         </Container>
         <Ol>
@@ -161,9 +209,10 @@ function HeaderAfter() {
           <Li>
             <FontAwesomeIcon icon={faCircleQuestion} />
           </Li>
-          <Li>
+          <Li onClick={onOpenLogoutModal}>
             <FontAwesomeIcon icon={faStackExchange} />
           </Li>
+          {openLogoutModal && <LogoutModal onOpenLogoutModal={onOpenLogoutModal} />}
         </Ol>
       </Header>
       <Blank />

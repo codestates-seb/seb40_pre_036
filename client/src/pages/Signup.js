@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ReCAPTCHA from 'react-google-recaptcha';
 // import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { signupActions } from '../store/signreducer';
+// import { signupActions } from '../store/signreducer';
 // icon
 import bookmark from '../img/bookmark.png';
 import msg from '../img/msg.png';
