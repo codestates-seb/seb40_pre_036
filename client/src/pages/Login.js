@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import footerLogo from '../footerLogo.png';
 import google from '../img/google.png';
 import github from '../img/github.png';
 import facebook from '../img/facebook.png';
+import { loginActions } from '../store/reducer';
 
 const Container = styled.div`
   background-color: #f1f2f3;
@@ -121,24 +124,60 @@ const SignupGuide = styled.div`
 `;
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  const users = useSelector(state => state.users);
+  const isLogin = useSelector(state => state.isLogin);
+  const navigate = useNavigate();
 
-  const login = () => {
-    const payload = users.find(user => user.email === email && user.password === password);
+  const [isCorrect, setIsCorrect] = useState(false);
+  const [account, setAccount] = useState({
+    email: '',
+    password: '',
+  });
 
-    if (payload) {
-      dispatch({
-        type: 'LOGIN',
-        payload,
-      });
-      alert('Success');
-    } else {
-      alert('정보가 틀렸습니다!');
-    }
+  const onChangeAccount = e => {
+    setAccount({
+      ...account,
+      [e.target.name]: e.target.value,
+    });
   };
+
+  async function getLogin() {
+    try {
+      await axios
+        .post('http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/login', {
+          email: account.email,
+          password: account.password,
+        })
+        .then(data => {
+          dispatch(loginActions.login());
+          localStorage.clear();
+          localStorage.setItem('accessToken', data.headers.authorization);
+          navigate('/questions');
+          alert('로그인 성공!!');
+          // console.log(data.headers.authorization);
+        });
+      // 일치하는 유저가 존재 X
+    } catch (error) {
+      if (error.response.status === 401) {
+        alert('이메일 혹은 비밀번호가 일치하지 않습니다.');
+        console.log(error);
+      } else {
+        alert(error.response.status);
+        console.log(error);
+      }
+    }
+  }
+  console.log('로그인 여부', isLogin);
+
+  // const LoginHandler = e => {
+  //   e.preventDefault();
+  //   isLogin();
+  // };
+
+  // const LogoutHandler = e => {
+  //   e.preventDefault();
+  //   isLogin();
+  // };
 
   return (
     <Container>
@@ -170,16 +209,21 @@ function Login() {
         <InputForm>
           <InputLable>
             <p>Email</p>
-            <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
+            <input name="email" type="text" value={account.email} onChange={onChangeAccount} />
           </InputLable>
           <InputLable>
             <div>
               <p>Password</p>
               <a href="/">Forgot password?</a>
             </div>
-            <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+            <input
+              name="password"
+              type="password"
+              value={account.password}
+              onChange={onChangeAccount}
+            />
           </InputLable>
-          <LoginButton value="Login" onClick={login}>
+          <LoginButton value="Login" onClick={() => getLogin()}>
             Log in
           </LoginButton>
         </InputForm>
