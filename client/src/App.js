@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Footer from './components/Footer';
 import HeaderBefore from './components/HeaderBefore';
-// import HeaderAfter from './components/HeaderAfter';
+import HeaderAfter from './components/HeaderAfter';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
@@ -19,12 +20,12 @@ import Home from './pages/Home';
 import GlobalStyle from './styles/GlobalStyle';
 
 function App() {
+  const isLogin = useSelector(state => state.isLogin);
   return (
     <BrowserRouter>
       <GlobalStyle />
       <div className="App">
-        <HeaderBefore />
-        {/* <HeaderAfter /> */}
+        {isLogin ? <HeaderAfter /> : <HeaderBefore />}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/users/signup" element={<Signup />} />
