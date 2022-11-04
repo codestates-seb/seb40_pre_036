@@ -29,7 +29,7 @@ function Main() {
 
   useEffect(() => {
     // question list data 요청
-    fetch('http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/questions')
+    fetch('http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/questions/')
       .then(res => {
         if (!res.ok) {
           throw Error('could not fetch the data for that resource');

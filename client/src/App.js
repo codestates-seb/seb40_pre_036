@@ -21,6 +21,7 @@ import GlobalStyle from './styles/GlobalStyle';
 
 function App() {
   const isLogin = useSelector(state => state.isLogin);
+
   return (
     <BrowserRouter>
       <GlobalStyle />
