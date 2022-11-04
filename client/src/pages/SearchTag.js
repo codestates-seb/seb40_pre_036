@@ -3,9 +3,11 @@ import styled from 'styled-components';
 import Nav from '../components/Nav';
 import TagsHeader from '../components/searchtags/TagsHeader';
 import TagBox from '../components/searchtags/TagBox';
+import Pagination from '../components/Pagination';
 
 const Container = styled.div`
   display: flex;
+  margin: 0 5rem 0 3rem;
 `;
 
 const ContentContainer = styled.div`
@@ -33,10 +35,17 @@ const TagBoxGrid = styled.ul`
 
 function SearchTag() {
   const [tags, setTags] = useState([]); // setTags
+  const [limit, setLimit] = useState(32);
+  const [page, setPage] = useState(1);
+  const [filter, setfilter] = useState('Popular');
+  const [order, setOrder] = useState('desc');
+  const offset = (page - 1) * limit;
 
   useEffect(() => {
     // name, count 요청
-    fetch('https://api.stackexchange.com/2.3/tags?order=desc&sort=popular&site=stackoverflow')
+    fetch(
+      `https://api.stackexchange.com/2.3/tags?pagesize=100&order=${order}&sort=${filter}&site=stackoverflow`,
+    )
       .then(res => {
         if (!res.ok) {
           throw Error('could not fetch the data for that resource');
@@ -51,18 +60,26 @@ function SearchTag() {
     //     .then(res => res.json())
     //     .then(data => data.items)
     //     .then(items => setTags(items));
-  }, []);
+  }, [filter]);
 
   return (
     <Container>
       <Nav path="Tags" />
       <ContentContainer>
-        <TagsHeader />
+        <TagsHeader setfilter={setfilter} setOrder={setOrder} />
         <TagBoxGrid>
-          {tags.map(tag => (
-            <TagBox key={tag.count} name={tag.name} count={tag.count} />
+          {tags.slice(offset, offset + limit).map((tag, idx) => (
+            <TagBox key={`${idx.toString()}-${tag}`} name={tag.name} count={tag.count} />
           ))}
         </TagBoxGrid>
+        <Pagination
+          total={tags.length}
+          limit={limit}
+          page={page}
+          setPage={setPage}
+          setLimit={setLimit}
+          disable
+        />
       </ContentContainer>
     </Container>
   );

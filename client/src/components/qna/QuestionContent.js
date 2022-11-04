@@ -37,17 +37,18 @@ const Tag = styled.button`
   }
 `;
 
-function QuestionContent() {
+function QuestionContent({ content, tags, votes, id, user }) {
+  // console.log('tags', tags);
+  // console.log('user', user);
   return (
     <Container>
-      <QnASideBar />
+      <QnASideBar votes={votes} />
       <QueContent>
-        <EditorViewr />
+        <EditorViewr content={content} />
         <TagsContainer>
-          <Tag>node.js</Tag>
-          <Tag>puppeteer</Tag>
+          {tags && tags.map((tag, idx) => <Tag key={`${idx.toString()}- ${tag}`}>{tag}</Tag>)}
         </TagsContainer>
-        <ContentMenu path="*/edit" />
+        <ContentMenu path={`${id}/edit`} user={user} />
       </QueContent>
     </Container>
   );
