@@ -33,7 +33,7 @@ function App() {
           <Route path="/users/logout" element={<Logout />} />
           <Route path="/users/login" element={<Login />} />
           <Route path="/questions" element={<Main />} />
-          <Route path="/questions/*" element={<QnA />} />
+          <Route path="/questions/:id" element={<QnA />} />
           <Route path="/tags" element={<SearchTag />} />
           <Route path="/users/*" element={<MyPage />} />
           <Route path="/questions/*/edit" element={<UpdateQ />} />

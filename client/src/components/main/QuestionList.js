@@ -141,12 +141,23 @@ const Time = styled.time`
   color: #6a737c;
 `;
 
-function QuestionsList({ answerCount, body, tags, score, time, title, user, viewCount }) {
+function QuestionsList({
+  id,
+  answerCount,
+  content,
+  votes,
+  questionTags,
+  updatedAt,
+  title,
+  user,
+  viewCount,
+}) {
+  // 시간 계산하여 추가!!
   return (
     <List>
       <Counts>
         <div className="vote">
-          <span className="count">{score} </span>
+          <span className="count">{votes} </span>
           votes
         </div>
         <div>
@@ -159,14 +170,14 @@ function QuestionsList({ answerCount, body, tags, score, time, title, user, view
         </div>
       </Counts>
       <Question>
-        <QuestionTitle to="*">{title}</QuestionTitle>
-        <Content>{body}</Content>
+        <QuestionTitle to={`${id}`}>{title}</QuestionTitle>
+        <Content>{content}</Content>
         <InfoContainer>
-          <TagsContainer>{tags && tags.map(tag => <Tag>{tag}</Tag>)}</TagsContainer>
+          <TagsContainer>{questionTags && questionTags.map(tag => <Tag>{tag}</Tag>)}</TagsContainer>
           <PostInfo>
             <UserPic />
             <User href="https://stackoverflow.com/users/20315421/seyeon-kim">{user}</User>
-            <Time>asked {time} secs ago</Time>
+            <Time>asked {updatedAt} secs ago</Time>
           </PostInfo>
         </InfoContainer>
       </Question>

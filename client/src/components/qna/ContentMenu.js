@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -71,7 +71,17 @@ const UserPic = styled.img`
   margin-right: 4px;
 `;
 
-function ContentMenu({ path }) {
+function ContentMenu({ path, user }) {
+  const [name, setName] = useState('');
+  console.log(user);
+  useEffect(() => {
+    if (user) {
+      if (user.displayName !== 'undefined' && user.displayName !== null) {
+        setName(user.displayName);
+      }
+    }
+  }, []);
+
   return (
     <MenuUserContainer>
       <MenuContainer>
@@ -85,7 +95,7 @@ function ContentMenu({ path }) {
         <Time className="post-time">asked 16 hours ago</Time>
         <UserInfo>
           <UserPic />
-          <User className="post-owner">uxolrv</User>
+          {name && <User className="post-owner">{name}</User>}
         </UserInfo>
       </PostInfoBox>
     </MenuUserContainer>
