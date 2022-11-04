@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
 import Nav from '../components/Nav';
 import EditorComp from '../components/EditorComp';
 
@@ -108,6 +109,26 @@ const Title = styled.h2`
 const Body = styled.div``;
 const Bodyeditor = styled.div``;
 function UpdateA() {
+  const { aid } = useParams();
+  const { qid } = useParams(); // 나중에 받아올때 qid 따로 받아오기
+  const [updateContent, setUpdateContent] = useState('');
+  const initialToken = localStorage.getItem('accessToken');
+  useEffect(() => {
+    fetch(
+      `http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/questions/${qid}/answer/${aid}`,
+    )
+      .then(res => {
+        if (!res.ok) {
+          throw Error('could not fetch the data for that resource');
+        }
+        return res.json();
+      })
+      .then(json => {
+        console.log('json', json);
+        setUpdateContent(json.data);
+      })
+      .catch(err => console.log(err));
+  }, []);
   return (
     <Main>
       <Nav />

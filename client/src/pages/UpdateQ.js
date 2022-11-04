@@ -128,12 +128,12 @@ const Bodyeditor = styled.div`
 function Edit() {
   const { id } = useParams();
   const [updateList, setUpdateList] = useState({});
-  const [updateTitle, setUpdateTitle] = useState('');
-  const [updateContent, setUpdateContent] = useState('');
+  const [updateTitle, setUpdateTitle] = useState(updateList.title);
+  const [updateContent, setUpdateContent] = useState(updateList.content);
   const [updateTags, setUpdateTags] = useState([]);
   const navigate = useNavigate();
   const initialToken = localStorage.getItem('accessToken');
-  console.log(updateList);
+  // console.log(updateList.title); // ['java', 'C++']
   useEffect(() => {
     fetch(`http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`)
       .then(res => {
@@ -143,38 +143,37 @@ function Edit() {
         return res.json();
       })
       .then(json => {
-        console.log('json', json);
-        console.log('json.data.answers', json.data.answers);
+        console.log('json', json.data);
         setUpdateList(json.data);
         setUpdateTitle(json.data.title);
+        setUpdateContent(json.data.content);
+        setUpdateTags(json.data.questionTags);
       })
       .catch(err => console.log(err));
   }, []);
   const handleTitleChange = e => {
+    console.log(e.target.value);
     setUpdateTitle(e.target.value);
   };
-  const handleUpdateChange = e => {
-    setUpdateContent(e.target.value);
+  const handleContentChange = value => {
+    setUpdateContent(value);
   };
   const updateQuestion = () => {
-    fetch(
-      `http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}/edit`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json',
-          Authorization: initialToken,
-        },
-        body: JSON.stringify({
-          title: updateTitle,
-          content: updateContent,
-          tags: updateTags.map(tag => ({ tagName: tag })),
-        }),
+    fetch(`http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: initialToken,
       },
-    )
+      body: JSON.stringify({
+        title: updateTitle,
+        content: updateContent,
+        tags: updateTags.map(tag => ({ tagName: tag })),
+      }),
+    })
       .then(res => res.json())
-      .then(res => {
-        console.log(res);
+      .then(json => {
+        console.log(json.data.title);
       });
   };
   const handleSubmit = e => {
@@ -204,20 +203,17 @@ function Edit() {
                 <Input
                   onChange={handleTitleChange}
                   ref={inputRef}
-                  value={updateList.title || updateTitle}
+                  value={updateTitle}
                   placeholder="e.g.Is there an R function for finding the index of an element in a vector?"
+                  required
                 />
               </Form>
               <Bodyeditor>
                 <h2>Body</h2>
-                <EditorComp onChange={handleUpdateChange} value={updateList.content || ''} />
+                <EditorComp onChange={handleContentChange} value={updateContent} required />
               </Bodyeditor>
               <h2>Tags</h2>
-              <Tag
-                name="tags"
-                updateTags={updateList.map(list => list.questionTags.map(el => el.tagName))}
-                setUpdateTags={setUpdateTags}
-              />
+              <Tag name="tags" Tags={updateTags} setTags={setUpdateTags} />
             </Body>
             <Buttons>
               <Button1 onClick={handleSubmit}>Save Edits</Button1>
