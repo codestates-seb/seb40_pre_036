@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { REGISTER_USER } from '../_actions/type';
 // icon
 import bookmark from '../img/bookmark.png';
 import msg from '../img/msg.png';
@@ -175,8 +173,6 @@ function Signup() {
 
   const dispatch = useDispatch();
   const users = useSelector(state => state.users);
-  const navigate = useNavigate();
-  console.log('users', users);
 
   const register = () => {
     dispatch({
@@ -188,15 +184,14 @@ function Signup() {
         password,
       },
     });
-    alert('가입성공!');
   };
   return (
     <Container>
       <Content>
         {/* 가입 확인 화면 표시 */}
-        {/* {users.map(user => (
+        {users.map(user => (
           <div key={user.id}>{user.email}</div>
-        ))} */}
+        ))}
         <LeftBox>
           <LeftContent>
             <h1>Join the Stack Overflow community</h1>
