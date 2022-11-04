@@ -15,16 +15,11 @@ const loginStore = createSlice({
   name: 'isLogin',
   initialState,
   reducers: {
-    Login(state, action) {
+    login(state) {
       const states = state;
       states.isLogin = true;
-      states.userId = action.payload.userId;
-      states.displayName = action.payload.displayName;
-      states.answers = action.payload.answers;
-      states.questions = action.payload.questions;
-      states.tags = action.payload.tags;
     },
-    Logout(state) {
+    logout(state) {
       const states = state;
       states.isLogin = false;
     },

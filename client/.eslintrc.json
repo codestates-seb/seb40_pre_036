@@ -10,7 +10,8 @@
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "default-param-last": "off",
         "react/prop-types": "off",
-        "no-underscore-dangle": "off"
+        "no-underscore-dangle": "off",
+        "no-unused-vars": "warn"
     },
     "settings": {
         "import/resolver": {

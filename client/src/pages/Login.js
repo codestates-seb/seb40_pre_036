@@ -1,14 +1,13 @@
 import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import footerLogo from '../footerLogo.png';
 import google from '../img/google.png';
 import github from '../img/github.png';
 import facebook from '../img/facebook.png';
-
-import { loginAction } from '../store/reducer';
+import { loginActions } from '../store/reducer';
 
 const Container = styled.div`
   background-color: #f1f2f3;
@@ -130,7 +129,6 @@ function Login() {
   const navigate = useNavigate();
 
   const [isCorrect, setIsCorrect] = useState(false);
-  console.log(isLogin, isCorrect);
   const [account, setAccount] = useState({
     email: '',
     password: '',
@@ -141,43 +139,49 @@ function Login() {
       ...account,
       [e.target.name]: e.target.value,
     });
-
-    console.log('account', account);
-    console.log('account.email', account.email);
-    console.log('account.password', account.password);
   };
   // useCallback(() => {
   //   // const text = e.target.innerText;
   //   setClicked(path);
   // }, [clicked]);
 
-  const getLogin = useCallback(() => {
-    // DB에 일치하는 유저가 있는 지 확인
-    axios.get('http://localhost:3001/users').then(res => {
-      console.log('res', res);
-      const correctUser = res.data.filter(
-        user => user.email === account.email && user.password === account.password,
-      );
-      console.log('correctUser', correctUser);
-      // 일치하는 유저가 존재
-      if (correctUser) {
-        console.log('email은?', account.email);
-        console.log('pw?', account.password);
-        setIsCorrect(true);
-        // 일치한다면, 로그인 요청
-        axios.post('http://localhost:3001/login', account).then(data => {
-          dispatch(loginAction.login());
+  async function getLogin() {
+    try {
+      await axios
+        .post('http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/login', {
+          email: account.email,
+          password: account.password,
+        })
+        .then(data => {
+          dispatch(loginActions.login());
           localStorage.clear();
-          localStorage.setItem(data.accessToken);
+          localStorage.setItem('accessToken', data.headers.authorization);
           navigate('/questions');
-          alert('성공!!');
+          alert('로그인 성공!!');
+          // console.log(data.headers.authorization);
         });
-        // 일치하는 유저가 존재 X
+      // 일치하는 유저가 존재 X
+    } catch (error) {
+      if (error.response.status === 401) {
+        alert('이메일 혹은 비밀번호가 일치하지 않습니다.');
+        console.log(error);
       } else {
-        setIsCorrect(false);
+        alert(error.response.status);
+        console.log(error);
       }
-    });
-  }, []);
+    }
+  }
+  console.log('로그인 여부', isLogin);
+
+  // const LoginHandler = e => {
+  //   e.preventDefault();
+  //   isLogin();
+  // };
+
+  // const LogoutHandler = e => {
+  //   e.preventDefault();
+  //   isLogin();
+  // };
 
   return (
     <Container>
@@ -210,7 +214,6 @@ function Login() {
           <InputLable>
             <p>Email</p>
             <input name="email" type="text" value={account.email} onChange={onChangeAccount} />
-            {/* <input type="text" value={email} onChange={e => setEmail(e.target.value)} /> */}
           </InputLable>
           <InputLable>
             <div>
@@ -223,9 +226,8 @@ function Login() {
               value={account.password}
               onChange={onChangeAccount}
             />
-            {/* <input type="password" value={password} onChange={e => setPassword(e.target.value)} /> */}
           </InputLable>
-          <LoginButton value="Login" onClick={getLogin}>
+          <LoginButton value="Login" onClick={() => getLogin()}>
             Log in
           </LoginButton>
         </InputForm>
