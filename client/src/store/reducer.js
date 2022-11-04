@@ -4,11 +4,8 @@ const initialToken = localStorage.getItem('accessToken');
 const initialState = {
   isLogin: !!initialToken,
   accessToken: initialToken,
-  userId: '',
-  displayName: '',
-  answers: [],
-  questions: [],
-  tags: [],
+  displayName: null,
+  userId: null,
 };
 
 const loginStore = createSlice({
