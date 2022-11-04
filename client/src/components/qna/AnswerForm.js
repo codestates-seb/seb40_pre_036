@@ -1,4 +1,5 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import EditorComp from '../EditorComp';
 
@@ -38,12 +39,15 @@ const EditorContainer = styled.div`
   margin-bottom: 30px;
 `;
 
-function AnswerForm({ content, setContent, createAnswer }) {
-  const handleFormChange = e => {
-    setContent(e);
-    console.log('content', content);
-  };
+function AnswerForm({ id }) {
+  const [answerContent, setAnswerContent] = useState('');
 
+  // onClick={createAnswer}
+  useEffect(() => {
+    axios.post(
+      `http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`,
+    );
+  }, []);
   return (
     <AnswerContainer>
       <AnsContent>
@@ -53,11 +57,9 @@ function AnswerForm({ content, setContent, createAnswer }) {
         </p>
         <h2>Your Answer</h2>
         <EditorContainer>
-          <EditorComp value={content} onChange={handleFormChange} />
+          <EditorComp setAnswerContent={setAnswerContent} />
         </EditorContainer>
-        <PostBtn type="submit" onClick={createAnswer}>
-          Post Your Answer
-        </PostBtn>
+        <PostBtn type="submit">Post Your Answer</PostBtn>
       </AnsContent>
     </AnswerContainer>
   );

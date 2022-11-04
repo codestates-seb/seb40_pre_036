@@ -34,14 +34,15 @@ const Count = styled.div`
   cursor: text;
 `;
 
-function QnASideBar() {
+function QnASideBar({ votes }) {
+  // 투표 버튼 누를 때마다 투표 수 변경 요청을 보내야하니까 score를 props로 내려받지 말고 여기서 요청해야하나?
   return (
     <SideBar>
       <VoteBtn type="button">
         <Icon aria-hidden="true" width="36" height="36" viewBox="0 0 36 36">
           <path d="M2 25h32L18 9 2 25Z" />
         </Icon>
-        <Count>0</Count>
+        <Count>{votes}</Count>
         <Icon aria-hidden="true" width="36" height="36" viewBox="0 0 36 36">
           <path d="M2 11h32L18 27 2 11Z" />
         </Icon>
