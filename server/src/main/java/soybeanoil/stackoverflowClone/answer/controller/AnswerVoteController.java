@@ -32,14 +32,14 @@ public class AnswerVoteController {
         this.answerVoteMapper = answerVoteMapper;
     }
 
-    @PostMapping("{answer-id}/votes/{vote}")
+    @PostMapping("{answer-id}/votes")
     public ResponseEntity voteAnswer(@PathVariable("answer-id") @Positive @NotNull long answerId,
-                                     @RequestParam(value = "vote", defaultValue = "0") int vote) {
+                                     @RequestParam(value = "ansVote", defaultValue = "0") int ansVote) {
 
-        AnswerVote answerVote = answerVoteService.voteAnswer(answerId, vote);
+        AnswerVote answerVote = answerVoteService.voteAnswer(answerId, ansVote);
 
         return new ResponseEntity<>(
-                new SingleResponseDto<>(answerVoteMapper.answerVoteToResponseDto(answerVote)), HttpStatus.OK);
+                new SingleResponseDto<>(answerVoteMapper.answerVoteToAnswerVoteDto(answerVote)), HttpStatus.OK);
     }
 }
 //    @GetMapping("{answer-id}/votes")

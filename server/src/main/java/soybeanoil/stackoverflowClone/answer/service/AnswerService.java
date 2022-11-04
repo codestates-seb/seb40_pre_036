@@ -6,7 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import soybeanoil.stackoverflowClone.answer.entity.Answer;
-import soybeanoil.stackoverflowClone.answer.entity.AnswerVote;
+
 import soybeanoil.stackoverflowClone.answer.repository.AnswerRepository;
 import soybeanoil.stackoverflowClone.exception.BusinessLogicException;
 import soybeanoil.stackoverflowClone.exception.ExceptionCode;
@@ -43,7 +43,7 @@ public class AnswerService {
         return findAnswer;
     }
 
-    private Answer findVerifiedAnswer(Long answerId) {  // SOF-A-002 답변 맞는지 확인
+    public Answer findVerifiedAnswer(Long answerId) {  // SOF-A-002 답변 맞는지 확인
         Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
         Answer findAnswer = optionalAnswer.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));

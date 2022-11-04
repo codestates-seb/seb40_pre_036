@@ -19,7 +19,7 @@ public class AnswerVote extends Auditable{
     private Long answerVoteId;
 
     @Column
-    private int answerVote = 0;
+    private int ansVote = 0;
 
     @ManyToOne // 한 명의 user는 여러개의 vote를 가진다.
     @JoinColumn(name = "USER_ID")

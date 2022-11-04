@@ -14,7 +14,7 @@ public interface AnswerVoteRepository extends JpaRepository<AnswerVote, Long> {
         AnswerVote findByAnswerAndUser(Answer answer, User user);
         List<AnswerVote> findAllByAnswer(long answerId);
 
-    @Query("SELECT sum(qv.answerVote) from AnswerVote qv where qv.answer.answerId = :answerId")
+    @Query("SELECT sum(qv.ansVote) from AnswerVote qv where qv.answer.answerId = :answerId")
     int findVoteValue(@Param("answerId") long answerId);
 
 }

@@ -24,7 +24,7 @@ public class AnswerVoteService {
         this.answerVoteRepository = answerVoteRepository;
     }
 
-    public AnswerVote voteAnswer(long answerId, int vote) {
+    public AnswerVote voteAnswer(long answerId, int ansVote) {
 
             User user = userService.getLoginUser();
 
@@ -36,13 +36,13 @@ public class AnswerVoteService {
                 AnswerVote newVote = new AnswerVote();
                 newVote.addAnswer(answerService.findAnswer(answerId));
                 newVote.addUser(user);
-                newVote.setAnswerVote(vote);
+                newVote.setAnsVote(ansVote);
                 answerVoteRepository.save(newVote);
                 answerService.refreshVotes(answerId);
                 return newVote;
 
             } else {
-                answerVote.setAnswerVote(vote);
+                answerVote.setAnsVote(ansVote);
                 answerVoteRepository.save(answerVote);
                 answerService.refreshVotes(answerId);
                 return answerVote;
@@ -56,8 +56,8 @@ public class AnswerVoteService {
 //    }
 
     public int getVotes(long answerId) {
-        int votes = answerVoteRepository.findVoteValue(answerId);
-        return votes;
+        int ansVote = answerVoteRepository.findVoteValue(answerId);
+        return ansVote;
     }
 
 }
