@@ -77,7 +77,7 @@ function Pagination({ total, limit, page, setPage, setLimit, disable }) {
           .fill()
           .map((_, i) => (
             <Button
-              // key={i + 1}
+              key={`${i.toString()}-${page}`}
               onClick={() => setPage(i + 1)}
               aria-current={page === i + 1 ? 'page' : null}
             >
