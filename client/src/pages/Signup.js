@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import ReCAPTCHA from 'react-google-recaptcha';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import ReCAPTCHA from 'react-google-recaptcha';
+// import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { signupActions } from '../store/signreducer';
 // icon
 import bookmark from '../img/bookmark.png';
 import msg from '../img/msg.png';
@@ -11,7 +13,7 @@ import vote from '../img/vote.png';
 import google from '../img/google.png';
 import github from '../img/github.png';
 import facebook from '../img/facebook.png';
-// Chptcha
+
 function onChange(value) {
   console.log('Captcha value:', value);
 }
@@ -168,31 +170,55 @@ const ConsentGuide = styled.div`
 `;
 
 function Signup() {
-  const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-
   const dispatch = useDispatch();
-  const users = useSelector(state => state.users);
+  const isLogin = useSelector(state => state.isLogin);
 
-  const register = () => {
-    dispatch({
-      type: 'REGISTER',
-      payload: {
-        id: new Date().getTime(),
-        username,
-        email,
-        password,
-      },
+  // const navigate = useNavigate();
+
+  const [account, setAccount] = useState({
+    displayName: '',
+    email: '',
+    password: '',
+  });
+
+  const onChangeAccount = e => {
+    setAccount({
+      ...account,
+      [e.target.name]: e.target.value,
     });
   };
+
+  async function getSignup() {
+    try {
+      await axios
+        .post('http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/users/signup', {
+          displayName: account.displayName,
+          email: account.email,
+          password: account.password,
+        })
+        .then(data => {
+          dispatch(signupActions.register());
+          localStorage.clear();
+          localStorage.setItem('accessToken', data.headers.authorization);
+          // navigate('/questions');
+          alert('회원가입 성공');
+          // console.log(data.headers.authorization);
+        });
+      // 일치하는 유저가 존재 X
+    } catch (error) {
+      if (error.response.status === 401) {
+        alert('이메일 혹은 비밀번호가 일치하지 않습니다.');
+        console.log(error);
+      } else {
+        alert(error.response.status);
+        console.log(error);
+      }
+    }
+  }
+  console.log('회원 가입 여부', isLogin);
   return (
     <Container>
       <Content>
-        {/* 가입 확인 화면 표시 */}
-        {users.map(user => (
-          <div key={user.id}>{user.email}</div>
-        ))}
         <LeftBox>
           <LeftContent>
             <h1>Join the Stack Overflow community</h1>
@@ -242,15 +268,25 @@ function Signup() {
           <InputForm>
             <InputLable>
               <p>Display name</p>
-              <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
+              <input
+                name="displayName"
+                type="text"
+                value={account.displayName}
+                onChange={onChangeAccount}
+              />
             </InputLable>
             <InputLable>
-              <p>Email</p>
-              <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
+              <p>email</p>
+              <input name="email" type="email" value={account.email} onChange={onChangeAccount} />
             </InputLable>
             <InputLable>
-              <p>Password</p>
-              <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+              <p>password</p>
+              <input
+                name="password"
+                type="password"
+                value={account.password}
+                onChange={onChangeAccount}
+              />
               <span>
                 Passwords must contain at least eight characters, including at least 1 letter and 1
                 number.
@@ -266,7 +302,7 @@ function Signup() {
                 announcements, and digests.
               </p>
             </ConcentBox>
-            <SignUpButton value="Register" onClick={register}>
+            <SignUpButton type="submit" onClick={() => getSignup()}>
               Sign in
             </SignUpButton>
             <ConsentGuide>

@@ -128,7 +128,6 @@ function Login() {
   const isLogin = useSelector(state => state.isLogin);
   const navigate = useNavigate();
 
-  const [isCorrect, setIsCorrect] = useState(false);
   const [account, setAccount] = useState({
     email: '',
     password: '',
@@ -153,7 +152,6 @@ function Login() {
           localStorage.clear();
           localStorage.setItem('accessToken', data.headers.authorization);
           navigate('/questions');
-          alert('로그인 성공!!');
           // console.log(data.headers.authorization);
         });
       // 일치하는 유저가 존재 X
