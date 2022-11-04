@@ -71,16 +71,17 @@ const UserPic = styled.img`
   margin-right: 4px;
 `;
 
-function ContentMenu({ path, user }) {
-  const [name, setName] = useState('');
-  console.log(user);
+function ContentMenu({ path, questionUser }) {
+  const [questionUserName, setQuestionUserName] = useState('');
+  const [answerUserName, setAnswerUserName] = useState('');
+
   useEffect(() => {
-    if (user) {
-      if (user.displayName !== 'undefined' && user.displayName !== null) {
-        setName(user.displayName);
+    if (questionUser) {
+      if (questionUser.displayName !== 'undefined' && questionUser.displayName !== null) {
+        setQuestionUserName(questionUser.displayName);
       }
     }
-  }, []);
+  }, [questionUser]);
 
   return (
     <MenuUserContainer>
@@ -95,7 +96,7 @@ function ContentMenu({ path, user }) {
         <Time className="post-time">asked 16 hours ago</Time>
         <UserInfo>
           <UserPic />
-          {name && <User className="post-owner">{name}</User>}
+          <User className="post-owner">{questionUserName}</User>
         </UserInfo>
       </PostInfoBox>
     </MenuUserContainer>

@@ -43,11 +43,11 @@ function AnswerForm({ id }) {
   const [answerContent, setAnswerContent] = useState('');
 
   // onClick={createAnswer}
-  useEffect(() => {
-    axios.post(
-      `http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`,
-    );
-  }, []);
+  // useEffect(() => {
+  //   axios.post(
+  //     `http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`,
+  //   );
+  // }, []);
   return (
     <AnswerContainer>
       <AnsContent>
