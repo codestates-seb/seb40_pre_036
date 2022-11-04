@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import ask from '../img/logout/ask.png';
 import math from '../img/logout/math.png';
 import server from '../img/logout/server.png';
@@ -7,6 +9,7 @@ import stackapp from '../img/logout/stackapp.jfif';
 import stackchange from '../img/logout/stackchange.png';
 import superuser from '../img/logout/superuser.png';
 import stackover from '../img/logout/stackover.png';
+import { loginActions } from '../store/reducer';
 
 const Container = styled.div`
   background-color: #f1f2f3;
@@ -100,6 +103,14 @@ const Explanation = styled.h2`
 `;
 
 function Logout() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  function logoutHandler() {
+    dispatch(loginActions.logout());
+    localStorage.clear();
+    navigate('/questions');
+  }
   return (
     <Container>
       <LogoutTitle>
@@ -143,7 +154,7 @@ function Logout() {
             <span>Log out on all devices</span>
           </DeviceLogoutBox>
           <LoginChoiceBox>
-            <LogoutButton>Log out</LogoutButton>
+            <LogoutButton onClick={() => logoutHandler()}>Log out</LogoutButton>
             <CancelButton>Cancel</CancelButton>
           </LoginChoiceBox>
           <Explanation>
