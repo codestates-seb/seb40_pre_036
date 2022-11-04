@@ -99,7 +99,7 @@ const Background = styled.div`
   background: transparent;
 `;
 
-function SearchTip({ onOpenSearchTip }) {
+function SearchTip({ handlerSearchTip }) {
   const navigate = useNavigate();
 
   const onClick = () => {
@@ -107,8 +107,8 @@ function SearchTip({ onOpenSearchTip }) {
   };
 
   return (
-    <SearchHints onOpenSearchTip={onOpenSearchTip}>
-      <Background onClick={onOpenSearchTip} />
+    <SearchHints handlerSearchTip={handlerSearchTip}>
+      <Background onClick={handlerSearchTip} />
       <div className="arrow" />
       <SearchHintsText>
         <SearchHintsItem>
