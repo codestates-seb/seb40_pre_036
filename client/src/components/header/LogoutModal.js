@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { userActions } from '../../store/userReducer';
 
 const LogoutBox = styled.div`
   padding: 15px;
@@ -59,16 +61,19 @@ const Background = styled.div`
   background: transparent;
 `;
 
-function LogoutModal({ onOpenLogoutModal }) {
+function LogoutModal({ handlerLogoutModal }) {
+  const userName = useSelector(state => state.name);
+  console.log('이름', userName);
+
   return (
     <LogoutBox>
-      <Background onClick={onOpenLogoutModal} />
+      <Background onClick={handlerLogoutModal} />
       <img
         src="https://mblogthumb-phinf.pstatic.net/MjAyMDA2MTBfMTY1/MDAxNTkxNzQ2ODcyOTI2.Yw5WjjU3IuItPtqbegrIBJr3TSDMd_OPhQ2Nw-0-0ksg.8WgVjtB0fy0RCv0XhhUOOWt90Kz_394Zzb6xPjG6I8gg.PNG.lamute/user.png?type=w800"
         className="user"
         alt="user"
       />
-      <span>유저네임</span>
+      <span>{userName}</span>
       <span>유저이메일</span>
       <LogoutBtn>Log out</LogoutBtn>
     </LogoutBox>

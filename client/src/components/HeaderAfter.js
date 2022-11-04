@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import sofLogo from '../sofLogo.png';
 import LogoutModal from './header/LogoutModal';
 import SearchTip from './header/SearchTip';
-import { loginActions } from '../store/reducer';
+import { searchActions } from '../store/searchReducer';
 
 const Header = styled.header`
   position: fixed;
@@ -146,7 +146,7 @@ function HeaderAfter() {
   const [openSearchTip, setOpenSearchTip] = useState(false);
   const [openLogoutModal, setOpenLogoutModal] = useState(false);
   const dispatch = useDispatch();
-  const isLogin = useSelector(state => state.isLogin);
+  const search = useSelector(state => state.search);
 
   const onChange = e => {
     e.preventDefault();
@@ -158,17 +158,20 @@ function HeaderAfter() {
       e.preventDefault();
       navigate('/search');
     }
+    // dispatch(
+    //   searchActions.search(keword: value)
+    // )
   };
 
-  const openSearchTip = () => {
+  const handlerSearchTip = () => {
     setOpenSearchTip(!openSearchTip);
   };
 
-  const openLogoutModal = () => {
+  const handlerLogoutModal = () => {
     setOpenLogoutModal(!openLogoutModal);
   };
 
-  console.log('로그인 여부', isLogin);
+  console.log('검색', search, 'value', value);
 
   return (
     <div>
@@ -188,9 +191,9 @@ function HeaderAfter() {
               value={value}
               onChange={onChange}
               onKeyPress={onSearch}
-              onClick={openSearchTip}
+              onClick={handlerSearchTip}
             />
-            {openSearchTip && <SearchTip openSearchTip={openSearchTip} />}
+            {openSearchTip && <SearchTip handlerSearchTip={handlerSearchTip} />}
           </Form>
         </Container>
         <Ol>
@@ -209,10 +212,10 @@ function HeaderAfter() {
           <Li>
             <FontAwesomeIcon icon={faCircleQuestion} />
           </Li>
-          <Li onClick={onOpenLogoutModal}>
+          <Li onClick={handlerLogoutModal}>
             <FontAwesomeIcon icon={faStackExchange} />
           </Li>
-          {openLogoutModal && <LogoutModal onOpenLogoutModal={onOpenLogoutModal} />}
+          {openLogoutModal && <LogoutModal handlerLogoutModal={handlerLogoutModal} />}
         </Ol>
       </Header>
       <Blank />
