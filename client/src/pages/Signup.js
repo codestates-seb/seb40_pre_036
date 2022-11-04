@@ -2,12 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useDispatch, useSelector } from 'react-redux';
-<<<<<<< HEAD
-import { registerUser } from '../redux/actions/userAction';
-=======
 import { useNavigate } from 'react-router-dom';
-import { REGISTER_USER } from '../_actions/type';
->>>>>>> 1f2dcb5e39fd4fbd0cabd9f0c14b8cc462ef42ad
 // icon
 import bookmark from '../img/bookmark.png';
 import msg from '../img/msg.png';
@@ -179,17 +174,6 @@ function Signup() {
 
   const dispatch = useDispatch();
   const users = useSelector(state => state.users);
-<<<<<<< HEAD
-  console.log('users', users);
-  const register = () => {
-    const body = {
-      email,
-      name: username,
-      password,
-    };
-    dispatch(registerUser(body));
-    alert('가입완료!!!');
-=======
   const navigate = useNavigate();
   console.log('users', users);
 
@@ -204,7 +188,6 @@ function Signup() {
       },
     });
     alert('가입성공!');
->>>>>>> 1f2dcb5e39fd4fbd0cabd9f0c14b8cc462ef42ad
   };
   return (
     <Container>
