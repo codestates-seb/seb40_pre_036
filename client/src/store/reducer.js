@@ -15,7 +15,7 @@ const loginStore = createSlice({
     login(state, action) {
       const states = state;
       states.isLogin = true;
-      states.userId = action.payload.userId;
+      states.userId = action.payload;
       states.displayName = action.payload.displayName;
       states.answers = action.payload.answers;
       states.questions = action.payload.questions;
