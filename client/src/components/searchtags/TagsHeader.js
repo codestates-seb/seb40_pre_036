@@ -1,14 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
 const Header = styled.header`
   display: flex;
   flex-direction: column;
-  /* width: 730px; */
-  /* height: 114px; */
-  /* padding: 20px 20px 10px 20px; */
   padding-bottom: 16px;
-  /* border-bottom: 1px solid #e3e6e8; */
   font-size: 13px;
   color: #232639;
   line-height: 1.4;
@@ -78,10 +74,6 @@ const Input = styled.input`
 `;
 
 const FilterContainer = styled.div`
-  /* display: flex; */
-  /* justify-content: space-between; */
-  /* align-items: center;
-  justify-content: space-between; */
   vertical-align: baseline;
   border: 1px solid rgb(148, 156, 163);
   border-radius: 5px;
@@ -106,7 +98,7 @@ const FilterBtn = styled.button`
     border-bottom-right-radius: 5px 5px;
   }
 
-  &.clicked {
+  &.filtered {
     background-color: #e3e6e8;
     color: #3b4045;
     pointer-events: none;
@@ -118,18 +110,19 @@ const FilterBtn = styled.button`
   }
 `;
 
-function TagsHeader({ setfilter, setOrder }) {
-  const [clicked, setClicked] = useState('Popular');
-
-  const onBtnClick = useCallback(e => {
-    setClicked(e.target.innerText);
-    setfilter(e.target.innerText);
+function TagsHeader({ setFilter, filter, setOrder, setValue, value }) {
+  const handleBtnClick = useCallback(e => {
+    setFilter(e.target.innerText);
     if (e.target.innerText === 'Name') {
       setOrder('asc');
     } else {
       setOrder('desc');
     }
   }, []);
+
+  const handleInputChange = e => {
+    setValue(e.target.value);
+  };
 
   return (
     <Header>
@@ -144,18 +137,23 @@ function TagsHeader({ setfilter, setOrder }) {
           <svg className="search" width="18" height="18" viewBox="0 0 18 18">
             <path d="m18 16.5-5.14-5.18h-.35a7 7 0 1 0-1.19 1.19v.35L16.5 18l1.5-1.5ZM12 7A5 5 0 1 1 2 7a5 5 0 0 1 10 0Z" />
           </svg>
-          <Input placeholder="Filter by tag name" type="text" />
+          <Input
+            placeholder="Filter by tag name"
+            type="text"
+            value={value}
+            onChange={handleInputChange}
+          />
         </Form>
         <FilterContainer>
           <FilterBtn
-            onClick={onBtnClick}
-            className={clicked === 'Newest' ? 'left-btn clicked' : 'left-btn'}
+            onClick={handleBtnClick}
+            className={filter === 'Popular' ? 'left-btn filtered' : 'left-btn'}
           >
             Popular
           </FilterBtn>
           <FilterBtn
-            onClick={onBtnClick}
-            className={clicked === 'Hot' ? 'right-btn clicked' : 'right-btn'}
+            onClick={handleBtnClick}
+            className={filter === 'Name' ? 'right-btn filtered' : 'right-btn'}
           >
             Name
           </FilterBtn>
