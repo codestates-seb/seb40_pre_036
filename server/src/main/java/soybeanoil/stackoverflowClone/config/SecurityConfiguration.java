@@ -38,10 +38,11 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .headers().frameOptions().sameOrigin()
-                .and()
+//                .headers().frameOptions().sameOrigin()
+//                .and()
                 .csrf().disable()
-                .cors(withDefaults())
+                .cors().configurationSource(corsConfigurationSource())
+                .and()
                 // jwt 같은 토큰 방식 사용 시, 세션 생성하지 않는 무상태성 설정
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -56,6 +57,7 @@ public class SecurityConfiguration {
                         .antMatchers(HttpMethod.POST, "/questions/**").hasRole("USER") // 질문, 답변 등록
                         .antMatchers(HttpMethod.PATCH, "/questions/**").hasRole("USER") // 질문, 답변 수정
                         .antMatchers(HttpMethod.DELETE, "/questions/**").hasRole("USER") // 질문, 답변 삭제
+                        .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .anyRequest().permitAll()
                 );
         return http.build();
@@ -70,9 +72,16 @@ public class SecurityConfiguration {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
+//        configuration.addAllowedOrigin("*");
+//        configuration.addAllowedHeader("*");
+//        configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true); // 자바스크립트에서 JSON 처리 가능
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PATCH", "DELETE"));
+
+        configuration.addAllowedOriginPattern("*");
+//        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("*"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.addExposedHeader("Authorization");
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
