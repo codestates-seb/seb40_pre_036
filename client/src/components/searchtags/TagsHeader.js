@@ -118,12 +118,17 @@ const FilterBtn = styled.button`
   }
 `;
 
-function TagsHeader() {
-  const [clicked, setClicked] = useState('Newest');
+function TagsHeader({ setfilter, setOrder }) {
+  const [clicked, setClicked] = useState('Popular');
 
   const onBtnClick = useCallback(e => {
-    // console.log(e);
     setClicked(e.target.innerText);
+    setfilter(e.target.innerText);
+    if (e.target.innerText === 'Name') {
+      setOrder('asc');
+    } else {
+      setOrder('desc');
+    }
   }, []);
 
   return (

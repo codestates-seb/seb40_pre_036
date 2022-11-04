@@ -88,7 +88,7 @@ const FilterBtn = styled.button`
   }
 `;
 
-function QuestionListHeader() {
+function QuestionListHeader({ totalQNum }) {
   const [clicked, setClicked] = useState('Newest');
 
   // const onBtnClick = useCallback(
@@ -117,7 +117,7 @@ function QuestionListHeader() {
         </PageMove>
       </Info>
       <BtnContainer>
-        <div className="questions-num">23,142,797 questions</div>
+        <div className="questions-num">{totalQNum} questions</div>
         <FilterContainer>
           <FilterBtn
             onClick={onBtnClick}
