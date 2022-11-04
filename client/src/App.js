@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Footer from './components/Footer';
@@ -32,7 +32,7 @@ function App() {
           <Route path="/users/logout" element={<Logout />} />
           <Route path="/users/login" element={<Login />} />
           <Route path="/questions" element={<Main />} />
-          <Route path="/questions/*" element={<QnA />} />
+          <Route path="/questions/:id" element={<QnA />} />
           <Route path="/tags" element={<SearchTag />} />
           <Route path="/users/:id" element={<MyPage />} />
           <Route path="/questions/:id/edit" element={<UpdateQ />} />
