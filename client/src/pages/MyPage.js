@@ -4,12 +4,11 @@ import { faUser, faCake, faClock, faPencil } from '@fortawesome/free-solid-svg-i
 import { faCalendarDays } from '@fortawesome/free-regular-svg-icons';
 import { faStackExchange } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Routes, Route, Link, useLocation } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { Routes, Route, Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import Nav from '../components/Nav';
 import Acitivity from '../components/mypages/Acitivity';
 import Settings from '../components/mypages/Settings';
-import { userActions } from '../store/userReducer';
 
 const Main = styled.div`
   display: flex;
@@ -128,8 +127,6 @@ function Mypage() {
     })
       .then(res => res.json())
       .then(data => {
-        dispatch(userActions.setName(data.data.displayName));
-        dispatch(userActions.setEmail(data.data.email));
         setUser(data.data);
       });
   };

@@ -1,7 +1,8 @@
 import styled from 'styled-components';
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import sofLogo from '../sofLogo.png';
+import SearchTip from './header/SearchTip';
 
 const Header = styled.header`
   position: fixed;
@@ -137,6 +138,27 @@ const PageMove = styled(Link)`
 `;
 
 function HeaderBefore() {
+  const [value, setValue] = useState('');
+  const navigate = useNavigate();
+  const [openSearchTip, setOpenSearchTip] = useState(false);
+
+  const onChange = e => {
+    e.preventDefault();
+    setValue(e.target.value);
+    setOpenSearchTip();
+  };
+
+  const onSearch = e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      navigate(`/search?q=${value}`);
+    }
+  };
+
+  const handlerSearchTip = () => {
+    setOpenSearchTip(!openSearchTip);
+  };
+
   return (
     <div>
       <Header>
@@ -153,7 +175,14 @@ function HeaderBefore() {
             <svg className="search" width="18" height="18" viewBox="0 0 18 18">
               <path d="m18 16.5-5.14-5.18h-.35a7 7 0 1 0-1.19 1.19v.35L16.5 18l1.5-1.5ZM12 7A5 5 0 1 1 2 7a5 5 0 0 1 10 0Z" />
             </svg>
-            <Input placeholder="Search..." type="text" />
+            <Input
+              placeholder="Search..."
+              type="text"
+              onChange={onChange}
+              onKeyPress={onSearch}
+              onClick={handlerSearchTip}
+            />
+            {openSearchTip && <SearchTip handlerSearchTip={handlerSearchTip} />}
           </Form>
         </Container>
         <PageMove to="/users/login">

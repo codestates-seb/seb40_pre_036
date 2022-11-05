@@ -1,7 +1,8 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import Nav from '../components/Nav';
 import Aside from '../components/Aside';
+import Pagination from '../components/Pagination';
 
 const SearchPage = styled.div`
   display: flex;
@@ -281,11 +282,25 @@ const Time = styled.time`
 
 function Search() {
   const [clicked, setClicked] = useState();
+  // const [lists, setLists] = useState([]);
+  // const [page, setPage] = useState(1);
+  // const [limit, setLimit] = useState(15)
+  // const [totalQNum, setTotalQNum] = useState(0);
+  // const offset = (page - 1) * limit;
+
+  console.log(window.location);
+  console.log(window.location.search);
+
+  const params = new URLSearchParams(window.location.search);
+  const keyword = params.get('q');
+  console.log('검색 키워드 :', keyword);
 
   const onClick = useCallback(e => {
     const text = e.target.innerText;
     setClicked(text);
   }, []);
+
+  useEffect(() => {}, []);
 
   return (
     <SearchPage>
@@ -376,6 +391,13 @@ function Search() {
             </List>
           </ResultList>
         </Results>
+        {/* <Pagination
+          total={lists.length}
+          limit={limit}
+          page={page}
+          setPage={setPage}
+          setLimit={setLimit}
+        /> */}
       </MainBar>
       <Aside />
     </SearchPage>

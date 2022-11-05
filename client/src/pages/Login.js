@@ -151,9 +151,10 @@ function Login() {
           dispatch(loginActions.login());
           localStorage.clear();
           localStorage.setItem('accessToken', data.headers.authorization);
-          localStorage.setItem('email', data.data.email);
+          localStorage.setItem('userEmail', data.data.email);
           navigate('/questions');
-          // console.log(data.headers.authorization);
+          alert('로그인 성공!');
+          console.log(data.data);
         });
       // 일치하는 유저가 존재 X
     } catch (error) {
@@ -167,22 +168,6 @@ function Login() {
     }
   }
   console.log('로그인 여부', isLogin);
-
-  // dispatch(
-  //   loginActions.login({
-  //     name: res.data,
-  //     email: res.data,
-  //   }))
-
-  // const LoginHandler = e => {
-  //   e.preventDefault();
-  //   isLogin();
-  // };
-
-  // const LogoutHandler = e => {
-  //   e.preventDefault();
-  //   isLogin();
-  // };
 
   return (
     <Container>

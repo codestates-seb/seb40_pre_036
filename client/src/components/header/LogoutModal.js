@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { userActions } from '../../store/userReducer';
+import { Link } from 'react-router-dom';
 
 const LogoutBox = styled.div`
   padding: 15px;
@@ -27,7 +26,8 @@ const LogoutBox = styled.div`
   }
 
   span {
-    font-size: 14px;
+    font-size: 12px;
+    color: #525960;
   }
 `;
 
@@ -61,9 +61,16 @@ const Background = styled.div`
   background: transparent;
 `;
 
+const PageMove = styled(Link)`
+  text-decoration: none;
+`;
+
 function LogoutModal({ handlerLogoutModal }) {
-  const userName = useSelector(state => state.name);
-  console.log('이름', userName);
+  const userEmail = localStorage.getItem('userEmail');
+
+  const offLogoutModal = () => {
+    handlerLogoutModal();
+  };
 
   return (
     <LogoutBox>
@@ -73,9 +80,10 @@ function LogoutModal({ handlerLogoutModal }) {
         className="user"
         alt="user"
       />
-      <span>{userName}</span>
-      <span>유저이메일</span>
-      <LogoutBtn>Log out</LogoutBtn>
+      <span>{userEmail}</span>
+      <PageMove to="/users/logout">
+        <LogoutBtn onClick={offLogoutModal}>Log out</LogoutBtn>
+      </PageMove>
     </LogoutBox>
   );
 }

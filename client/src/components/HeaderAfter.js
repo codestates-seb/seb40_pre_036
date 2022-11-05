@@ -4,11 +4,9 @@ import { faIdCard, faInbox, faTrophy, faCircleQuestion } from '@fortawesome/free
 import { Link, useNavigate } from 'react-router-dom';
 import { faStackExchange } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useDispatch, useSelector } from 'react-redux';
 import sofLogo from '../sofLogo.png';
 import LogoutModal from './header/LogoutModal';
 import SearchTip from './header/SearchTip';
-import { searchActions } from '../store/searchReducer';
 
 const Header = styled.header`
   position: fixed;
@@ -145,8 +143,6 @@ function HeaderAfter() {
   const navigate = useNavigate();
   const [openSearchTip, setOpenSearchTip] = useState(false);
   const [openLogoutModal, setOpenLogoutModal] = useState(false);
-  const dispatch = useDispatch();
-  const search = useSelector(state => state.search);
 
   const onChange = e => {
     e.preventDefault();
@@ -156,11 +152,9 @@ function HeaderAfter() {
   const onSearch = e => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      navigate('/search');
+      navigate(`/search?q=${value}`);
+      setOpenSearchTip();
     }
-    // dispatch(
-    //   searchActions.search(keword: value)
-    // )
   };
 
   const handlerSearchTip = () => {
@@ -171,13 +165,13 @@ function HeaderAfter() {
     setOpenLogoutModal(!openLogoutModal);
   };
 
-  console.log('검색', search, 'value', value);
-
   return (
     <div>
       <Header>
         <Front>
-          <Logo src={sofLogo} />
+          <PageMove to="/">
+            <Logo src={sofLogo} />
+          </PageMove>
           <Products>Products</Products>
         </Front>
         <Container>

@@ -264,7 +264,7 @@ function CreateQ() {
 
   // 질문 추가하기
   const addQuestion = () => {
-    fetch('http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/questions/ask', {
+    fetch('http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions/ask', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
