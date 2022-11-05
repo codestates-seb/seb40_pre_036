@@ -41,13 +41,46 @@ const EditorContainer = styled.div`
 
 function AnswerForm({ id }) {
   const [answerContent, setAnswerContent] = useState('');
+  const token = localStorage.getItem('accessToken');
 
-  // onClick={createAnswer}
-  // useEffect(() => {
-  //   axios.post(
-  //     `http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`,
-  //   );
-  // }, []);
+  const handleInputChange = value => {
+    setAnswerContent(value);
+  };
+
+  // onChange 한 글자씩 딜레이되는 현상 방지
+  useEffect(() => {
+    console.log('answerContent', answerContent);
+  }, [answerContent]);
+
+  const handleAnswerSubmit = () => {
+    fetch(
+      `http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}/answer`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: token,
+        },
+        body: JSON.stringify({
+          answerContent,
+        }),
+      },
+    )
+      .then(res => {
+        if (!res.ok) {
+          throw Error('could not fetch the data for that resource');
+        }
+        // console.log('res', res);
+        window.location.reload();
+      })
+      // .then(data => {
+      //   console.log('data', data);
+      // })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   return (
     <AnswerContainer>
       <AnsContent>
@@ -57,9 +90,11 @@ function AnswerForm({ id }) {
         </p>
         <h2>Your Answer</h2>
         <EditorContainer>
-          <EditorComp setAnswerContent={setAnswerContent} />
+          <EditorComp value={answerContent} onChange={handleInputChange} />
         </EditorContainer>
-        <PostBtn type="submit">Post Your Answer</PostBtn>
+        <PostBtn type="submit" onClick={handleAnswerSubmit}>
+          Post Your Answer
+        </PostBtn>
       </AnsContent>
     </AnswerContainer>
   );

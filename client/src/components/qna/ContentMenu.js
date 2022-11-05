@@ -71,24 +71,24 @@ const UserPic = styled.img`
   margin-right: 4px;
 `;
 
-function ContentMenu({ path, questionUser }) {
-  const [questionUserName, setQuestionUserName] = useState('');
-  const [answerUserName, setAnswerUserName] = useState('');
+function ContentMenu({ path, user }) {
+  // const [questionUserName, setQuestionUserName] = useState('');
+  const [userName, setUserName] = useState('');
 
   useEffect(() => {
-    if (questionUser) {
-      if (questionUser.displayName !== 'undefined' && questionUser.displayName !== null) {
-        setQuestionUserName(questionUser.displayName);
+    if (user) {
+      if (user.displayName !== 'undefined' && user.displayName !== null) {
+        setUserName(user.displayName);
       }
     }
-  }, [questionUser]);
+  }, [user]);
 
   return (
     <MenuUserContainer>
       <MenuContainer>
         <Menu>Share</Menu>
         <Menu>
-          <PageMove to={path}>Edit</PageMove>
+          <PageMove to={`/${path}/edit`}>Edit</PageMove>
         </Menu>
         <Menu>Follow</Menu>
       </MenuContainer>
@@ -96,7 +96,7 @@ function ContentMenu({ path, questionUser }) {
         <Time className="post-time">asked 16 hours ago</Time>
         <UserInfo>
           <UserPic />
-          <User className="post-owner">{questionUserName}</User>
+          <User className="post-owner">{userName}</User>
         </UserInfo>
       </PostInfoBox>
     </MenuUserContainer>
