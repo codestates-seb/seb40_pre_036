@@ -164,7 +164,10 @@ function QuestionsList({
         <QuestionTitle to={`${id}`}>{title}</QuestionTitle>
         <Content>{content}</Content>
         <InfoContainer>
-          <TagsContainer>{questionTags && questionTags.map(tag => <Tag>{tag}</Tag>)}</TagsContainer>
+          <TagsContainer>
+            {questionTags &&
+              questionTags.map((tag, i) => <Tag key={`${i.toString()}-${tag}`}>{tag}</Tag>)}
+          </TagsContainer>
           <PostInfo>
             <UserPic />
             <User>{user}</User>

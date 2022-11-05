@@ -90,8 +90,9 @@ function Pagination({ total, limit, page, setPage, setLimit, disable }) {
       </MoveBtnContainer>
       <LimitBtnContainer disabled={disable}>
         {!disable &&
-          limitNums.map(num => (
+          limitNums.map((num, i) => (
             <Button
+              key={`${i.toString()}-${num}`}
               onClick={({ target: { innerText } }) => {
                 setLimit(Number(innerText));
               }}
