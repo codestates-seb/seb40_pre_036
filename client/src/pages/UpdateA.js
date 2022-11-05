@@ -112,7 +112,7 @@ const Bodyeditor = styled.div``;
 function UpdateA() {
   const id = useLocation().pathname.split('/')[2];
   const [content, setContent] = useState('');
-  const [updateContent, setUpdateContent] = useState(content.answerContent);
+  const [updateContent, setUpdateContent] = useState('');
   const qid = content.questionId;
   const aid = content.answerId;
   const navigate = useNavigate();
@@ -134,6 +134,7 @@ function UpdateA() {
       .then(json => {
         console.log('json', json);
         setContent(json.data);
+        setUpdateContent(json.data.answerContent);
       })
       .catch(err => console.log(err));
   }, []);

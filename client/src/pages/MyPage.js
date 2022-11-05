@@ -195,8 +195,26 @@ function Mypage() {
           </Link>
         </Tabs>
         <Routes>
-          <Route path="/*" element={<Acitivity questions={user.questions} tags={user.tags} />} />
-          <Route path="/activity" element={<Acitivity user={user} />} />
+          <Route
+            path="/*"
+            element={
+              <Acitivity
+                questions={user.questions}
+                tags={user.tags && user.tags.map(el => el.tagName)}
+                questionList={user.questions && user.questions.map(el => el.title)}
+              />
+            }
+          />
+          <Route
+            path="/activity"
+            element={
+              <Acitivity
+                user={user}
+                tags={user.tags && user.tags.map(el => el.tagName)}
+                questionList={user.questions && user.questions.map(el => el.title)}
+              />
+            }
+          />
           <Route path="/settings/*" element={<Settings />} />
         </Routes>
       </Content>

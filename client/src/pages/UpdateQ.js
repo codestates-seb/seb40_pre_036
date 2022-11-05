@@ -133,7 +133,7 @@ function Edit() {
   const [updateTags, setUpdateTags] = useState([]);
   const navigate = useNavigate();
   const initialToken = localStorage.getItem('accessToken');
-  // console.log(updateList.title); // ['java', 'C++']
+  console.log(updateList);
   useEffect(() => {
     fetch(`http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`)
       .then(res => {
@@ -150,7 +150,7 @@ function Edit() {
         setUpdateTags(json.data.questionTags);
       })
       .catch(err => console.log(err));
-  }, []);
+  }, [updateTitle]);
   const handleTitleChange = e => {
     console.log(e.target.value);
     setUpdateTitle(e.target.value);
