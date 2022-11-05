@@ -5,11 +5,9 @@ import { faCalendarDays } from '@fortawesome/free-regular-svg-icons';
 import { faStackExchange } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 import Nav from '../components/Nav';
 import Acitivity from '../components/mypages/Acitivity';
 import Settings from '../components/mypages/Settings';
-import { userActions } from '../store/userReducer';
 
 const Main = styled.div`
   display: flex;
@@ -109,12 +107,8 @@ const Left = styled.div`
 
 function Mypage() {
   const [clicked, setClicked] = useState();
-  // const userid = useSelector(state => state.userId);
   const initialToken = localStorage.getItem('accessToken');
-  // const user = useSelector(state => state.);
-  const dispatch = useDispatch();
 
-  // console.log(user);
   const onClick = useCallback(e => {
     const text = e.target.innerText;
     setClicked(text);
@@ -126,21 +120,10 @@ function Mypage() {
         'Content-type': 'application/json',
         Authorization: initialToken,
       },
-      // body: JSON.stringify({
-      //   userId: user.userId,
-      //   displayName: user.displayName,
-      //   email: user.email,
-      //   userStatus: user.userStatus,
-      //   answers: user.answers,
-      //   questions: user.questions,
-      //   tags: user.tags,
-      // }),
     })
       .then(res => res.json())
       .then(data => {
-        dispatch(userActions.setName(data.data.displayName));
-        dispatch(userActions.setEmail(data.data.email));
-        console.log(data.data.displayName, data.data.email);
+        console.log(data.data);
       });
   };
 

@@ -1,29 +1,18 @@
 import { createSlice, configureStore } from '@reduxjs/toolkit';
-import axios from 'axios';
 
 const initialToken = localStorage.getItem('accessToken');
 const initialState = {
   isLogin: !!initialToken,
   accessToken: initialToken,
-  name: '',
-  email: '',
 };
 
 const loginStore = createSlice({
   name: 'isLogin',
   initialState,
   reducers: {
-    login(state, action) {
+    login(state) {
       const states = state;
       states.isLogin = true;
-      // states.email = action.payload.email;
-      // states.name = action.payload.name;
-      // states.userId = action.payload.userId;
-      // states.displayName = action.payload;
-      // states.answers = action.payload.answers;
-      // states.questions = action.payload.questions;
-      // states.tags = action.payload.tags;
-      console.log('payload', action.payload, 'state', state);
     },
     logout(state) {
       const states = state;

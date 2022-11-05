@@ -143,7 +143,7 @@ function Login() {
   async function getLogin() {
     try {
       await axios
-        .post('http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/login', {
+        .post('http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/login', {
           email: account.email,
           password: account.password,
         })
@@ -151,8 +151,10 @@ function Login() {
           dispatch(loginActions.login());
           localStorage.clear();
           localStorage.setItem('accessToken', data.headers.authorization);
+          localStorage.setItem('userEmail', data.data.email);
           navigate('/questions');
-          // console.log(data.headers.authorization);
+          alert('로그인 성공!');
+          console.log(data.data);
         });
       // 일치하는 유저가 존재 X
     } catch (error) {
@@ -166,22 +168,6 @@ function Login() {
     }
   }
   console.log('로그인 여부', isLogin);
-
-  // dispatch(
-  //   loginActions.login({
-  //     name: res.data,
-  //     email: res.data,
-  //   }))
-
-  // const LoginHandler = e => {
-  //   e.preventDefault();
-  //   isLogin();
-  // };
-
-  // const LogoutHandler = e => {
-  //   e.preventDefault();
-  //   isLogin();
-  // };
 
   return (
     <Container>
