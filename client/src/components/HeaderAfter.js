@@ -154,6 +154,7 @@ function HeaderAfter() {
       e.preventDefault();
       navigate(`/search?q=${value}`);
       setOpenSearchTip();
+      setValue('');
     }
   };
 

@@ -152,6 +152,8 @@ function HeaderBefore() {
     if (e.key === 'Enter') {
       e.preventDefault();
       navigate(`/search?q=${value}`);
+      setOpenSearchTip();
+      setValue('');
     }
   };
 
