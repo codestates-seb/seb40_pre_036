@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { faChartLine, faUserAstronaut } from '@fortawesome/free-solid-svg-icons';
 import { faUsb } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
+import Tag from '../Tag';
 
 const Body = styled.div`
   display: flex;
@@ -84,11 +85,35 @@ const Span = styled.span`
   color: #3984d2;
   cursor: pointer;
 `;
-function Acitivity() {
+const Tags = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+  margin-right: 10px;
+  padding: 0 8px;
+  padding-right: 5px;
+  border-radius: 5px;
+  background-color: #e1ecf4;
+  white-space: nowrap;
+  color: #4a80a7;
+  font-size: 0.7rem;
+`;
+function Acitivity({ questions, tags }) {
+  // const questionTitleList = user.questions || [];
+  // setTagList(user.tags.map(tag => tag.tagName));
+  // const [tagList, setTagList] = useState([] || tags);
+  const tagList = tags;
+  // useEffect(() => {
+  //   setTagList(tags);
+  // }, []);
+  // console.log(user);
+  console.log(tagList);
+  console.log(questions);
+  // console.log(questionTitleList);
   return (
     <Body>
       <Subnav>
-        <Sub>Summary</Sub>
+        <Sub>Summary </Sub>
         <Sub>Answer</Sub>
         <Sub>Questions</Sub>
         <Sub>Tags</Sub>
@@ -146,6 +171,13 @@ function Acitivity() {
                 <Subsummary>
                   You have not <Span>&nbsp;asked&nbsp;</Span>any questions
                 </Subsummary>
+                {/* {user.questions === [] ? (
+                  <Subsummary>
+                    You have not <Span>&nbsp;asked&nbsp;</Span>any questions
+                  </Subsummary>
+                ) : (
+                  <Subsummary>questionTitle 목록을 넣을거예요</Subsummary>
+                )} */}
               </Summaries>
             </Subsummary>
           </Inline>
@@ -155,9 +187,19 @@ function Acitivity() {
             <H3>Tags</H3>
             <Subsummary>
               <Summaries>
-                <Subsummary>
-                  You have not participated in any <Span>&nbsp;tags</Span>
-                </Subsummary>
+                {/* <Subsummary>tag목록을 넣을거예요</Subsummary> */}
+                {tags === [] ? (
+                  <Subsummary>
+                    You have not participated in any <Span>&nbsp;tags</Span>
+                  </Subsummary>
+                ) : (
+                  <Subsummary>
+                    {tags &&
+                      tags.map((tag, index) => (
+                        <Tags key={`${index.toString()}-${tag}`}>{tag}</Tags>
+                      ))}
+                  </Subsummary>
+                )}
               </Summaries>
             </Subsummary>
           </Inline>

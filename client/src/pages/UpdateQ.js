@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import { useParams, useNavigate } from 'react-router-dom';
 import Nav from '../components/Nav';
 import EditorComp from '../components/EditorComp';
 import Tag from '../components/Tag';
@@ -120,15 +121,67 @@ const Input = styled.input`
 const Body = styled.div`
   /* width: 100%; */
 `;
-const Editorform = styled.div`
-  display: flex;
-  margin: 10px 10px 10px 0;
-`;
 const Bodyeditor = styled.div`
   margin-top: 50px;
   margin-bottom: 30px;
 `;
 function Edit() {
+  const { id } = useParams();
+  const [updateList, setUpdateList] = useState({});
+  const [updateTitle, setUpdateTitle] = useState(updateList.title);
+  const [updateContent, setUpdateContent] = useState(updateList.content);
+  const [updateTags, setUpdateTags] = useState([]);
+  const navigate = useNavigate();
+  const initialToken = localStorage.getItem('accessToken');
+  // console.log(updateList.title); // ['java', 'C++']
+  useEffect(() => {
+    fetch(`http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`)
+      .then(res => {
+        if (!res.ok) {
+          throw Error('could not fetch the data for that resource');
+        }
+        return res.json();
+      })
+      .then(json => {
+        console.log('json', json.data);
+        setUpdateList(json.data);
+        setUpdateTitle(json.data.title);
+        setUpdateContent(json.data.content);
+        setUpdateTags(json.data.questionTags);
+      })
+      .catch(err => console.log(err));
+  }, []);
+  const handleTitleChange = e => {
+    console.log(e.target.value);
+    setUpdateTitle(e.target.value);
+  };
+  const handleContentChange = value => {
+    setUpdateContent(value);
+  };
+  const updateQuestion = () => {
+    fetch(`http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: initialToken,
+      },
+      body: JSON.stringify({
+        title: updateTitle,
+        content: updateContent,
+        tags: updateTags.map(tag => ({ tagName: tag })),
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json.data.title);
+      });
+  };
+  const handleSubmit = e => {
+    e.preventDefault();
+    updateQuestion();
+    navigate(`/questions/${id}`);
+  };
+  const inputRef = useRef(null);
   return (
     <Main>
       <Container>
@@ -147,19 +200,23 @@ function Edit() {
             <h2>Title</h2>
             <Body>
               <Form>
-                <Input placeholder="e.g.Is there an R function for finding the index of an element in a vector?" />
+                <Input
+                  onChange={handleTitleChange}
+                  ref={inputRef}
+                  value={updateTitle}
+                  placeholder="e.g.Is there an R function for finding the index of an element in a vector?"
+                  required
+                />
               </Form>
               <Bodyeditor>
                 <h2>Body</h2>
-                <Editorform>
-                  <EditorComp />
-                </Editorform>
+                <EditorComp onChange={handleContentChange} value={updateContent} required />
               </Bodyeditor>
               <h2>Tags</h2>
-              <Tag />
+              <Tag name="tags" Tags={updateTags} setTags={setUpdateTags} />
             </Body>
             <Buttons>
-              <Button1>Save Edits</Button1>
+              <Button1 onClick={handleSubmit}>Save Edits</Button1>
               <Button2>Cancel</Button2>
             </Buttons>
           </Content>

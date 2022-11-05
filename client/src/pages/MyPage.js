@@ -4,7 +4,8 @@ import { faUser, faCake, faClock, faPencil } from '@fortawesome/free-solid-svg-i
 import { faCalendarDays } from '@fortawesome/free-regular-svg-icons';
 import { faStackExchange } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Routes, Route, Link, useLocation } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import Nav from '../components/Nav';
 import Acitivity from '../components/mypages/Acitivity';
 import Settings from '../components/mypages/Settings';
@@ -108,13 +109,16 @@ const Left = styled.div`
 function Mypage() {
   const [clicked, setClicked] = useState();
   const initialToken = localStorage.getItem('accessToken');
+  const dispatch = useDispatch();
+  const [user, setUser] = useState({});
+  console.log(user);
 
   const onClick = useCallback(e => {
     const text = e.target.innerText;
     setClicked(text);
   }, []);
   const mypage = () => {
-    fetch(`http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/users/me`, {
+    fetch(`http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/users/me`, {
       method: 'GET',
       headers: {
         'Content-type': 'application/json',
@@ -123,7 +127,7 @@ function Mypage() {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data.data);
+        setUser(data.data);
       });
   };
 
@@ -138,7 +142,7 @@ function Mypage() {
           <Left>
             <FontAwesomeIcon icon={faUser} size="6x" />
             <Details>
-              {/* <H1>{user.displayName}</H1> */}
+              <H1>{user.displayName}</H1>
               <Detail>
                 <FAI>
                   <FontAwesomeIcon icon={faCake} />
@@ -191,8 +195,8 @@ function Mypage() {
           </Link>
         </Tabs>
         <Routes>
-          {/* <Route path="/*" element={<Acitivity user={user} />} /> */}
-          {/* <Route path="/activity" element={<Acitivity user={user} />} /> */}
+          <Route path="/*" element={<Acitivity questions={user.questions} tags={user.tags} />} />
+          <Route path="/activity" element={<Acitivity user={user} />} />
           <Route path="/settings/*" element={<Settings />} />
         </Routes>
       </Content>
