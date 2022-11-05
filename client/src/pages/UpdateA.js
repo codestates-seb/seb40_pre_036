@@ -121,7 +121,7 @@ function UpdateA() {
     console.log(e);
     setUpdateContent(e);
   };
-  console.log(content);
+  // console.log(content);
   console.log(updateContent);
   useEffect(() => {
     fetch(`http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions/ans/${id}`)

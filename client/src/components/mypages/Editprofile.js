@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div``;
 const Span = styled.span`
@@ -63,7 +64,53 @@ const Button2 = styled.button`
     background-color: #efefef;
   }
 `;
-function Editprofile() {
+function Editprofile({ user }) {
+  console.log(user);
+  const initialToken = localStorage.getItem('accessToken');
+  const navigate = useNavigate();
+  const [updateDisplayName, setUpdateDisplayName] = useState('');
+  const handleContentChange = e => {
+    console.log(e);
+    setUpdateDisplayName(e);
+  };
+  useEffect(() => {
+    fetch(`http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/users/me`)
+      .then(res => {
+        if (!res.ok) {
+          throw Error('could not fetch the data for that resource');
+        }
+        return res.json();
+      })
+      .then(json => {
+        console.log('json', json);
+        setUpdateDisplayName(json.data.displayName);
+      })
+      .catch(err => console.log(err));
+  }, []);
+  const updateName = () => {
+    fetch(
+      `http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/users/me/settings/edit`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: initialToken,
+        },
+        body: JSON.stringify({
+          displayName: updateDisplayName,
+        }),
+      },
+    )
+      .then(res => res.json())
+      .then(json => {
+        console.log(json.data);
+      });
+  };
+  const handleSubmit = e => {
+    e.preventDefault();
+    updateName();
+    navigate(`/users/me`);
+  };
   return (
     <Container>
       <Title>Edit your profile</Title>
@@ -73,7 +120,7 @@ function Editprofile() {
         <SubTitle>Profile image</SubTitle>
         <FontAwesomeIcon icon={faUser} size="6x" />
         <SubTitle>Display name</SubTitle>
-        <Input />
+        <Input onChange={handleContentChange} />
       </PubBody>
       <Inform>
         Private information<Span>Not shown publicly</Span>
