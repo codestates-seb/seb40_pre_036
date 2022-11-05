@@ -47,7 +47,7 @@ const AskBtn = styled.button`
   }
 `;
 
-const FilterContainer = styled.div`
+const SortContainer = styled.div`
   /* display: flex;
   /* justify-content: space-between; */
   /* align-items: center;
@@ -57,8 +57,9 @@ const FilterContainer = styled.div`
   border-radius: 5px;
 `;
 
-const FilterBtn = styled.button`
-  width: 63px;
+const SortBtn = styled.button`
+  /* width: 63px; */
+  padding: 10px;
   height: 35px;
   color: #6a737c;
   background-color: white;
@@ -66,12 +67,13 @@ const FilterBtn = styled.button`
   font-size: 12px;
 
   &.left-btn {
+    border-right: 1px solid rgb(148, 156, 163);
     border-top-left-radius: 5px 5px;
     border-bottom-left-radius: 5px 5px;
-    border-right: 1px solid rgb(148, 156, 163);
   }
 
   &.right-btn {
+    border-left: 1px solid rgb(148, 156, 163);
     border-top-right-radius: 5px 5px;
     border-bottom-right-radius: 5px 5px;
   }
@@ -88,10 +90,10 @@ const FilterBtn = styled.button`
   }
 `;
 
-function QuestionListHeader({ totalQNum }) {
+function QuestionListHeader({ totalQNum, setSort, sort }) {
   const [clicked, setClicked] = useState('Newest');
 
-  // const onBtnClick = useCallback(
+  // const handleBtnClick = useCallback(
   //   e => {
   //     // console.log(e);
   //     setClicked(e.target.innerText);
@@ -101,11 +103,15 @@ function QuestionListHeader({ totalQNum }) {
   //   [clicked],
   // );
 
-  const onBtnClick = useCallback(e => {
-    // console.log(e);
+  const handleBtnClick = useCallback(e => {
     setClicked(e.target.innerText);
-    // console.log(e.target);
-    // console.log(clicked);
+    if (clicked === 'Newest') {
+      setSort('questionId');
+    } else if (clicked === 'Highest Votes') {
+      setSort('votes');
+    } else if (clicked === 'Highest Views') {
+      setSort('view');
+    }
   }, []);
 
   return (
@@ -118,20 +124,26 @@ function QuestionListHeader({ totalQNum }) {
       </Info>
       <BtnContainer>
         <div className="questions-num">{totalQNum} questions</div>
-        <FilterContainer>
-          <FilterBtn
-            onClick={onBtnClick}
+        <SortContainer>
+          <SortBtn
+            onClick={handleBtnClick}
             className={clicked === 'Newest' ? 'left-btn clicked' : 'left-btn'}
           >
             Newest
-          </FilterBtn>
-          <FilterBtn
-            onClick={onBtnClick}
-            className={clicked === 'Hot' ? 'right-btn clicked' : 'right-btn'}
+          </SortBtn>
+          <SortBtn
+            onClick={handleBtnClick}
+            className={clicked === 'Highest Votes' ? 'clicked' : ''}
           >
-            Hot
-          </FilterBtn>
-        </FilterContainer>
+            Highest Votes
+          </SortBtn>
+          <SortBtn
+            onClick={handleBtnClick}
+            className={clicked === 'Highest Views' ? 'right-btn clicked' : 'right-btn'}
+          >
+            Highest Views
+          </SortBtn>
+        </SortContainer>
       </BtnContainer>
     </Header>
   );
