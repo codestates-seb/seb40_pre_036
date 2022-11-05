@@ -39,7 +39,7 @@ function SearchTag() {
   // 페이지네이션을 위한 states
   const [limit, setLimit] = useState(32);
   const [page, setPage] = useState(1);
-  const [filter, setFilter] = useState('Popular');
+  const [sort, setSort] = useState('Popular');
   const offset = (page - 1) * limit;
 
   // 정렬
@@ -52,7 +52,7 @@ function SearchTag() {
     // name, count 요청 (초기 화면)
     if (value === '') {
       fetch(
-        `https://api.stackexchange.com/2.3/tags?pagesize=100&order=${order}&sort=${filter}&site=stackoverflow`,
+        `https://api.stackexchange.com/2.3/tags?pagesize=100&order=${order}&sort=${sort}&site=stackoverflow`,
       )
         .then(res => {
           if (!res.ok) {
@@ -67,7 +67,7 @@ function SearchTag() {
       // tag 검색 시
     } else {
       fetch(
-        `https://api.stackexchange.com/2.3/tags?pagesize=100&order=${order}&sort=${filter}&inname=${value}&site=stackoverflow`,
+        `https://api.stackexchange.com/2.3/tags?pagesize=100&order=${order}&sort=${sort}&inname=${value}&site=stackoverflow`,
       )
         .then(res => {
           if (!res.ok) {
@@ -81,15 +81,15 @@ function SearchTag() {
         })
         .catch(err => console.log(err));
     }
-  }, [value, filter]);
+  }, [value, sort]);
 
   return (
     <Container>
       <Nav path="Tags" />
       <ContentContainer>
         <TagsHeader
-          setFilter={setFilter}
-          filter={filter}
+          setSort={setSort}
+          sort={sort}
           setOrder={setOrder}
           setValue={setValue}
           value={value}

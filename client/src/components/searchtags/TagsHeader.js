@@ -98,7 +98,7 @@ const FilterBtn = styled.button`
     border-bottom-right-radius: 5px 5px;
   }
 
-  &.filtered {
+  &.sorted {
     background-color: #e3e6e8;
     color: #3b4045;
     pointer-events: none;
@@ -110,9 +110,9 @@ const FilterBtn = styled.button`
   }
 `;
 
-function TagsHeader({ setFilter, filter, setOrder, setValue, value }) {
+function TagsHeader({ setSort, sort, setOrder, setValue, value }) {
   const handleBtnClick = useCallback(e => {
-    setFilter(e.target.innerText);
+    setSort(e.target.innerText);
     if (e.target.innerText === 'Name') {
       setOrder('asc');
     } else {
@@ -147,13 +147,13 @@ function TagsHeader({ setFilter, filter, setOrder, setValue, value }) {
         <FilterContainer>
           <FilterBtn
             onClick={handleBtnClick}
-            className={filter === 'Popular' ? 'left-btn filtered' : 'left-btn'}
+            className={sort === 'Popular' ? 'left-btn sorted' : 'left-btn'}
           >
             Popular
           </FilterBtn>
           <FilterBtn
             onClick={handleBtnClick}
-            className={filter === 'Name' ? 'right-btn filtered' : 'right-btn'}
+            className={sort === 'Name' ? 'right-btn sorted' : 'right-btn'}
           >
             Name
           </FilterBtn>
