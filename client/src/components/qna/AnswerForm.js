@@ -71,7 +71,7 @@ function AnswerForm({ id }) {
           throw Error('could not fetch the data for that resource');
         }
         // console.log('res', res);
-        return res.json();
+        window.location.reload();
       })
       // .then(data => {
       //   console.log('data', data);
