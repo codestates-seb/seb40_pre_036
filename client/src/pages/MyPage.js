@@ -109,10 +109,11 @@ const Left = styled.div`
 function Mypage() {
   const [clicked, setClicked] = useState();
   const initialToken = localStorage.getItem('accessToken');
-  const dispatch = useDispatch();
   const [user, setUser] = useState({});
+  const [answers, setAnswers] = useState([]);
   console.log(user);
-
+  // const qId = answers.map(answer => answer.questionId);
+  // console.log(qId);
   const onClick = useCallback(e => {
     const text = e.target.innerText;
     setClicked(text);
@@ -128,6 +129,7 @@ function Mypage() {
       .then(res => res.json())
       .then(data => {
         setUser(data.data);
+        setAnswers(data.data.answers);
       });
   };
 
@@ -195,9 +197,28 @@ function Mypage() {
           </Link>
         </Tabs>
         <Routes>
-          <Route path="/*" element={<Acitivity questions={user.questions} tags={user.tags} />} />
-          <Route path="/activity" element={<Acitivity user={user} />} />
-          <Route path="/settings/*" element={<Settings />} />
+          <Route
+            path="/*"
+            element={
+              <Acitivity
+                questions={user.questions}
+                tags={user.tags && user.tags.map(el => el.tagName)}
+                questionList={user.questions && user.questions.map(el => el.title)}
+                answerList={user.questions && user.questions.map(el => el.title)}
+              />
+            }
+          />
+          <Route
+            path="/activity"
+            element={
+              <Acitivity
+                user={user}
+                tags={user.tags && user.tags.map(el => el.tagName)}
+                questionList={user.questions && user.questions.map(el => el.title)}
+              />
+            }
+          />
+          <Route path="/settings/*" element={<Settings user={user} />} />
         </Routes>
       </Content>
     </Main>

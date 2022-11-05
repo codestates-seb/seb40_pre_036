@@ -112,7 +112,7 @@ const Bodyeditor = styled.div``;
 function UpdateA() {
   const id = useLocation().pathname.split('/')[2];
   const [content, setContent] = useState('');
-  const [updateContent, setUpdateContent] = useState(content.answerContent);
+  const [updateContent, setUpdateContent] = useState('');
   const qid = content.questionId;
   const aid = content.answerId;
   const navigate = useNavigate();
@@ -121,7 +121,7 @@ function UpdateA() {
     console.log(e);
     setUpdateContent(e);
   };
-  console.log(content);
+  // console.log(content);
   console.log(updateContent);
   useEffect(() => {
     fetch(`http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions/ans/${id}`)
@@ -134,6 +134,7 @@ function UpdateA() {
       .then(json => {
         console.log('json', json);
         setContent(json.data);
+        setUpdateContent(json.data.answerContent);
       })
       .catch(err => console.log(err));
   }, []);

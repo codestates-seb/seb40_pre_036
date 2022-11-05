@@ -87,6 +87,7 @@ const Span = styled.span`
 `;
 const Tags = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   margin: 8px 0;
   margin-right: 10px;
@@ -98,17 +99,19 @@ const Tags = styled.div`
   color: #4a80a7;
   font-size: 0.7rem;
 `;
-function Acitivity({ questions, tags }) {
+const Questions = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+function Acitivity({ questionList, tags }) {
   // const questionTitleList = user.questions || [];
   // setTagList(user.tags.map(tag => tag.tagName));
   // const [tagList, setTagList] = useState([] || tags);
-  const tagList = tags;
   // useEffect(() => {
   //   setTagList(tags);
   // }, []);
   // console.log(user);
-  console.log(tagList);
-  console.log(questions);
+  console.log(questionList);
   // console.log(questionTitleList);
   return (
     <Body>
@@ -168,16 +171,18 @@ function Acitivity({ questions, tags }) {
             <H3>Questions</H3>
             <Subsummary>
               <Summaries>
-                <Subsummary>
-                  You have not <Span>&nbsp;asked&nbsp;</Span>any questions
-                </Subsummary>
-                {/* {user.questions === [] ? (
+                {questionList === [] ? (
                   <Subsummary>
                     You have not <Span>&nbsp;asked&nbsp;</Span>any questions
                   </Subsummary>
                 ) : (
-                  <Subsummary>questionTitle 목록을 넣을거예요</Subsummary>
-                )} */}
+                  <Subsummary>
+                    {questionList &&
+                      questionList.map((question, index) => (
+                        <Questions key={`${index.toString()}-${question}`}>{question}</Questions>
+                      ))}
+                  </Subsummary>
+                )}
               </Summaries>
             </Subsummary>
           </Inline>
@@ -187,7 +192,6 @@ function Acitivity({ questions, tags }) {
             <H3>Tags</H3>
             <Subsummary>
               <Summaries>
-                {/* <Subsummary>tag목록을 넣을거예요</Subsummary> */}
                 {tags === [] ? (
                   <Subsummary>
                     You have not participated in any <Span>&nbsp;tags</Span>

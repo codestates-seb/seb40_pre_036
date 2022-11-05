@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Nav from '../components/Nav';
 import EditorComp from '../components/EditorComp';
 import Tag from '../components/Tag';
@@ -126,14 +126,22 @@ const Bodyeditor = styled.div`
   margin-bottom: 30px;
 `;
 function Edit() {
-  const { id } = useParams();
-  const [updateList, setUpdateList] = useState({});
-  const [updateTitle, setUpdateTitle] = useState(updateList.title);
-  const [updateContent, setUpdateContent] = useState(updateList.content);
+  const id = useLocation().pathname.split('/')[2];
+  const [updateTitle, setUpdateTitle] = useState('');
+  const [updateContent, setUpdateContent] = useState('');
   const [updateTags, setUpdateTags] = useState([]);
   const navigate = useNavigate();
   const initialToken = localStorage.getItem('accessToken');
-  // console.log(updateList.title); // ['java', 'C++']
+  const handleTitleChange = e => {
+    setUpdateTitle(e.target.value);
+  };
+  const handleContentChange = e => {
+    setUpdateContent(e);
+  };
+  // const handleTagsChange = e => {
+  //   setUpdateTags(e.target.value);
+  // };
+  console.log(updateTags);
   useEffect(() => {
     fetch(`http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`)
       .then(res => {
@@ -144,22 +152,14 @@ function Edit() {
       })
       .then(json => {
         console.log('json', json.data);
-        setUpdateList(json.data);
         setUpdateTitle(json.data.title);
         setUpdateContent(json.data.content);
-        setUpdateTags(json.data.questionTags);
+        setUpdateTags(json.data.questionTags.map(tag => tag.tagName));
       })
       .catch(err => console.log(err));
   }, []);
-  const handleTitleChange = e => {
-    console.log(e.target.value);
-    setUpdateTitle(e.target.value);
-  };
-  const handleContentChange = value => {
-    setUpdateContent(value);
-  };
   const updateQuestion = () => {
-    fetch(`http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`, {
+    fetch(`http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-type': 'application/json',
@@ -168,12 +168,12 @@ function Edit() {
       body: JSON.stringify({
         title: updateTitle,
         content: updateContent,
-        tags: updateTags.map(tag => ({ tagName: tag })),
+        // tags: updateTags.map(tag => ({ tagName: tag })),
       }),
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json.data.title);
+        console.log(json.data);
       });
   };
   const handleSubmit = e => {
@@ -213,7 +213,12 @@ function Edit() {
                 <EditorComp onChange={handleContentChange} value={updateContent} required />
               </Bodyeditor>
               <h2>Tags</h2>
-              <Tag name="tags" Tags={updateTags} setTags={setUpdateTags} />
+              <Tag
+                name="tags"
+                // onChange={handleTagsChange}
+                tags={updateTags}
+                setTags={setUpdateTags}
+              />
             </Body>
             <Buttons>
               <Button1 onClick={handleSubmit}>Save Edits</Button1>

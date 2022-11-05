@@ -40,7 +40,7 @@ const InSub = styled.h6`
   }
 `;
 
-function Settings() {
+function Settings({ user }) {
   const [clicked, setClicked] = useState();
 
   const onClick = useCallback(e => {
@@ -64,9 +64,9 @@ function Settings() {
       </Subnav>
       <Subbody>
         <Routes>
-          <Route path="/*" element={<Editprofile />} />
-          <Route path="/edit" element={<Editprofile />} />
-          <Route path="/delete" element={<Deleteprofile />} />
+          <Route path="/*" element={<Editprofile user={user} />} />
+          <Route path="/edit" element={<Editprofile user={user} />} />
+          <Route path="/delete" element={<Deleteprofile user={user} />} />
         </Routes>
       </Subbody>
     </Body>
