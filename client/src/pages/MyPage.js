@@ -109,53 +109,33 @@ const Left = styled.div`
 
 function Mypage() {
   const [clicked, setClicked] = useState();
-  // const userid = useSelector(state => state.userId);
   const initialToken = localStorage.getItem('accessToken');
-  // const user = useSelector(state => state.);
   const dispatch = useDispatch();
+  const [user, setUser] = useState({});
+  console.log(user);
 
-  // console.log(user);
   const onClick = useCallback(e => {
     const text = e.target.innerText;
     setClicked(text);
   }, []);
-<<<<<<< HEAD
-  useEffect(() => {
-=======
   const mypage = () => {
->>>>>>> 426d66b7a6af87be70a8f8314478410e1a83f3f4
-    fetch(`http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/users/me`, {
+    fetch(`http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/users/me`, {
       method: 'GET',
       headers: {
         'Content-type': 'application/json',
         Authorization: initialToken,
       },
-      // body: JSON.stringify({
-      //   userId: user.userId,
-      //   displayName: user.displayName,
-      //   email: user.email,
-      //   userStatus: user.userStatus,
-      //   answers: user.answers,
-      //   questions: user.questions,
-      //   tags: user.tags,
-      // }),
     })
       .then(res => res.json())
-<<<<<<< HEAD
-      .then(json => {
-        console.log(json.data);
-      });
-=======
       .then(data => {
         dispatch(userActions.setName(data.data.displayName));
         dispatch(userActions.setEmail(data.data.email));
-        console.log(data.data.displayName, data.data.email);
+        setUser(data.data);
       });
   };
 
   useEffect(() => {
     mypage();
->>>>>>> 426d66b7a6af87be70a8f8314478410e1a83f3f4
   }, []);
   return (
     <Main>
@@ -165,7 +145,7 @@ function Mypage() {
           <Left>
             <FontAwesomeIcon icon={faUser} size="6x" />
             <Details>
-              {/* <H1>{user.displayName}</H1> */}
+              <H1>{user.displayName}</H1>
               <Detail>
                 <FAI>
                   <FontAwesomeIcon icon={faCake} />
@@ -218,8 +198,8 @@ function Mypage() {
           </Link>
         </Tabs>
         <Routes>
-          {/* <Route path="/*" element={<Acitivity user={user} />} /> */}
-          {/* <Route path="/activity" element={<Acitivity user={user} />} /> */}
+          <Route path="/*" element={<Acitivity questions={user.questions} tags={user.tags} />} />
+          <Route path="/activity" element={<Acitivity user={user} />} />
           <Route path="/settings/*" element={<Settings />} />
         </Routes>
       </Content>

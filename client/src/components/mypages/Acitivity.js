@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { faChartLine, faUserAstronaut } from '@fortawesome/free-solid-svg-icons';
 import { faUsb } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
+import Tag from '../Tag';
 
 const Body = styled.div`
   display: flex;
@@ -84,7 +85,17 @@ const Span = styled.span`
   color: #3984d2;
   cursor: pointer;
 `;
-function Acitivity() {
+function Acitivity({ questions, tags }) {
+  // const [tagList, setTagList] = useState([]);
+  // const questionTitleList = user.questions || [];
+  // setTagList(user.tags.map(tag => tag.tagName));
+  useEffect(() => {
+    // setTagList(tagList);
+  }, []);
+  // console.log(user);
+  console.log(questions);
+  console.log(tags);
+  // console.log(questionTitleList);
   return (
     <Body>
       <Subnav>
@@ -146,6 +157,13 @@ function Acitivity() {
                 <Subsummary>
                   You have not <Span>&nbsp;asked&nbsp;</Span>any questions
                 </Subsummary>
+                {/* {user.questions === [] ? (
+                  <Subsummary>
+                    You have not <Span>&nbsp;asked&nbsp;</Span>any questions
+                  </Subsummary>
+                ) : (
+                  <Subsummary>questionTitle 목록을 넣을거예요</Subsummary>
+                )} */}
               </Summaries>
             </Subsummary>
           </Inline>
@@ -155,9 +173,14 @@ function Acitivity() {
             <H3>Tags</H3>
             <Subsummary>
               <Summaries>
-                <Subsummary>
-                  You have not participated in any <Span>&nbsp;tags</Span>
-                </Subsummary>
+                <Subsummary>tag목록을 넣을거예요</Subsummary>
+                {/* {user.tags === [] ? (
+                  <Subsummary>
+                    You have not participated in any <Span>&nbsp;tags</Span>
+                  </Subsummary>
+                ) : (
+                  <Subsummary>tag목록을 넣을거예요</Subsummary>
+                )} */}
               </Summaries>
             </Subsummary>
           </Inline>

@@ -115,7 +115,7 @@ function UpdateA() {
   const initialToken = localStorage.getItem('accessToken');
   useEffect(() => {
     fetch(
-      `http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/questions/${qid}/answer/${aid}`,
+      `http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions/${qid}/answer/${aid}`,
     )
       .then(res => {
         if (!res.ok) {
@@ -146,7 +146,7 @@ function UpdateA() {
           <Body>
             <Bodyeditor>
               <Title>Body</Title>
-              <EditorComp />
+              <EditorComp content={updateContent} />
             </Bodyeditor>
             <Buttons>
               <Button1>Save Edits</Button1>

@@ -5,7 +5,7 @@ const initialToken = localStorage.getItem('accessToken');
 const initialState = {
   isLogin: !!initialToken,
   accessToken: initialToken,
-  name: '',
+  displayName: '',
   email: '',
 };
 
@@ -16,8 +16,8 @@ const loginStore = createSlice({
     login(state, action) {
       const states = state;
       states.isLogin = true;
-      states.email = action.payload.email;
-      states.name = action.payload.name;
+      // states.email = action.payload.email;
+      // states.displayName = action.payload.displayName;
       // states.userId = action.payload.userId;
       // states.displayName = action.payload;
       // states.answers = action.payload.answers;

@@ -143,7 +143,7 @@ function Login() {
   async function getLogin() {
     try {
       await axios
-        .post('http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/login', {
+        .post('http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/login', {
           email: account.email,
           password: account.password,
         })
@@ -151,6 +151,7 @@ function Login() {
           dispatch(loginActions.login());
           localStorage.clear();
           localStorage.setItem('accessToken', data.headers.authorization);
+          localStorage.setItem('email', data.data.email);
           navigate('/questions');
           // console.log(data.headers.authorization);
         });
