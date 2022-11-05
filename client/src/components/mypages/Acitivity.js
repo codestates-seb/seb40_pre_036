@@ -86,15 +86,15 @@ const Span = styled.span`
   cursor: pointer;
 `;
 function Acitivity({ questions, tags }) {
-  // const [tagList, setTagList] = useState([]);
+  const [tagList, setTagList] = useState([]);
   // const questionTitleList = user.questions || [];
   // setTagList(user.tags.map(tag => tag.tagName));
   useEffect(() => {
-    // setTagList(tagList);
+    setTagList(tags);
   }, []);
   // console.log(user);
   console.log(questions);
-  console.log(tags);
+  console.log(tagList);
   // console.log(questionTitleList);
   return (
     <Body>
