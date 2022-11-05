@@ -281,7 +281,7 @@ const Time = styled.time`
 `;
 
 function Search() {
-  const [clicked, setClicked] = useState();
+  const [filter, setFilter] = useState('questionId');
   // const [lists, setLists] = useState([]);
   // const [page, setPage] = useState(1);
   // const [limit, setLimit] = useState(15)
@@ -295,12 +295,33 @@ function Search() {
   const keyword = params.get('q');
   console.log('검색 키워드 :', keyword);
 
+  const fetchSearch = sort => {
+    fetch(
+      `http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions?size=100&sort=${sort}`,
+    )
+      .then(res => res.json())
+      .then(res => console.log(res));
+  };
+
   const onClick = useCallback(e => {
     const text = e.target.innerText;
-    setClicked(text);
+    if (text === 'Newest') {
+      setFilter('questionId');
+      fetchSearch('questionId');
+    } else if (text === 'votes') {
+      setFilter('votes');
+      fetchSearch('votes');
+    } else {
+      setFilter('view');
+      fetchSearch('view');
+    }
   }, []);
 
-  useEffect(() => {}, []);
+  console.log(filter);
+
+  useEffect(() => {
+    fetchSearch(filter);
+  }, []);
 
   return (
     <SearchPage>
@@ -319,14 +340,14 @@ function Search() {
           <ResultCount>
             326,330 results
             <ResultFilter>
-              <FilterBtn className={clicked === 'Relevance' ? 'clicked' : ''} onClick={onClick}>
-                Relevance
-              </FilterBtn>
-              <FilterBtn className={clicked === 'Newest' ? 'clicked' : ''} onClick={onClick}>
+              <FilterBtn className={filter === 'questionId' ? 'clicked' : ''} onClick={onClick}>
                 Newest
               </FilterBtn>
-              <FilterBtn className={clicked === 'More' ? 'clicked' : ''} onClick={onClick}>
-                More
+              <FilterBtn className={filter === 'votes' ? 'clicked' : ''} onClick={onClick}>
+                votes
+              </FilterBtn>
+              <FilterBtn className={filter === 'view' ? 'clicked' : ''} onClick={onClick}>
+                view
               </FilterBtn>
             </ResultFilter>
           </ResultCount>
