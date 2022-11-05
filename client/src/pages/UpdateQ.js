@@ -160,7 +160,7 @@ function Edit() {
   };
   const updateQuestion = () => {
     fetch(`http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`, {
-      method: 'PUT',
+      method: 'PATCH',
       headers: {
         'Content-type': 'application/json',
         Authorization: initialToken,

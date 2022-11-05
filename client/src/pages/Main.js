@@ -32,9 +32,6 @@ function Main() {
 
   useEffect(() => {
     // question list data 요청
-<<<<<<< HEAD
-    fetch('http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions/')
-=======
     fetch(
       `http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions?size=100&sort=${sort}`,
       {
@@ -45,7 +42,6 @@ function Main() {
       },
     )
       // questions?page={page}&size={size}&sort={sort}
->>>>>>> d3151a5162266acdd3fb6f099c38279fc0e4afa8
       .then(res => {
         if (!res.ok) {
           throw Error('could not fetch the data for that resource');

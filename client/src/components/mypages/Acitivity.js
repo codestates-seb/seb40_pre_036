@@ -85,21 +85,35 @@ const Span = styled.span`
   color: #3984d2;
   cursor: pointer;
 `;
+const Tags = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+  margin-right: 10px;
+  padding: 0 8px;
+  padding-right: 5px;
+  border-radius: 5px;
+  background-color: #e1ecf4;
+  white-space: nowrap;
+  color: #4a80a7;
+  font-size: 0.7rem;
+`;
 function Acitivity({ questions, tags }) {
-  const [tagList, setTagList] = useState([]);
   // const questionTitleList = user.questions || [];
   // setTagList(user.tags.map(tag => tag.tagName));
-  useEffect(() => {
-    setTagList(tags);
-  }, []);
+  // const [tagList, setTagList] = useState([] || tags);
+  const tagList = tags;
+  // useEffect(() => {
+  //   setTagList(tags);
+  // }, []);
   // console.log(user);
-  console.log(questions);
   console.log(tagList);
+  console.log(questions);
   // console.log(questionTitleList);
   return (
     <Body>
       <Subnav>
-        <Sub>Summary</Sub>
+        <Sub>Summary </Sub>
         <Sub>Answer</Sub>
         <Sub>Questions</Sub>
         <Sub>Tags</Sub>
@@ -173,14 +187,19 @@ function Acitivity({ questions, tags }) {
             <H3>Tags</H3>
             <Subsummary>
               <Summaries>
-                <Subsummary>tag목록을 넣을거예요</Subsummary>
-                {/* {user.tags === [] ? (
+                {/* <Subsummary>tag목록을 넣을거예요</Subsummary> */}
+                {tags === [] ? (
                   <Subsummary>
                     You have not participated in any <Span>&nbsp;tags</Span>
                   </Subsummary>
                 ) : (
-                  <Subsummary>tag목록을 넣을거예요</Subsummary>
-                )} */}
+                  <Subsummary>
+                    {tags &&
+                      tags.map((tag, index) => (
+                        <Tags key={`${index.toString()}-${tag}`}>{tag}</Tags>
+                      ))}
+                  </Subsummary>
+                )}
               </Summaries>
             </Subsummary>
           </Inline>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import Nav from '../components/Nav';
 import EditorComp from '../components/EditorComp';
 
@@ -62,6 +62,7 @@ const Ul = styled.ul`
   color: #6c6f6f;
   list-style: decimal !important;
 `;
+
 const Li = styled.li`
   display: flex;
   white-space: nowrap;
@@ -109,14 +110,21 @@ const Title = styled.h2`
 const Body = styled.div``;
 const Bodyeditor = styled.div``;
 function UpdateA() {
-  const { aid } = useParams();
-  const { qid } = useParams(); // 나중에 받아올때 qid 따로 받아오기
-  const [updateContent, setUpdateContent] = useState('');
+  const id = useLocation().pathname.split('/')[2];
+  const [content, setContent] = useState('');
+  const [updateContent, setUpdateContent] = useState(content.answerContent);
+  const qid = content.questionId;
+  const aid = content.answerId;
+  const navigate = useNavigate();
   const initialToken = localStorage.getItem('accessToken');
+  const handleContentChange = e => {
+    console.log(e);
+    setUpdateContent(e);
+  };
+  console.log(content);
+  console.log(updateContent);
   useEffect(() => {
-    fetch(
-      `http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions/${qid}/answer/${aid}`,
-    )
+    fetch(`http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions/ans/${id}`)
       .then(res => {
         if (!res.ok) {
           throw Error('could not fetch the data for that resource');
@@ -125,10 +133,34 @@ function UpdateA() {
       })
       .then(json => {
         console.log('json', json);
-        setUpdateContent(json.data);
+        setContent(json.data);
       })
       .catch(err => console.log(err));
   }, []);
+  const updateAnswer = () => {
+    fetch(
+      `http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions/${qid}/answer/${aid}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: initialToken,
+        },
+        body: JSON.stringify({
+          answerContent: updateContent,
+        }),
+      },
+    )
+      .then(res => res.json())
+      .then(json => {
+        console.log(json.data);
+      });
+  };
+  const handleSubmit = e => {
+    e.preventDefault();
+    updateAnswer();
+    navigate(`/questions/${id}`);
+  };
   return (
     <Main>
       <Nav />
@@ -146,10 +178,10 @@ function UpdateA() {
           <Body>
             <Bodyeditor>
               <Title>Body</Title>
-              <EditorComp content={updateContent} />
+              <EditorComp value={updateContent} onChange={handleContentChange} />
             </Bodyeditor>
             <Buttons>
-              <Button1>Save Edits</Button1>
+              <Button1 onClick={handleSubmit}>Save Edits</Button1>
               <Button2>Cancel</Button2>
             </Buttons>
           </Body>
