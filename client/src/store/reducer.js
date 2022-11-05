@@ -17,7 +17,11 @@ const loginStore = createSlice({
       const states = state;
       states.isLogin = true;
       // states.email = action.payload.email;
+<<<<<<< HEAD
       // states.displayName = action.payload.displayName;
+=======
+      // states.name = action.payload.name;
+>>>>>>> d3151a5162266acdd3fb6f099c38279fc0e4afa8
       // states.userId = action.payload.userId;
       // states.displayName = action.payload;
       // states.answers = action.payload.answers;
