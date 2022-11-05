@@ -191,7 +191,7 @@ function Signup() {
   async function getSignup() {
     try {
       await axios
-        .post('http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/users/signup', {
+        .post('http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/users/signup', {
           displayName: account.displayName,
           email: account.email,
           password: account.password,
