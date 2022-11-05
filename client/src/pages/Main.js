@@ -26,10 +26,22 @@ function Main() {
   const [page, setPage] = useState(1);
   const [totalQNum, setTotalQNum] = useState(0);
   const offset = (page - 1) * limit;
+  const [sort, setSort] = useState('questionId');
+  const token = localStorage.getItem('accessToken');
+  console.log('현재 sort', sort);
 
   useEffect(() => {
     // question list data 요청
-    fetch('http://ec2-52-79-243-235.ap-northeast-2.compute.amazonaws.com:8080/questions/')
+    fetch(
+      `http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions?size=100&sort=${sort}`,
+      {
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: token,
+        },
+      },
+    )
+      // questions?page={page}&size={size}&sort={sort}
       .then(res => {
         if (!res.ok) {
           throw Error('could not fetch the data for that resource');
@@ -44,16 +56,17 @@ function Main() {
         setTotalQNum(data.pageInfo.totalElements);
       })
       .catch(err => console.log(err));
-  }, []);
+  }, [sort]);
 
   return (
     <Allcontent>
       <Nav path="Questions" />
       <ListContainer>
-        <QuestionListHeader totalQNum={totalQNum} />
+        <QuestionListHeader totalQNum={totalQNum} setSort={setSort} sort={sort} />
         {lists.slice(offset, offset + limit).map(list => (
           <QuestionsList
             key={list.questionId}
+            // {`${i.toString()}-${page}`}
             id={list.questionId}
             answerCount={list.answerCount}
             content={list.content}
