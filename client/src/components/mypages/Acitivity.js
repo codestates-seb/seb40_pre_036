@@ -3,6 +3,7 @@ import { Link, Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 import SummaryTab from './Summary';
 import QuestionsTab from './Questions';
+import AnswerTab from './AnswerTab';
 
 const Body = styled.div`
   display: flex;
@@ -33,8 +34,17 @@ const Subbody = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 20px;
+  width: 100%;
 `;
-function Acitivity({ questions, questionList, tags, tagsLength, questionsLength }) {
+function Acitivity({
+  answers,
+  answersLength,
+  questions,
+  questionList,
+  tags,
+  tagsLength,
+  questionsLength,
+}) {
   const [clicked, setClicked] = useState();
   const onClick = useCallback(e => {
     const text = e.target.innerText;
@@ -45,10 +55,14 @@ function Acitivity({ questions, questionList, tags, tagsLength, questionsLength 
       <Subnav>
         <Link to="summary" style={{ textDecoration: 'none' }}>
           <Sub className={clicked === 'Summary' ? 'clicked' : ''} onClick={onClick}>
-            Summary{' '}
+            Summary
           </Sub>
         </Link>
-        <Sub>Answer</Sub>
+        <Link to="answers" style={{ textDecoration: 'none' }}>
+          <Sub className={clicked === 'Answer' ? 'clicked' : ''} onClick={onClick}>
+            Answer
+          </Sub>
+        </Link>
         <Link to="questions" style={{ textDecoration: 'none' }}>
           <Sub className={clicked === 'Questions' ? 'clicked' : ''} onClick={onClick}>
             Questions
@@ -70,9 +84,11 @@ function Acitivity({ questions, questionList, tags, tagsLength, questionsLength 
             path="/*"
             element={
               <SummaryTab
+                key={`1-${tagsLength}`}
                 questions={questions}
                 questionList={questionList}
                 tags={tags}
+                answers={answers}
                 tagsLength={tagsLength}
               />
             }
@@ -81,10 +97,22 @@ function Acitivity({ questions, questionList, tags, tagsLength, questionsLength 
             path="/summary"
             element={
               <SummaryTab
+                key={`1-${tagsLength}`}
                 questions={questions}
                 questionList={questionList}
                 tags={tags}
+                answers={answers}
                 tagsLength={tagsLength}
+              />
+            }
+          />
+          <Route
+            path="/answers"
+            element={
+              <AnswerTab
+                key={`2-${answersLength}`}
+                answers={answers}
+                answersLength={answersLength}
               />
             }
           />
@@ -92,8 +120,10 @@ function Acitivity({ questions, questionList, tags, tagsLength, questionsLength 
             path="/questions"
             element={
               <QuestionsTab
+                key={`2-${questionsLength}`}
                 questionList={questionList}
                 questions={questions}
+                tags={tags}
                 questionsLength={questionsLength}
               />
             }
