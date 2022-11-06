@@ -171,7 +171,7 @@ function QuestionsList({
           <PostInfo>
             <UserPic />
             <User>{user}</User>
-            <TimeDiff createAt={createdAt} />
+            <TimeDiff createAt={createdAt} target="asked" />
           </PostInfo>
         </InfoContainer>
       </Question>

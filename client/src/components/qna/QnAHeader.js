@@ -2,6 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import DayDiff from './DayDiff';
 
 const Header = styled.header`
   display: flex;
@@ -54,7 +55,7 @@ const PageMove = styled(Link)`
   color: inherit;
 `;
 
-function QnAHeader({ title, view }) {
+function QnAHeader({ title, view, createdAt, updatedAt }) {
   return (
     <Header>
       <Title>
@@ -68,11 +69,15 @@ function QnAHeader({ title, view }) {
       <PostInfo>
         <div>
           Asked
-          <Time>today</Time>
+          <Time>
+            <DayDiff createdAt={createdAt} />
+          </Time>
         </div>
         <div>
           Modified
-          <Time>today</Time>
+          <Time>
+            <DayDiff createdAt={updatedAt} />
+          </Time>
         </div>
         <div>
           Viewed

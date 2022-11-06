@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import Nav from '../components/Nav';
 import Aside from '../components/Aside';
 import QuestionContent from '../components/qna/QuestionContent';
@@ -51,6 +52,14 @@ function QnA() {
   const [question, setQuestion] = useState({});
   const [answers, setAnswers] = useState([]);
   const [totalANum, setTotalANum] = useState(0);
+  const [questionVotes, setQuestionVotes] = useState(0);
+  const [answerVotes, setAnswerVotes] = useState(0);
+
+  useEffect(() => {
+    // console.log(answers);
+    console.log(answerVotes);
+    console.log(questionVotes);
+  }, [answerVotes, questionVotes]);
 
   useEffect(() => {
     // question list data 요청
@@ -61,14 +70,20 @@ function QnA() {
         }
         return res.json();
       })
-      .then(json => {
-        console.log('json', json);
-        console.log('json.data.answers', json.data.answers);
-        setQuestion(json.data);
-        if (json.data.answers) {
-          setAnswers(json.data.answers.data);
-          setTotalANum(json.data.answers.pageInfo.totalElements);
+      .then(data => {
+        console.log('data', data);
+        // console.log('data.data.answers', data.data.answers.data);
+        setQuestion(data.data);
+        setQuestionVotes(data.data.votes);
+        if (data.data.answers) {
+          setAnswers(data.data.answers.data);
+          setTotalANum(data.data.answers.pageInfo.totalElements);
+          // setAnswerVotes(data.data.answers.data.map(el => el.vote));
         }
+
+        // console.log('나우러 답변', answers[0].vote);
+        // console.log('questionVotes', questionVotes);
+        // console.log('answerVotes', answerVotes);
         // console.log('총 질문수!!', data.pageInfo.totalElements);
         // setQuestion(data.data);
         // setTotalQNum(data.pageInfo.totalElements);
@@ -76,9 +91,6 @@ function QnA() {
       .catch(err => console.log(err));
   }, []);
 
-  console.log('answers', answers);
-  console.log('question', question);
-  console.log('유저있나요', question.user);
   // useEffect(() => {
   //   axios.get(`http://localhost:3001/questions/${id}`).then(res => {
   //     console.log('res', res);
@@ -100,20 +112,32 @@ function QnA() {
             <QuestionContent
               content={question.content}
               tags={question.questionTags && question.questionTags.map(el => el.tagName)}
-              votes={question.votes}
               id={question.questionId}
               user={question.user}
+              setQuestionVotes={setQuestionVotes}
+              questionVotes={questionVotes}
+              createdAt={question.createdAt}
             />
             <QnAComment />
             <Title>{totalANum} Answer</Title>
             {answers &&
-              answers.map(ans => (
+              answers.map((ans, i) => (
                 <AnswerContent
                   key={ans.answerId}
-                  id={ans.answerId}
+                  ansId={ans.answerId}
+                  queId={ans.questionId}
                   content={ans.answerContent}
                   user={ans.user}
+                  answerVotes={answerVotes}
+                  // answerVotes={
+                  //   Array.isArray(answerVotes) ? answerVotes.filter((el, idx) => idx === i) : null
+                  // }
+                  // votes={
+                  //   Array.isArray(answerVotes) ? answerVotes.filter((el, idx) => idx === i) : null
+                  // }
                   totalANum={totalANum}
+                  setAnswerVotes={setAnswerVotes}
+                  createdAt={ans.createdAt}
                 />
               ))}
             <AnswerForm id={id} />
