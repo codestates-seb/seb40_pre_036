@@ -16,7 +16,7 @@ import UpdateA from './pages/UpdateA';
 import Search from './pages/Search';
 import CreateQ from './pages/CreateQ';
 import SearchUser from './pages/SearchUser';
-import Home from './pages/Home';
+import Team from './pages/Team';
 import GlobalStyle from './styles/GlobalStyle';
 
 function App() {
@@ -28,11 +28,11 @@ function App() {
       <div className="App">
         {isLogin ? <HeaderAfter /> : <HeaderBefore />}
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Main />} />
           <Route path="/users/signup" element={<Signup />} />
           <Route path="/users/logout" element={<Logout />} />
           <Route path="/users/login" element={<Login />} />
-          <Route path="/questions" element={<Main />} />
+          <Route path="/team" element={<Team />} />
           <Route path="/questions/:id" element={<QnA />} />
           <Route path="/tags" element={<SearchTag />} />
           <Route path="/users/me/*" element={<MyPage />} />

@@ -161,7 +161,7 @@ function QuestionsList({
         </div>
       </Counts>
       <Question>
-        <QuestionTitle to={`${id}`}>{title}</QuestionTitle>
+        <QuestionTitle to={`questions/${id}`}>{title}</QuestionTitle>
         <Content>{content}</Content>
         <InfoContainer>
           <TagsContainer>
