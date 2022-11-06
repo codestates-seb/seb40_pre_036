@@ -108,7 +108,7 @@ function SearchTip({ handlerSearchTip }) {
     if (isLogin === true) {
       navigate('/questions/ask');
     } else {
-      navigate('/login');
+      navigate('/users/login');
     }
   };
 
