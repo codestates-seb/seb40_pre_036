@@ -114,8 +114,7 @@ function Mypage() {
   const [answersLength, setAnswersLength] = useState('');
   const [tagsLength, setTagsLength] = useState('');
   const [questionsLength, setQuestionsLength] = useState('');
-  console.log(user);
-  console.log(tagsLength);
+  console.log(answers);
   // const qId = answers.map(answer => answer.questionId);
   // console.log(qId);
   const onClick = useCallback(e => {

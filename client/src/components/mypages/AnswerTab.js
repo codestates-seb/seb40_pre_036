@@ -103,7 +103,7 @@ function AnswerTab({ answers, answersLength }) {
                   to={`/questions/${a.questionId}`}
                   key={`${a.questionId.toString()}-${a.answerId}`}
                 >
-                  {a.answerContent}
+                  {a.answerContent.slice(0, 35)}
                 </QTitle>
               </Question>
               <CreateDate>

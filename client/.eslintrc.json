@@ -11,7 +11,7 @@
       "default-param-last": "off",
       "react/prop-types": "off",
       "no-unused-vars": "warn",
-      "react/jsx-props-no-spreading": "off"
+      "react/jsx-props-no-spreading": "off" // 이 부분!
   },
     "settings": {
         "import/resolver": {

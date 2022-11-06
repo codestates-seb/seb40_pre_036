@@ -103,11 +103,12 @@ const SummariesQ = styled.div`
   margin-top: 10px;
   margin-right: 10px;
   width: 100%;
+  overflow: scroll;
 `;
 const ListQ = styled.div`
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: scroll;
   width: 100%;
 `;
 const Questions = styled(Link)`
@@ -115,7 +116,7 @@ const Questions = styled(Link)`
   flex-direction: column;
   text-decoration: none;
   white-space: nowrap;
-  overflow: hidden;
+  overflow: scroll;
   cursor: pointer;
   color: #0074cc;
   &:hover {
@@ -126,13 +127,18 @@ const Questions = styled(Link)`
   }
 `;
 // answers
+const AnswerMap = styled.div`
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  margin: 10px 10px 0 0;
+  height: 170px;
+  overflow: auto;
+`;
 const Answers = styled.div`
-  /* white-space: nowrap; */
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   text-decoration: none;
-  /* width: 250px; */
   cursor: pointer;
   color: #0074cc;
   &:hover {
@@ -163,10 +169,11 @@ const RelatedVote = styled.div`
 const RelatedPost = styled.div`
   display: flex;
   align-items: center;
-  margin: 5px 0;
   overflow: hidden;
   width: 100%;
   justify-content: space-between;
+  padding: 20px 15px;
+  border: 1px solid var(--color-font-gray);
 `;
 const RelatedPostQ = styled.div`
   display: flex;
@@ -190,7 +197,6 @@ const Tagtitle = styled.div`
   margin-right: 10px;
 `;
 function SummaryTab({ answers, questions, questionList, tags, tagsLength }) {
-  console.log(answers);
   return (
     <Subbody>
       <h3>Summary</h3>
@@ -222,71 +228,63 @@ function SummaryTab({ answers, questions, questionList, tags, tagsLength }) {
       <Line>
         <Inline>
           <H3>Answers</H3>
-          <Subsummary>
+          <AnswerMap>
             {answers === [] ? (
               <Subsummary>
-                You have not <Span>&nbsp;answered&nbsp;</Span> any questions
+                You have not <Span>&nbsp;answered &nbsp;</Span>any questions
               </Subsummary>
             ) : (
-              <SummariesQ>
-                {answers &&
-                  answers.map(answer => (
-                    <RelatedPost>
-                      <RelatedPostQ>
-                        <RelatedVote key={`${answer.answerId.toString()}-${answer.vote}`}>
-                          {answer.vote}
-                        </RelatedVote>
-                        <Answers
-                          to={`/questions/${answer.questionId}`}
-                          key={`${answer.answerId.toString()}-${answer.answerContent.slice(0, 5)}`}
-                        >
-                          {answer.answerContent.slice(0, 22)}
-                        </Answers>
-                      </RelatedPostQ>
-                      <Date key={`${answer.answerId.toString()}-${answer.modifiedAt}`}>
-                        {answer.modifiedAt.slice(5, 10)}
-                      </Date>
-                    </RelatedPost>
-                  ))}
-              </SummariesQ>
+              answers &&
+              answers.map(answer => (
+                <RelatedPost>
+                  <RelatedPostQ>
+                    <RelatedVote key={`${answer.answerId.toString()}-${answer.vote}`}>
+                      {answer.vote}
+                    </RelatedVote>
+                    <Answers
+                      to={`/questions/${answer.questionId}`}
+                      key={`${answer.answerId.toString()}-${answer.answerContent.slice(0, 5)}`}
+                    >
+                      {answer.answerContent.slice(0, 17)}
+                    </Answers>
+                  </RelatedPostQ>
+                  <Date key={`${answer.answerId.toString()}-${answer.modifiedAt}`}>
+                    {answer.modifiedAt.slice(5, 10)}
+                  </Date>
+                </RelatedPost>
+              ))
             )}
-          </Subsummary>
+          </AnswerMap>
         </Inline>
         <Inline>
           <H3>Questions</H3>
-          <Subsummary>
-            <SummariesQ>
-              {questionList === [] ? (
-                <Subsummary>
-                  You have not <Span>&nbsp;asked&nbsp;</Span>any questions
-                </Subsummary>
-              ) : (
-                // <Subsummary>
-                <ListQ>
-                  {questionList &&
-                    questions.map(question => (
-                      <RelatedPost>
-                        <RelatedPostQ>
-                          <RelatedVote key={`${question.votes.toString()}-${question.votes}`}>
-                            {question.votes}
-                          </RelatedVote>
-                          <Questions
-                            to={`/questions/${question.questionId}`}
-                            key={`${question.questionId.toString()}-${question.title}`}
-                          >
-                            {question.title}
-                          </Questions>
-                        </RelatedPostQ>
-                        <Date key={`${question.updatedAt.toString()}-${question.updatedAt}`}>
-                          {question.updatedAt.slice(5, 10)}
-                        </Date>
-                      </RelatedPost>
-                    ))}
-                </ListQ>
-                // </Subsummary>
-              )}
-            </SummariesQ>
-          </Subsummary>
+          <AnswerMap>
+            {questionList === [] ? (
+              <Subsummary>
+                You have not <Span>&nbsp;asked&nbsp;</Span>any questions
+              </Subsummary>
+            ) : (
+              questionList &&
+              questions.map(question => (
+                <RelatedPost>
+                  <RelatedPostQ>
+                    <RelatedVote key={`${question.votes.toString()}-${question.votes}`}>
+                      {question.votes}
+                    </RelatedVote>
+                    <Answers
+                      to={`/questions/${question.questionId}`}
+                      key={`${question.questionId.toString()}-${question.title}`}
+                    >
+                      {question.title.slice(0, 17)}
+                    </Answers>
+                  </RelatedPostQ>
+                  <Date key={`${question.updatedAt.toString()}-${question.updatedAt}`}>
+                    {question.updatedAt.slice(5, 10)}
+                  </Date>
+                </RelatedPost>
+              ))
+            )}
+          </AnswerMap>
         </Inline>
       </Line>
       <Line>

@@ -85,6 +85,7 @@ const CreateDate = styled.div`
   align-items: flex-end;
   color: var(--color-font-gray);
   font-size: var(--font-size-base);
+  white-space: nowrap;
 `;
 function QuestionsTab({ questions, questionsLength, tags }) {
   console.log(questions);
@@ -109,7 +110,7 @@ function QuestionsTab({ questions, questionsLength, tags }) {
                   to={`/questions/${q.questionId}`}
                   key={`${q.questionId.toString()}-${q.title}`}
                 >
-                  {q.title}
+                  {q.title.slice(0, 35)}
                 </QTitle>
                 <Tags>
                   {q.questionTags.map(t => (
