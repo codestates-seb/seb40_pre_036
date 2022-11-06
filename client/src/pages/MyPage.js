@@ -111,7 +111,9 @@ function Mypage() {
   const initialToken = localStorage.getItem('accessToken');
   const [user, setUser] = useState({});
   const [answers, setAnswers] = useState([]);
+  const [tagsLength, setTagsLength] = useState('');
   console.log(user);
+  console.log(tagsLength);
   // const qId = answers.map(answer => answer.questionId);
   // console.log(qId);
   const onClick = useCallback(e => {
@@ -130,6 +132,7 @@ function Mypage() {
       .then(data => {
         setUser(data.data);
         setAnswers(data.data.answers);
+        setTagsLength(data.data.tags.length);
       });
   };
 
@@ -202,6 +205,7 @@ function Mypage() {
             element={
               <Acitivity
                 questions={user.questions}
+                tagsLength={tagsLength}
                 tags={user.tags && user.tags.map(el => el.tagName)}
                 questionList={user.questions && user.questions.map(el => el.title)}
                 answerList={user.questions && user.questions.map(el => el.title)}
@@ -213,7 +217,10 @@ function Mypage() {
             element={
               <Acitivity
                 user={user}
+                questions={user.questions}
+                tagsLength={tagsLength}
                 tags={user.tags && user.tags.map(el => el.tagName)}
+                answerList={user.questions && user.questions.map(el => el.title)}
                 questionList={user.questions && user.questions.map(el => el.title)}
               />
             }

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { faChartLine, faUserAstronaut } from '@fortawesome/free-solid-svg-icons';
 import { faUsb } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Tag from '../Tag';
 
 const Body = styled.div`
   display: flex;
@@ -31,6 +31,7 @@ const Subbody = styled.div`
 const Summaries = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   border: 1px solid;
   border-radius: 3px;
   border-color: #9ba2a9;
@@ -55,11 +56,19 @@ const Summary2 = styled.div`
   width: 230px;
   text-align: center;
 `;
+const Subsummary1 = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  color: #8f969c;
+  height: 250px;
+`;
 const Subsummary = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
   color: #8f969c;
+  height: 170px;
 `;
 const Button2 = styled.button`
   text-decoration: none;
@@ -99,20 +108,84 @@ const Tags = styled.div`
   color: #4a80a7;
   font-size: 0.7rem;
 `;
-const Questions = styled.div`
+// question
+const SummariesQ = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  border: 1px solid;
+  border-radius: 3px;
+  border-color: #9ba2a9;
+  padding: 0 15px;
+  align-items: center;
+  margin-top: 10px;
+  margin-right: 10px;
+  width: 100%;
 `;
-function Acitivity({ questionList, tags }) {
-  // const questionTitleList = user.questions || [];
-  // setTagList(user.tags.map(tag => tag.tagName));
-  // const [tagList, setTagList] = useState([] || tags);
-  // useEffect(() => {
-  //   setTagList(tags);
-  // }, []);
-  // console.log(user);
-  console.log(questionList);
-  // console.log(questionTitleList);
+const ListQ = styled.div`
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+`;
+const Questions = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  cursor: pointer;
+  color: #0074cc;
+  &:hover {
+    color: #0a95ff;
+  }
+  &:visited {
+    text-decoration: none;
+  }
+`;
+const List = styled.div`
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+`;
+const RelatedVote = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  min-height: 23px;
+  background-color: #5eba7d;
+  font-size: 12px;
+  color: white;
+  border-radius: 3px;
+  margin-right: 10px;
+  cursor: pointer;
+`;
+const RelatedPost = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+  overflow: hidden;
+  justify-content: space-between;
+`;
+const RelatedPostQ = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const Date = styled.div`
+  display: flex;
+  margin-left: 30px;
+`;
+const Tagview = styled.div`
+  display: flex;
+  color: #6a737c;
+  font-size: var(--font-size-base);
+`;
+const Tagtitle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-right: 10px;
+`;
+function Acitivity({ questions, questionList, tags, tagsLength }) {
+  // console.log(tagsLength);
   return (
     <Body>
       <Subnav>
@@ -131,7 +204,7 @@ function Acitivity({ questionList, tags }) {
       </Subnav>
       <Subbody>
         <h3>Summary</h3>
-        <Subsummary>
+        <Subsummary1>
           <Summaries>
             <FontAwesomeIcon icon={faChartLine} size="2x" color="#a9afb5" />
             <Summary>Reputation is how the community thanks you</Summary>
@@ -155,7 +228,7 @@ function Acitivity({ questionList, tags }) {
               Your posts and helpful actions here help hundreds or thousands of people help.
             </Summary2>
           </Summaries>
-        </Subsummary>
+        </Subsummary1>
         <Line>
           <Inline>
             <H3>Answers</H3>
@@ -170,26 +243,46 @@ function Acitivity({ questionList, tags }) {
           <Inline>
             <H3>Questions</H3>
             <Subsummary>
-              <Summaries>
+              <SummariesQ>
                 {questionList === [] ? (
                   <Subsummary>
                     You have not <Span>&nbsp;asked&nbsp;</Span>any questions
                   </Subsummary>
                 ) : (
-                  <Subsummary>
+                  // <Subsummary>
+                  <ListQ>
                     {questionList &&
-                      questionList.map((question, index) => (
-                        <Questions key={`${index.toString()}-${question}`}>{question}</Questions>
+                      questions.map(question => (
+                        <RelatedPost>
+                          <RelatedPostQ>
+                            <RelatedVote key={`${question.votes.toString()}-${question.votes}`}>
+                              {question.votes}
+                            </RelatedVote>
+                            <Questions
+                              to={`/questions/${question.questionId}`}
+                              key={`${question.questionId.toString()}-${question.title}`}
+                            >
+                              {question.title}
+                            </Questions>
+                          </RelatedPostQ>
+                          <Date key={`${question.updatedAt.toString()}-${question.updatedAt}`}>
+                            {question.updatedAt.slice(5, 10)}
+                          </Date>
+                        </RelatedPost>
                       ))}
-                  </Subsummary>
+                  </ListQ>
+                  // </Subsummary>
                 )}
-              </Summaries>
+              </SummariesQ>
             </Subsummary>
           </Inline>
         </Line>
         <Line>
           <Inline>
-            <H3>Tags</H3>
+            <Tagtitle>
+              <H3>Tags</H3>
+              <Tagview>View all {tagsLength} tags</Tagview>
+            </Tagtitle>
             <Subsummary>
               <Summaries>
                 {tags === [] ? (
@@ -198,10 +291,12 @@ function Acitivity({ questionList, tags }) {
                   </Subsummary>
                 ) : (
                   <Subsummary>
-                    {tags &&
-                      tags.map((tag, index) => (
-                        <Tags key={`${index.toString()}-${tag}`}>{tag}</Tags>
-                      ))}
+                    <List>
+                      {tags &&
+                        tags.map((tag, index) => (
+                          <Tags key={`${index.toString()}-${tag}`}>{tag}</Tags>
+                        ))}
+                    </List>
                   </Subsummary>
                 )}
               </Summaries>
