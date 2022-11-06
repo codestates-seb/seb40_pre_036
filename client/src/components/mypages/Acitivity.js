@@ -90,6 +90,7 @@ function Acitivity({
                 tags={tags}
                 answers={answers}
                 tagsLength={tagsLength}
+                answersLength={answersLength}
               />
             }
           />
@@ -103,6 +104,7 @@ function Acitivity({
                 tags={tags}
                 answers={answers}
                 tagsLength={tagsLength}
+                answersLength={answersLength}
               />
             }
           />
