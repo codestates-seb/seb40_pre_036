@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import EditorComp from '../components/EditorComp';
 import Tag from '../components/Tag';
 import TitleCard, { FirstBodyCard, SecondBodyCard, TagCard } from '../components/creatQ/Card';
+import Discard from '../components/creatQ/Discard';
 
 const Content = styled.div`
   padding: 0 7rem 6rem;
@@ -212,7 +213,6 @@ function CreateQ() {
   const navigate = useNavigate();
   const initialToken = localStorage.getItem('accessToken');
   const [isError, setIsError] = useState('');
-  const [disabled, setDisabled] = useState(false);
 
   const [firstStyle, setFirstStyle] = useState({ display: 'block' });
   const [secondStyle, setSecondStyle] = useState({ display: 'block' });
@@ -222,6 +222,8 @@ function CreateQ() {
   const [firstBodyCardOpen, setfirstBodyCardOpen] = useState({ visibility: 'hidden' });
   const [secondBodyCardOpen, setSecondBodyCardOpen] = useState({ visibility: 'hidden' });
   const [tagCardOpen, setTagCardOpen] = useState({ visibility: 'hidden' });
+
+  const [discardOpen, setDiscardOpen] = useState(false);
 
   // 입력창 활성화 및 카드 함수
 
@@ -299,6 +301,12 @@ function CreateQ() {
   // 타이틀 에러 렌더링
   const onError = error => {
     setIsError(error);
+  };
+
+  // discard 모달 오픈
+
+  const onDiscardModal = () => {
+    setDiscardOpen(!discardOpen);
   };
 
   return (
@@ -383,15 +391,14 @@ function CreateQ() {
             suggestions.
           </Desc>
           <Tag name="tags" tags={tags} setTags={setTags} />
-          <NextBtn onClick={setDisabled}>Next</NextBtn>
+          <NextBtn>Next</NextBtn>
         </QuestionTags>
         <TagCard tagCardOpen={tagCardOpen} />
       </Container>
       <BtnContainer>
-        <NextBtn onClick={handleSubmit(onSubmit, onError)} disabled={disabled}>
-          Post your question
-        </NextBtn>
-        <DiscardBtn>Discard draft</DiscardBtn>
+        <NextBtn onClick={handleSubmit(onSubmit, onError)}>Post your question</NextBtn>
+        {discardOpen && <Discard onDiscardModal={onDiscardModal} />}
+        <DiscardBtn onClick={onDiscardModal}>Discard draft</DiscardBtn>
       </BtnContainer>
     </Content>
   );
