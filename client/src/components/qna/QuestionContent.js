@@ -1,7 +1,7 @@
 // 질문 상세 페이지의 질문 본문
 import React from 'react';
 import styled from 'styled-components';
-import QnASideBar from './QnASideBar';
+import QuestionSideBar from './QuestionSideBar';
 import ContentMenu from './ContentMenu';
 import EditorViewr from '../EditorViewer';
 
@@ -37,18 +37,32 @@ const Tag = styled.button`
   }
 `;
 
-function QuestionContent({ content, tags, votes, id, user }) {
+function QuestionContent({ content, tags, id, user, setQuestionVotes, questionVotes, createdAt }) {
   // console.log('tags', tags);
   // console.log('user', user);
+
+  // console.log('🌳아이디 왜케 많은데?', id);
   return (
     <Container>
-      <QnASideBar votes={votes} />
+      <QuestionSideBar
+        id={id}
+        queId={id}
+        target="questions"
+        setQuestionVotes={setQuestionVotes}
+        questionVotes={questionVotes}
+      />
       <QueContent>
         <EditorViewr content={content} />
         <TagsContainer>
           {tags && tags.map((tag, idx) => <Tag key={`${idx.toString()}- ${tag}`}>{tag}</Tag>)}
         </TagsContainer>
-        <ContentMenu path={`questions/${id}`} user={user} />
+        <ContentMenu
+          path={`questions/${id}`}
+          user={user}
+          queId={id}
+          createdAt={createdAt}
+          target="asked"
+        />
       </QueContent>
     </Container>
   );
