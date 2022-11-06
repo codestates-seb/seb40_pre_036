@@ -10,7 +10,8 @@
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
       "default-param-last": "off",
       "react/prop-types": "off",
-      "no-unused-vars": "warn"
+      "no-unused-vars": "warn",
+      "react/jsx-props-no-spreading": "off"
   },
     "settings": {
         "import/resolver": {

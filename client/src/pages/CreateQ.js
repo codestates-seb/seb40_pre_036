@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useForm } from 'react-hook-form';
 import EditorComp from '../components/EditorComp';
 import Tag from '../components/Tag';
+// import useInput from '../hooks/useInput';
 
 const Content = styled.div`
   padding: 0 7rem 6rem;
@@ -250,6 +252,11 @@ function CreateQ() {
   const navigate = useNavigate();
   const initialToken = localStorage.getItem('accessToken');
 
+  // 유효성 체크
+  const { register, handleSubmit, errors, watch } = useForm();
+  console.log(watch());
+  console.log(register());
+
   const handleTitleChange = e => {
     setTitle(e.target.value);
   };
@@ -282,10 +289,10 @@ function CreateQ() {
       });
   };
 
-  const handleSubmit = e => {
+  const handleTotalSubmit = e => {
     e.preventDefault();
-    addQuestion();
-    navigate('/questions');
+    // addQuestion();
+    // navigate('/questions');
   };
 
   const inputRef = useRef(null);
@@ -293,6 +300,10 @@ function CreateQ() {
   useEffect(() => {
     if (inputRef.current !== null) inputRef.current.focus();
   }, []);
+
+  const onSubmit = data => {
+    console.log('data', data);
+  };
 
   return (
     <Content>
@@ -328,13 +339,17 @@ function CreateQ() {
           <Desc>Be specific and imagine you’re asking a question to another person.</Desc>
           <Form>
             <Input
+              type="text"
               name="title"
               ref={inputRef}
               placeholder="e.g.Is there an R function for finding the index of an element in a vector?"
-              value={title}
-              onChange={handleTitleChange}
-              required
+              // value={title}
+              // onChange={handleTitleChange}
+              {...register('title')}
             />
+            {/* {errors.title && errors.title.type === 'required' && (
+              <p className="errorMsg">Title must be at least 15 characters.</p>
+            )} */}
           </Form>
           <NextBtn>Next</NextBtn>
         </QuestionTitle>
@@ -373,7 +388,12 @@ function CreateQ() {
           <Desc>
             Introduce the problem and expand on what you put in the title. Minimum 20 characters.
           </Desc>
-          <EditorComp name="firstBody" value={firstBody} onChange={handleFirstEditorChange} />
+          <EditorComp
+            name="firstBody"
+            //  value={firstBody}
+            //  onChange={handleFirstEditorChange}
+            {...register('firstBody')}
+          />
           <NextBtn>Next</NextBtn>
         </QuestionBody>
       </Container>
@@ -402,7 +422,7 @@ function CreateQ() {
         </QuestionTags>
       </Container>
       <BtnContainer>
-        <NextBtn onClick={handleSubmit}>Post your question</NextBtn>
+        <NextBtn onClick={handleSubmit(onSubmit)}>Post your question</NextBtn>
         <DiscardBtn>Discard draft</DiscardBtn>
       </BtnContainer>
       <ErrorMessage>
