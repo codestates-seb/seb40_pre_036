@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { json, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import EditorComp from '../components/EditorComp';
@@ -103,6 +103,13 @@ const Input = styled.input`
   }
 `;
 
+// 에러 메세지
+const ErrorMessage = styled.p`
+  margin-top: 10px;
+  color: #c33e32;
+  font-size: 12px;
+`;
+
 // 질문 내용
 const QuestionBody = styled.div`
   min-width: 70%;
@@ -159,6 +166,7 @@ const QuestionTags = styled.div`
 // `;
 
 // 질문 입력 및 취소 버튼
+
 const BtnContainer = styled.div`
   display: flex;
 `;
@@ -193,14 +201,6 @@ const DiscardBtn = styled.button`
     border-radius: 3px;
     cursor: pointer;
   }
-`;
-
-// 에러 메세지
-const ErrorMessage = styled.div`
-  display: none;
-  margin-top: 1rem;
-  color: #c33e32;
-  font-weight: 600;
 `;
 
 // 설명 카드 -> 입력창 focus 시, 나타나야 함
@@ -250,14 +250,25 @@ function CreateQ() {
   const [tags, setTags] = useState([]);
   const navigate = useNavigate();
   const initialToken = localStorage.getItem('accessToken');
+  const [isError, setIsError] = useState('');
+  const [disabled, setDisabled] = useState(false);
 
   // 유효성 체크
   const { register, handleSubmit, errors, watch } = useForm();
-  console.log(watch());
+  // console.log(watch());
 
-  const handleTitleChange = e => {
-    setTitle(e.target.value);
+  const validateTitle = value => {
+    if (value.length < 15) {
+      return 'Title must be at least 15 characters.';
+    }
+    return true;
   };
+
+  // handler 함수
+  // const handleTitleChange = e => {
+  //   setTitle(e.target.value);
+  //   console.log(e.target);
+  // };
 
   const handleFirstEditorChange = value => {
     setFirstBody(value);
@@ -287,11 +298,11 @@ function CreateQ() {
       });
   };
 
-  const handleTotalSubmit = e => {
-    e.preventDefault();
-    // addQuestion();
-    // navigate('/questions');
-  };
+  // const handleTotalSubmit = e => {
+  //   e.preventDefault();
+  //   addQuestion();
+  //   navigate('/questions');
+  // };
 
   const inputRef = useRef(null);
 
@@ -299,13 +310,21 @@ function CreateQ() {
     if (inputRef.current !== null) inputRef.current.focus();
   }, []);
 
+  // title은 실시간 반영이 안되고 submit 을 해야 반영이 됨
   const onSubmit = data => {
-    console.log('data', data);
+    // const Data = JSON.stringify(data);
+    // console.log('데이터', data);
+    // data.preventDefault();
+    setTitle(data.title);
+    addQuestion();
+    navigate('/questions');
   };
 
   const onError = error => {
-    console.log('error', error);
+    setIsError(error);
   };
+
+  console.log('title', title, 'content', firstBody, secondBody);
 
   return (
     <Content>
@@ -345,19 +364,12 @@ function CreateQ() {
               name="title"
               ref={inputRef}
               placeholder="e.g.Is there an R function for finding the index of an element in a vector?"
-              // value={title}
-              // onChange={handleTitleChange}
               {...register('title', {
-                minLength: {
-                  value: 15,
-                  message: 'Title must be at least 15 characters.',
-                },
+                validate: validateTitle,
               })}
             />
-            {/* {errors.title && errors.title.type === 'required' && (
-              <p className="errorMsg">Title must be at least 15 characters.</p>
-            )} */}
           </Form>
+          {isError.title && <ErrorMessage>{isError.title.message}</ErrorMessage>}
           <NextBtn>Next</NextBtn>
         </QuestionTitle>
         <Card>
@@ -427,9 +439,6 @@ function CreateQ() {
         <NextBtn onClick={handleSubmit(onSubmit, onError)}>Post your question</NextBtn>
         <DiscardBtn>Discard draft</DiscardBtn>
       </BtnContainer>
-      <ErrorMessage>
-        Your question couldn&apos;t be submitted. Please see the error above.
-      </ErrorMessage>
     </Content>
   );
 }

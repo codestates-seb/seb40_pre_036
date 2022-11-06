@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import MDEditor from '@uiw/react-md-editor';
 import rehypeSanitize from 'rehype-sanitize';
-import { useForm } from 'react-hook-form';
 
 document.documentElement.setAttribute('data-color-mode', 'light');
 
@@ -23,10 +22,6 @@ const Container = styled.div`
 `;
 
 function EditorComp({ value, onChange }) {
-  // const [content, setContent] = useState('');
-  // const { register, handleSubmit, errors, watch } = useForm();
-  // console.log(watch());
-
   return (
     <Container>
       <MDEditor
@@ -36,7 +31,6 @@ function EditorComp({ value, onChange }) {
           rehypePlugins: [[rehypeSanitize]],
         }}
         height={498}
-        // {...register('firstBody')}
       />
     </Container>
   );
