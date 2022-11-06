@@ -38,7 +38,6 @@ public interface AnswerMapper {
                                           AnswerPostDto answerPostDto
                                           ){
         Answer answer = new Answer();
-////      answer.setQuestion(questionService.findQuestion(questionId));
         answer.setAnswerContent(answerPostDto.getAnswerContent());
         answer.setQuestion(questionService.findVerifiedQuestion(questionId));
         answer.setUser(userService.getLoginUser());// 로그인 중 회원정보
@@ -60,10 +59,12 @@ public interface AnswerMapper {
         return answer;
     }
 
-    default AnswerResponseDto answerToAnswerResponseDto(UserMapper userMapper, Answer answer, long questionId){
+    default AnswerResponseDto answerToAnswerResponseDto(UserMapper userMapper, Answer answer){
         AnswerResponseDto answerResponseDto = new AnswerResponseDto();
         answerResponseDto.setAnswerId(answer.getAnswerId());
-        answerResponseDto.setQuestionId(questionId);
+
+        answerResponseDto.setQuestionId(answer.getQuestion().getQuestionId());
+
         answerResponseDto.setAnswerStatus(answer.getAnswerStatus());
         answerResponseDto.setAnswerContent(answer.getAnswerContent());
         answerResponseDto.setCreatedAt(answer.getCreatedAt());
@@ -83,7 +84,7 @@ public interface AnswerMapper {
         List<AnswerResponseDto> answerResponseDtos = new ArrayList<>();
 
         for(Answer answer : answers) {
-            answerResponseDtos.add(answerToAnswerResponseDto(userMapper, answer, answer.getQuestion().getQuestionId()));
+            answerResponseDtos.add(answerToAnswerResponseDto(userMapper, answer));
         }
 
         return answerResponseDtos;

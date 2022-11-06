@@ -9,9 +9,11 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import soybeanoil.stackoverflowClone.answer.dto.AnswerPatchDto;
 import soybeanoil.stackoverflowClone.answer.dto.AnswerPostDto;
+import soybeanoil.stackoverflowClone.answer.dto.AnswerResponseDto;
 import soybeanoil.stackoverflowClone.answer.entity.Answer;
 import soybeanoil.stackoverflowClone.answer.mapper.AnswerMapper;
 import soybeanoil.stackoverflowClone.answer.service.AnswerService;
+import soybeanoil.stackoverflowClone.question.entity.Question;
 import soybeanoil.stackoverflowClone.question.mapper.QuestionMapper;
 import soybeanoil.stackoverflowClone.question.service.QuestionService;
 import soybeanoil.stackoverflowClone.response.SingleResponseDto;
@@ -53,40 +55,35 @@ public class AnswerController {
         Answer question = answerService.createAnswer(
                 answerMapper.answerPostDtoToAnswer(questionId,questionService,userService, answerPostDto));
         return new ResponseEntity<>(
-                new SingleResponseDto<>(answerMapper.answerToAnswerResponseDto(userMapper,question, questionId)), HttpStatus.CREATED);
+                new SingleResponseDto<>(answerMapper.answerToAnswerResponseDto(userMapper,question)), HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{question-id}/answer/{answer-id}")
+    @PatchMapping("/answer/{answer-id}")
     public ResponseEntity patchAnswer(@Valid @RequestBody AnswerPatchDto answerPatchDto,
-                                      @PathVariable("answer-id") @Positive long answerId,
-                                      @PathVariable("question-id") @Positive long questionId){
+                                      @PathVariable("answer-id") @Positive long answerId){
 
         answerPatchDto.setAnswerId(answerId);
         Answer answer = answerMapper.answerPatchDtoToAnswer(answerService,userService,answerPatchDto);
         Answer updatedAnswer = answerService.modifyAnswer(answer);
 
         return new ResponseEntity<>(
-                new SingleResponseDto<>(answerMapper.answerToAnswerResponseDto(userMapper,updatedAnswer, questionId)),
+                new SingleResponseDto<>(answerMapper.answerToAnswerResponseDto(userMapper,updatedAnswer)),
                 HttpStatus.OK);
     }
 
-        @GetMapping("/ans/{answer-id}")
-    public ResponseEntity getAnswer(@PathVariable("answer-id") @Positive long answerId,
-                                    @Positive @RequestParam(value="page", defaultValue="1") int page,
-                                    @Positive @RequestParam(value="size", defaultValue="10") int size
+    @GetMapping("/ans/{answer-id}")
+    public ResponseEntity getAnswer(@PathVariable("answer-id") @Positive long answerId
                                     ) {
 
         Answer answer = answerService.findAnswer(answerId);
         Answer updatedAnswer = answerService.modifyAnswer(answer);
 
         return new ResponseEntity<>(
-                new SingleResponseDto<>(answerMapper.answerToAnswerResponseDto(userMapper,updatedAnswer,answerId)),
-                HttpStatus.OK);
+                new SingleResponseDto<>(answerMapper.answerToAnswerResponseDto(userMapper,answer)), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{question-id}/answer/{answer-id}")
-    public ResponseEntity deleteAnswer(@PathVariable("answer-id") @Positive long answerId,
-                                       @PathVariable("question-id") @Positive long questionId){
+    @DeleteMapping("/answer/{answer-id}")
+    public ResponseEntity deleteAnswer(@PathVariable("answer-id") @Positive long answerId){
 
         answerService.deleteAnswer(answerId);
 

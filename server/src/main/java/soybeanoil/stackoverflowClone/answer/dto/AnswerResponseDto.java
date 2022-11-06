@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import soybeanoil.stackoverflowClone.answer.entity.Answer;
 import soybeanoil.stackoverflowClone.question.dto.QuestionAnswerResponseDto;
+import soybeanoil.stackoverflowClone.question.entity.Question;
 import soybeanoil.stackoverflowClone.user.dto.UserResponseDto;
 import soybeanoil.stackoverflowClone.user.entity.User;
 
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 public class AnswerResponseDto {
     private long answerId;
     private String answerContent;
-    private long questionId; // Uesr? 어느데이타 표시할지 질문=> questionId
+    private long questionId;
     private long vote;
     private UserResponseDto user;
     private LocalDateTime createdAt;
