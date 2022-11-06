@@ -9,7 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import soybeanoil.stackoverflowClone.exception.BusinessLogicException;
 import soybeanoil.stackoverflowClone.exception.ExceptionCode;
 import soybeanoil.stackoverflowClone.question.entity.Question;
+import soybeanoil.stackoverflowClone.question.entity.Tag;
 import soybeanoil.stackoverflowClone.question.repository.QuestionRepository;
+import soybeanoil.stackoverflowClone.question.repository.TagRepository;
 import soybeanoil.stackoverflowClone.user.entity.User;
 
 import java.util.List;
@@ -19,13 +21,13 @@ import java.util.Optional;
 public class QuestionService {
 
     private final QuestionRepository questionRepository;
-    private final TagService tagService;
+    private final TagRepository tagRepository;
     private final QuestionVoteService questionVoteService;
 
-    public QuestionService(QuestionRepository questionRepository, TagService tagService,
+    public QuestionService(QuestionRepository questionRepository, TagRepository tagRepository,
                            @Lazy QuestionVoteService questionVoteService) {
         this.questionRepository = questionRepository;
-        this.tagService = tagService;
+        this.tagRepository = tagRepository;
         this.questionVoteService = questionVoteService;
     }
 
@@ -70,8 +72,14 @@ public class QuestionService {
         Optional.ofNullable(question.getContent())
                 .ifPresent(findQuestion::setContent);
 
-        Optional.ofNullable(question.getTags())
+        List<Tag> tagList = question.getTags();
+        Optional.ofNullable(tagList)
                 .ifPresent(findQuestion::setTags);
+
+        if(tagList != null) {
+            for(Tag tag: tagList)
+                tagRepository.save(tag);
+        }
 
         Question updatedQuestion = questionRepository.save(findQuestion);
         return updatedQuestion;

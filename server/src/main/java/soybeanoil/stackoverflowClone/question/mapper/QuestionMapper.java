@@ -108,7 +108,7 @@ public interface QuestionMapper {
 
         questionResponseDto.setQuestionTags(tagsToTagResponseDtos(
                 question.getTags()
-        ));
+        ).stream().distinct().collect(Collectors.toList()));
 
         questionResponseDto.setCreatedAt(question.getCreatedAt());
         questionResponseDto.setUpdatedAt(question.getUpdatedAt());
