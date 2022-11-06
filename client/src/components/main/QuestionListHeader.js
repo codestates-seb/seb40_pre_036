@@ -109,7 +109,7 @@ function QuestionListHeader({ totalQNum, setSort, sort }) {
     <Header>
       <Info>
         All Questions
-        <PageMove to={token ? 'ask' : '/users/login'}>
+        <PageMove to={token ? 'questions/ask' : '/users/login'}>
           <AskBtn>Ask Question</AskBtn>
         </PageMove>
       </Info>
