@@ -47,6 +47,7 @@ const Side = styled.div`
 `;
 const Sidealert = styled.div`
   box-shadow: 2px 2px 2px 1px #e7e7e7;
+  margin-bottom: 20px;
 `;
 const Top = styled.div`
   display: flex;
@@ -69,6 +70,7 @@ const Li = styled.li`
   margin: 10px 0;
   font-size: 0.8rem;
   padding-right: 30px;
+  list-style: inside;
 `;
 const Explain = styled.div`
   padding: 5px 70px 5px 20px;
@@ -197,6 +199,23 @@ function UpdateA() {
                 <Li>Add related resources or links</Li>
                 <Li>Always respect the author’s intent</Li>
                 <Li>Don’t use edits to reply to the author</Li>
+              </Ul>
+            </Explain>
+          </Sidealert>
+          <Sidealert>
+            <Top>How to Format</Top>
+            <Explain>
+              <Ul>
+                <Li>create code fences with backticks ` or tildes ~</Li>
+                <Li>add language identifier to highlight code</Li>
+                <Li>put returns between paragraphs</Li>
+                <Li>for linebreak add 2 spaces at end</Li>
+                <Li>
+                  <i>_italic_</i> or <b>**bold**</b>
+                </Li>
+                <Li>indent code by 4 spaces</Li>
+                <Li>backtick escapes `like _so_`</Li>
+                <Li>quote by placing &gt; at start of line</Li>
               </Ul>
             </Explain>
           </Sidealert>

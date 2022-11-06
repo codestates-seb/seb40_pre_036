@@ -125,6 +125,9 @@ const Bodyeditor = styled.div`
   margin-top: 50px;
   margin-bottom: 30px;
 `;
+const H2 = styled.h2`
+  margin-bottom: 20px;
+`;
 function Edit() {
   const id = useLocation().pathname.split('/')[2];
   const [updateTitle, setUpdateTitle] = useState('');
@@ -209,7 +212,7 @@ function Edit() {
                 />
               </Form>
               <Bodyeditor>
-                <h2>Body</h2>
+                <H2>Body</H2>
                 <EditorComp onChange={handleContentChange} value={updateContent} required />
               </Bodyeditor>
               <h2>Tags</h2>
