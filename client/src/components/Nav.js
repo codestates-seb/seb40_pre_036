@@ -112,14 +112,14 @@ function Nav({ path }) {
   return (
     <Container>
       <Navbar>
-        <PageMove to="/">
+        <PageMove to="/team">
           <Home className={clicked === 'Home' ? 'clicked' : ''} onClick={onClick}>
-            Home
+            Team
           </Home>
         </PageMove>
         <PublicLists>
           <Li className="public">PUBLIC</Li>
-          <PageMove to="/questions">
+          <PageMove to="/">
             <Li className={clicked === 'Questions' ? 'clicked' : ''} onClick={onClick}>
               <Icon>
                 <FontAwesomeIcon icon={faEarthAmericas} className="icon" />

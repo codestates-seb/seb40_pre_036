@@ -162,7 +162,7 @@ function ContentMenu({ path, user, createdAt, target, ansId, queId }) {
           if (!res.ok) {
             throw Error('could not fetch the data for that resource');
           }
-          navigate(`/questions`);
+          navigate(`/`);
         })
         .catch(error => {
           console.log(error);
