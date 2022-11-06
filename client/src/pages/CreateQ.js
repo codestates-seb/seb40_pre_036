@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import EditorComp from '../components/EditorComp';
 import Tag from '../components/Tag';
-// import useInput from '../hooks/useInput';
 
 const Content = styled.div`
   padding: 0 7rem 6rem;
@@ -255,7 +254,6 @@ function CreateQ() {
   // 유효성 체크
   const { register, handleSubmit, errors, watch } = useForm();
   console.log(watch());
-  console.log(register());
 
   const handleTitleChange = e => {
     setTitle(e.target.value);
@@ -305,6 +303,10 @@ function CreateQ() {
     console.log('data', data);
   };
 
+  const onError = error => {
+    console.log('error', error);
+  };
+
   return (
     <Content>
       <Start>
@@ -345,7 +347,12 @@ function CreateQ() {
               placeholder="e.g.Is there an R function for finding the index of an element in a vector?"
               // value={title}
               // onChange={handleTitleChange}
-              {...register('title')}
+              {...register('title', {
+                minLength: {
+                  value: 15,
+                  message: 'Title must be at least 15 characters.',
+                },
+              })}
             />
             {/* {errors.title && errors.title.type === 'required' && (
               <p className="errorMsg">Title must be at least 15 characters.</p>
@@ -388,12 +395,7 @@ function CreateQ() {
           <Desc>
             Introduce the problem and expand on what you put in the title. Minimum 20 characters.
           </Desc>
-          <EditorComp
-            name="firstBody"
-            //  value={firstBody}
-            //  onChange={handleFirstEditorChange}
-            {...register('firstBody')}
-          />
+          <EditorComp name="firstBody" value={firstBody} onChange={handleFirstEditorChange} />
           <NextBtn>Next</NextBtn>
         </QuestionBody>
       </Container>
@@ -422,7 +424,7 @@ function CreateQ() {
         </QuestionTags>
       </Container>
       <BtnContainer>
-        <NextBtn onClick={handleSubmit(onSubmit)}>Post your question</NextBtn>
+        <NextBtn onClick={handleSubmit(onSubmit, onError)}>Post your question</NextBtn>
         <DiscardBtn>Discard draft</DiscardBtn>
       </BtnContainer>
       <ErrorMessage>
