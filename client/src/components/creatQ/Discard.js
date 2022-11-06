@@ -1,4 +1,3 @@
-import { on } from 'npm';
 import React from 'react';
 import styled from 'styled-components';
 
