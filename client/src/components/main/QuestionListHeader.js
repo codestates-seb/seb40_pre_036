@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -92,33 +92,24 @@ const SortBtn = styled.button`
 
 function QuestionListHeader({ totalQNum, setSort, sort }) {
   const [clicked, setClicked] = useState('Newest');
+  const token = localStorage.getItem('accessToken');
 
-  // const handleBtnClick = useCallback(
-  //   e => {
-  //     // console.log(e);
-  //     setClicked(e.target.innerText);
-  //     console.log(e.target);
-  //     console.log(clicked);
-  //   },
-  //   [clicked],
-  // );
-
-  const handleBtnClick = useCallback(e => {
+  const handleBtnClick = e => {
     setClicked(e.target.innerText);
-    if (clicked === 'Newest') {
+    if (e.target.innerText === 'Newest') {
       setSort('questionId');
-    } else if (clicked === 'Highest Votes') {
+    } else if (e.target.innerText === 'Highest Votes') {
       setSort('votes');
-    } else if (clicked === 'Highest Views') {
+    } else if (e.target.innerText === 'Highest Views') {
       setSort('view');
     }
-  }, []);
+  };
 
   return (
     <Header>
       <Info>
         All Questions
-        <PageMove to="ask">
+        <PageMove to={token ? 'ask' : '/users/login'}>
           <AskBtn>Ask Question</AskBtn>
         </PageMove>
       </Info>

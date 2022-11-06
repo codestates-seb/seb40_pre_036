@@ -1,7 +1,7 @@
 import React from 'react';
 import dayjs from 'dayjs';
 
-function TimeDiff({ createAt }) {
+function TimeDiff({ createAt, target }) {
   const now = dayjs();
   const ago = dayjs(createAt);
   let diff = now.diff(ago, 'second') - 32400; // utc를 한국 표준시로
@@ -16,7 +16,11 @@ function TimeDiff({ createAt }) {
     diff = `${Math.floor(diff)} secs`;
   }
 
-  return <time>asked {diff}</time>;
+  return (
+    <time>
+      {target} {diff}
+    </time>
+  );
 }
 
 export default TimeDiff;

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import EditorViewr from '../EditorViewer';
-import QnASideBar from './QnASideBar';
+import AnswerSideBar from './AnswerSideBar';
 import ContentMenu from './ContentMenu';
 
 // const Title = styled.h2`
@@ -22,13 +22,26 @@ const AnsContent = styled.div`
   width: 100%;
 `;
 
-function AnswerContent({ id, content, user }) {
+function AnswerContent({ ansId, queId, content, user, setAnswerVotes, answerVotes, createdAt }) {
+  console.log(`${ansId}번째 답변의 ${answerVotes}`);
   return (
     <Container>
-      <QnASideBar />
+      <AnswerSideBar
+        id={ansId}
+        // beforeVotes={votes}
+        setAnswerVotes={setAnswerVotes}
+        answerVotes={answerVotes}
+      />
       <AnsContent>
         <EditorViewr content={content} />
-        <ContentMenu user={user} path={`answer/${id}`} />
+        <ContentMenu
+          user={user}
+          path={`answer/${ansId}`}
+          createdAt={createdAt}
+          ansId={ansId}
+          queId={queId}
+          target="answered"
+        />
       </AnsContent>
     </Container>
   );
