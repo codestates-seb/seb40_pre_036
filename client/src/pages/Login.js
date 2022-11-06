@@ -158,6 +158,7 @@ function Login() {
             dispatch(loginActions.login());
             localStorage.clear();
             localStorage.setItem('accessToken', data.headers.authorization);
+            localStorage.setItem('userEmail', data.data.email);
             navigate('/');
             alert('로그인 완료!');
           });

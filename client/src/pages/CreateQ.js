@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useForm } from 'react-hook-form';
 import EditorComp from '../components/EditorComp';
 import Tag from '../components/Tag';
+import TitleCard, { FirstBodyCard, SecondBodyCard, TagCard } from '../components/creatQ/Card';
+import Discard from '../components/creatQ/Discard';
 
 const Content = styled.div`
   padding: 0 7rem 6rem;
@@ -88,6 +91,14 @@ const QuestionTitle = styled.div`
 const Form = styled.form`
   width: 100%;
   margin: 10px 0 0;
+
+  .errorInput {
+    &:focus {
+      outline: none;
+      border-color: #c33e32;
+      box-shadow: 0 0 0 5px hsla(358, 62%, 47%, 0.15);
+    }
+  }
 `;
 
 const Input = styled.input`
@@ -95,11 +106,19 @@ const Input = styled.input`
   padding: 10px;
   border: 1px solid #babfc4;
   border-radius: 5px;
+
   &:focus {
     outline: none;
     border-color: hsl(206deg 100% 52%);
     box-shadow: 0px 0px 0px 5px #e1ecf4;
   }
+`;
+
+// 에러 메세지
+const ErrorMessage = styled.p`
+  margin-top: 10px;
+  color: #c33e32;
+  font-size: 12px;
 `;
 
 // 질문 내용
@@ -113,16 +132,16 @@ const QuestionBody = styled.div`
   position: relative;
 `;
 
-// const DimmedLayerBody = styled.div`
-//   position: absolute;
-//   top: 0px;
-//   left: 0px;
-//   width: 100%;
-//   height: 100%;
-//   background: white;
-//   opacity: 0.7;
-//   z-index: 5;
-// `;
+const DimmedLayerBody = styled.div`
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background: white;
+  opacity: 0.7;
+  z-index: 5;
+`;
 
 const Title = styled.div`
   color: #0c0d0e;
@@ -146,19 +165,20 @@ const QuestionTags = styled.div`
   position: relative;
 `;
 
-// const DimmedLayerTags = styled.div`
-//   position: absolute;
-//   top: 0px;
-//   left: 0px;
-//   width: 100%;
-//   height: 100%;
-//   background: white;
-//   opacity: 0.7;
-//   z-index: 5;
-// `;
+const DimmedLayerTags = styled.div`
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background: white;
+  opacity: 0.7;
+  z-index: 5;
+`;
 
 // 질문 입력 및 취소 버튼
 const BtnContainer = styled.div`
+  position: relative;
   display: flex;
 `;
 
@@ -194,76 +214,87 @@ const DiscardBtn = styled.button`
   }
 `;
 
-// 에러 메세지
-const ErrorMessage = styled.div`
-  display: none;
-  margin-top: 1rem;
-  color: #c33e32;
-  font-weight: 600;
-`;
-
-// 설명 카드 -> 입력창 focus 시, 나타나야 함
-const Card = styled.div`
-  margin: 0 16px;
-  width: 100%;
+const DimmedLayerBtn = styled.div`
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 140px;
   height: 100%;
   background: white;
-  border: 1px solid hsl(210deg 8% 85%);
-  border-radius: 3px;
-  color: #232629;
-`;
-
-const CardTitle = styled.div`
-  padding: 16px;
-  height: 45px;
-  background: hsl(210deg 8% 98%);
-  border-bottom: 1px solid hsl(210deg 8% 85%);
-  font-size: 15px;
-`;
-
-const CardBody = styled.div`
-  display: flex;
-  flex: 1 auto;
-  padding: 16px;
-  font-size: 12px;
-
-  div {
-    margin: 0 8px;
-  }
-`;
-
-const CardText = styled.div`
-  p {
-    line-height: 18px;
-
-    :first-child {
-      margin: 0 0 12px;
-    }
-  }
+  opacity: 0.7;
+  z-index: 100;
 `;
 
 function CreateQ() {
-  const [title, setTitle] = useState('');
   const [firstBody, setFirstBody] = useState('');
   const [secondBody, setSecondBody] = useState('');
   const [tags, setTags] = useState([]);
   const navigate = useNavigate();
   const initialToken = localStorage.getItem('accessToken');
+  const [isError, setIsError] = useState('');
 
-  const handleTitleChange = e => {
-    setTitle(e.target.value);
+  const [firstStyle, setFirstStyle] = useState({ display: 'block' });
+  const [secondStyle, setSecondStyle] = useState({ display: 'block' });
+  const [tagStyle, setTagStyle] = useState({ display: 'block' });
+
+  const [titleCardOpen, setTitleCardOpen] = useState({ visibility: 'visible' });
+  const [firstBodyCardOpen, setfirstBodyCardOpen] = useState({ visibility: 'hidden' });
+  const [secondBodyCardOpen, setSecondBodyCardOpen] = useState({ visibility: 'hidden' });
+  const [tagCardOpen, setTagCardOpen] = useState({ visibility: 'hidden' });
+
+  const [discardOpen, setDiscardOpen] = useState(false);
+
+  const [firstBtnActive, setFirstBtnActive] = useState({ display: 'block' });
+  const [secondBtnActive, setSecondBtnActive] = useState({ display: 'block' });
+  const [submitBtnActive, setSubmitBtnActive] = useState({ display: 'block' });
+
+  // 입력창 활성화 및 카드 함수
+
+  const onActiveFirstBody = () => {
+    setFirstStyle({ display: 'none' });
+    setTitleCardOpen({ visibility: 'hidden' });
+    setfirstBodyCardOpen({ visibility: 'visible' });
   };
 
+  const onActiveSecondBody = () => {
+    setSecondStyle({ display: 'none' });
+    setfirstBodyCardOpen({ visibility: 'hidden' });
+    setSecondBodyCardOpen({ visibility: 'visible' });
+  };
+
+  const onActiveTag = () => {
+    setTagStyle({ display: 'none' });
+    setSecondBodyCardOpen({ visibility: 'hidden' });
+    setTagCardOpen({ visibility: 'visible' });
+  };
+
+  // 타이틀 유효성 체크
+  const { register, handleSubmit } = useForm();
+
+  const validateTitle = value => {
+    if (value.length < 15) {
+      return 'Title must be at least 15 characters.';
+    }
+    return true;
+  };
+
+  // 타이틀 외 바디 onChange 함수
   const handleFirstEditorChange = value => {
     setFirstBody(value);
+    if (firstBody.length >= 20) {
+      setFirstBtnActive({ display: 'none' });
+    }
   };
 
   const handleSecondEditorChange = value => {
     setSecondBody(value);
+    if (secondBody.length >= 20) {
+      setSecondBtnActive({ display: 'none' });
+    }
   };
 
-  // 질문 추가하기
-  const addQuestion = () => {
+  // 질문 추가하기 POST 요청
+  const addQuestion = value => {
     fetch('http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions/ask', {
       method: 'POST',
       headers: {
@@ -271,7 +302,7 @@ function CreateQ() {
         Authorization: initialToken,
       },
       body: JSON.stringify({
-        title,
+        title: value,
         content: firstBody + secondBody,
         tags: tags.map(tag => ({ tagName: tag })),
       }),
@@ -282,12 +313,23 @@ function CreateQ() {
       });
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    addQuestion();
-    navigate('/questions');
+  // title은 실시간 반영이 안되고 submit 을 해야 반영이 됨
+  const onSubmit = data => {
+    addQuestion(data.title);
+    navigate('/');
   };
 
+  // 타이틀 에러 렌더링
+  const onError = error => {
+    setIsError(error);
+  };
+
+  // discard 모달 오픈
+  const onDiscardModal = () => {
+    setDiscardOpen(!discardOpen);
+  };
+
+  // 첫 페이지 진입 시 타이틀 인풋에 자동 focus
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -328,86 +370,79 @@ function CreateQ() {
           <Desc>Be specific and imagine you’re asking a question to another person.</Desc>
           <Form>
             <Input
+              type="text"
               name="title"
               ref={inputRef}
               placeholder="e.g.Is there an R function for finding the index of an element in a vector?"
-              value={title}
-              onChange={handleTitleChange}
-              required
+              {...register('title', {
+                validate: validateTitle,
+              })}
+              // className={isError ? 'errorInput' : ''}
+              className={isError.title && 'errorInput'}
             />
           </Form>
-          <NextBtn>Next</NextBtn>
+          {isError.title && <ErrorMessage>{isError.title.message}</ErrorMessage>}
+          <NextBtn onClick={onActiveFirstBody}>Next</NextBtn>
         </QuestionTitle>
-        <Card>
-          <CardTitle>Writing a good title</CardTitle>
-          <CardBody>
-            <div>
-              <svg
-                aria-hidden="true"
-                className="svg-spot spotPencil"
-                width="48"
-                height="48"
-                viewBox="0 0 48 48"
-              >
-                <path
-                  opacity=".2"
-                  d="M31.52 5.2a.34.34 0 0 0-.46.08L7 39.94a.34.34 0 0 0-.06.16l-.54 5.21c-.03.26.24.45.48.34l4.77-2.29c.05-.02.1-.06.13-.1L35.83 8.58a.34.34 0 0 0-.09-.47l-4.22-2.93Z"
-                />
-                <path d="M28.53 2.82c.4-.58 1.2-.73 1.79-.32l4.22 2.92c.58.4.72 1.2.32 1.79L10.82 41.87c-.13.18-.3.33-.5.43l-4.77 2.28c-.9.44-1.93-.29-1.83-1.29l.55-5.2c.02-.22.1-.43.22-.6L28.53 2.81Zm4.43 3.81L29.74 4.4 28.2 6.6l3.22 2.24 1.53-2.21Zm-2.6 3.76-3.23-2.24-20.32 29.3 3.22 2.24 20.32-29.3ZM5.7 42.4 8.62 41l-2.57-1.78-.34 3.18Zm35.12.3a1 1 0 1 0-.9-1.78 35 35 0 0 1-7.94 3.06c-1.93.43-3.8.3-5.71-.04-.97-.17-1.93-.4-2.92-.64l-.3-.07c-.9-.21-1.81-.43-2.74-.62-2.9-.58-6.6-.49-9.43.65a1 1 0 0 0 .74 1.86c2.4-.96 5.68-1.07 8.3-.55.88.18 1.77.4 2.66.6l.3.08c1 .24 2 .48 3.03.66 2.07.37 4.22.53 6.5.02 3-.67 5.77-1.9 8.41-3.22Z" />
-              </svg>
-            </div>
-            <CardText>
-              <p>Your title should summarize the problem.</p>
-              <p>
-                You might find that you have a better idea of your title after writing out the rest
-                of the question.
-              </p>
-            </CardText>
-          </CardBody>
-        </Card>
+        <TitleCard titleCardOpen={titleCardOpen} />
       </Container>
       <Container>
         <QuestionBody>
-          {/* <DimmedLayerBody /> */}
+          <DimmedLayerBody style={firstStyle} />
           <Title>What are the details of your problem?</Title>
           <Desc>
             Introduce the problem and expand on what you put in the title. Minimum 20 characters.
           </Desc>
           <EditorComp name="firstBody" value={firstBody} onChange={handleFirstEditorChange} />
-          <NextBtn>Next</NextBtn>
+          <BtnContainer>
+            <DimmedLayerBtn style={firstBtnActive} />
+            <NextBtn onClick={onActiveSecondBody}>Next</NextBtn>
+          </BtnContainer>
         </QuestionBody>
+        <FirstBodyCard firstBodyCardOpen={firstBodyCardOpen} />
       </Container>
       <Container>
         <QuestionBody>
-          {/* <DimmedLayerBody /> */}
+          <DimmedLayerBody style={secondStyle} />
           <Title>What did you try and what were you expecting?</Title>
           <Desc>
             Describe what you tried, what you expected to happen, and what actually resulted.
             Minimum 20 characters.
           </Desc>
           <EditorComp name="secondBody" value={secondBody} onChange={handleSecondEditorChange} />
-          <NextBtn>Next</NextBtn>
+          <BtnContainer>
+            <DimmedLayerBtn style={secondBtnActive} />
+            <NextBtn onClick={onActiveTag}>Next</NextBtn>
+          </BtnContainer>
         </QuestionBody>
+        <SecondBodyCard secondBodyCardOpen={secondBodyCardOpen} />
       </Container>
       <Container>
         <QuestionTags>
-          {/* <DimmedLayerTags /> */}
+          <DimmedLayerTags style={tagStyle} />
           <Title>Tags</Title>
           <Desc>
             Add up to 5 tags to describe what your question is about. Start typing to see
             suggestions.
           </Desc>
           <Tag name="tags" tags={tags} setTags={setTags} />
-          <NextBtn>Next</NextBtn>
+          <NextBtn onClick={() => setSubmitBtnActive({ display: 'none' })}>Next</NextBtn>
         </QuestionTags>
+        <TagCard tagCardOpen={tagCardOpen} />
       </Container>
       <BtnContainer>
-        <NextBtn onClick={handleSubmit}>Post your question</NextBtn>
-        <DiscardBtn>Discard draft</DiscardBtn>
+        <NextBtn onClick={handleSubmit(onSubmit, onError)}>Post your question</NextBtn>
+        <DimmedLayerBtn style={submitBtnActive} />
+        {discardOpen && (
+          <Discard
+            onDiscardModal={onDiscardModal}
+            setFirstBody={setFirstBody}
+            setSecondBody={setSecondBody}
+            setTags={setTags}
+          />
+        )}
+        <DiscardBtn onClick={onDiscardModal}>Discard draft</DiscardBtn>
       </BtnContainer>
-      <ErrorMessage>
-        Your question couldn&apos;t be submitted. Please see the error above.
-      </ErrorMessage>
     </Content>
   );
 }

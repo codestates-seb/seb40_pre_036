@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const SearchHints = styled.div`
   display: flex;
@@ -101,9 +102,14 @@ const Background = styled.div`
 
 function SearchTip({ handlerSearchTip }) {
   const navigate = useNavigate();
+  const isLogin = useSelector(state => state.isLogin);
 
   const onClick = () => {
-    navigate('/questions/ask');
+    if (isLogin === true) {
+      navigate('/questions/ask');
+    } else {
+      navigate('/users/login');
+    }
   };
 
   return (
