@@ -111,6 +111,7 @@ function Mypage() {
   const initialToken = localStorage.getItem('accessToken');
   const [user, setUser] = useState({});
   const [answers, setAnswers] = useState([]);
+  const [answersLength, setAnswersLength] = useState('');
   const [tagsLength, setTagsLength] = useState('');
   const [questionsLength, setQuestionsLength] = useState('');
   console.log(user);
@@ -135,6 +136,7 @@ function Mypage() {
         setAnswers(data.data.answers);
         setTagsLength(data.data.tags.length);
         setQuestionsLength(data.data.questions.length);
+        setAnswersLength(data.data.answers.length);
       });
   };
 
@@ -208,7 +210,9 @@ function Mypage() {
               <Acitivity
                 questions={user.questions}
                 tagsLength={tagsLength}
+                answers={answers}
                 questionsLength={questionsLength}
+                answersLength={answersLength}
                 tags={user.tags && user.tags.map(el => el.tagName)}
                 questionList={user.questions && user.questions.map(el => el.title)}
                 answerList={user.questions && user.questions.map(el => el.title)}
@@ -222,6 +226,8 @@ function Mypage() {
                 user={user}
                 questions={user.questions}
                 tagsLength={tagsLength}
+                answers={answers}
+                answersLength={answersLength}
                 questionsLength={questionsLength}
                 tags={user.tags && user.tags.map(el => el.tagName)}
                 answerList={user.questions && user.questions.map(el => el.title)}

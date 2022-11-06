@@ -70,11 +70,17 @@ function Editprofile({ user }) {
   const navigate = useNavigate();
   const [updateDisplayName, setUpdateDisplayName] = useState('');
   const handleContentChange = e => {
-    console.log(e);
-    setUpdateDisplayName(e);
+    console.log(e.target.value);
+    setUpdateDisplayName(e.target.value);
   };
   useEffect(() => {
-    fetch(`http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/users/me`)
+    fetch(`http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/users/me`, {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: initialToken,
+      },
+    })
       .then(res => {
         if (!res.ok) {
           throw Error('could not fetch the data for that resource');
@@ -87,20 +93,18 @@ function Editprofile({ user }) {
       })
       .catch(err => console.log(err));
   }, []);
+  console.log(updateDisplayName);
   const updateName = () => {
-    fetch(
-      `http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/users/me/settings/edit`,
-      {
-        method: 'PATCH',
-        headers: {
-          'Content-type': 'application/json',
-          Authorization: initialToken,
-        },
-        body: JSON.stringify({
-          displayName: updateDisplayName,
-        }),
+    fetch(`http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/users/me`, {
+      method: 'PATCH',
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: initialToken,
       },
-    )
+      body: JSON.stringify({
+        displayName: updateDisplayName,
+      }),
+    })
       .then(res => res.json())
       .then(json => {
         console.log(json.data);
@@ -120,7 +124,7 @@ function Editprofile({ user }) {
         <SubTitle>Profile image</SubTitle>
         <FontAwesomeIcon icon={faUser} size="6x" />
         <SubTitle>Display name</SubTitle>
-        <Input onChange={handleContentChange} />
+        <Input onChange={handleContentChange} value={updateDisplayName} />
       </PubBody>
       <Inform>
         Private information<Span>Not shown publicly</Span>
@@ -130,7 +134,7 @@ function Editprofile({ user }) {
         <Input />
       </PubBody>
       <Buttons>
-        <Button1>Save Edits</Button1>
+        <Button1 onClick={handleSubmit}>Save Edits</Button1>
         <Button2>Cancel</Button2>
       </Buttons>
     </Container>

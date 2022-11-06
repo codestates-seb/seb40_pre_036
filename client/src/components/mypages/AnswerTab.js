@@ -86,39 +86,28 @@ const CreateDate = styled.div`
   color: var(--color-font-gray);
   font-size: var(--font-size-base);
 `;
-function QuestionsTab({ questions, questionsLength, tags }) {
-  console.log(questions);
-  console.log(tags);
+function AnswerTab({ answers, answersLength }) {
+  console.log(answers);
   return (
     <Container>
-      <Title>{questionsLength} Questions</Title>
+      <Title>{answersLength} Answers</Title>
       <Questions>
-        {questions &&
-          questions.map(q => (
+        {answers &&
+          answers.map(a => (
             <QuestionContainer>
               <Question>
                 <Top>
-                  <Votes>{q.votes} votes</Votes>
-                  <AnswerCount>
-                    <FontAwesomeIcon icon={faCheck} />
-                    &nbsp;{q.answerCount} answers
-                  </AnswerCount>
-                  <View> {q.view} views</View>
+                  <Votes>{a.vote} votes</Votes>
                 </Top>
                 <QTitle
-                  to={`/questions/${q.questionId}`}
-                  key={`${q.questionId.toString()}-${q.title}`}
+                  to={`/questions/${a.questionId}`}
+                  key={`${a.questionId.toString()}-${a.answerId}`}
                 >
-                  {q.title}
+                  {a.answerContent}
                 </QTitle>
-                <Tags>
-                  {q.questionTags.map(t => (
-                    <Tag>{t.tagName}</Tag>
-                  ))}
-                </Tags>
               </Question>
               <CreateDate>
-                asked {q.createdAt.slice(0, 10)} at {q.createdAt.slice(11, 16)}
+                answered {a.createdAt.slice(0, 10)} at {a.createdAt.slice(11, 16)}
               </CreateDate>
             </QuestionContainer>
           ))}
@@ -127,4 +116,4 @@ function QuestionsTab({ questions, questionsLength, tags }) {
   );
 }
 
-export default QuestionsTab;
+export default AnswerTab;
