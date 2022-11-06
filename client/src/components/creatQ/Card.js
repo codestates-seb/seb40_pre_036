@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const CardContainer = styled.div`
-  visibility: hidden;
   margin: 0 16px;
   width: 100%;
   height: 100%;
@@ -38,9 +37,9 @@ const CardText = styled.div`
   }
 `;
 
-const TitleCard = function Card() {
+const TitleCard = function Card({ titleCardOpen }) {
   return (
-    <CardContainer>
+    <CardContainer style={titleCardOpen}>
       <CardTitle>Writing a good title</CardTitle>
       <CardBody>
         <div>
@@ -70,9 +69,9 @@ const TitleCard = function Card() {
   );
 };
 
-export const FirstBodyCard = function Card() {
+export const FirstBodyCard = function Card({ firstBodyCardOpen }) {
   return (
-    <CardContainer>
+    <CardContainer style={firstBodyCardOpen}>
       <CardTitle>Introduce the problem</CardTitle>
       <CardBody>
         <div>
@@ -101,9 +100,9 @@ export const FirstBodyCard = function Card() {
   );
 };
 
-export const SecondBodyCard = function Card() {
+export const SecondBodyCard = function Card({ secondBodyCardOpen }) {
   return (
-    <CardContainer>
+    <CardContainer style={secondBodyCardOpen}>
       <CardTitle>Expand on the problem</CardTitle>
       <CardBody>
         <div>
@@ -137,9 +136,9 @@ export const SecondBodyCard = function Card() {
   );
 };
 
-export const TagCard = function Card() {
+export const TagCard = function Card({ tagCardOpen }) {
   return (
-    <CardContainer>
+    <CardContainer style={tagCardOpen}>
       <CardTitle>Adding tags</CardTitle>
       <CardBody>
         <div>

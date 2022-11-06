@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { json, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import EditorComp from '../components/EditorComp';
@@ -213,28 +213,38 @@ function CreateQ() {
   const initialToken = localStorage.getItem('accessToken');
   const [isError, setIsError] = useState('');
   const [disabled, setDisabled] = useState(false);
+
   const [firstStyle, setFirstStyle] = useState({ display: 'block' });
   const [secondStyle, setSecondStyle] = useState({ display: 'block' });
   const [tagStyle, setTagStyle] = useState({ display: 'block' });
-  const [cardOpen, setCardOpen] = useState(false);
 
-  // 입력창 활성화 함수
+  const [titleCardOpen, setTitleCardOpen] = useState({ visibility: 'visible' });
+  const [firstBodyCardOpen, setfirstBodyCardOpen] = useState({ visibility: 'hidden' });
+  const [secondBodyCardOpen, setSecondBodyCardOpen] = useState({ visibility: 'hidden' });
+  const [tagCardOpen, setTagCardOpen] = useState({ visibility: 'hidden' });
+
+  // 입력창 활성화 및 카드 함수
+
   const onActiveFirstBody = () => {
     setFirstStyle({ display: 'none' });
-    setCardOpen({ visibility: 'visible' });
+    setTitleCardOpen({ visibility: 'hidden' });
+    setfirstBodyCardOpen({ visibility: 'visible' });
   };
 
   const onActiveSecondBody = () => {
     setSecondStyle({ display: 'none' });
+    setfirstBodyCardOpen({ visibility: 'hidden' });
+    setSecondBodyCardOpen({ visibility: 'visible' });
   };
 
   const onActiveTag = () => {
     setTagStyle({ display: 'none' });
+    setSecondBodyCardOpen({ visibility: 'hidden' });
+    setTagCardOpen({ visibility: 'visible' });
   };
 
-  // 유효성 체크
-  const { register, handleSubmit, errors, watch } = useForm();
-  // console.log(watch());
+  // 타이틀 유효성 체크
+  const { register, handleSubmit } = useForm();
 
   const validateTitle = value => {
     if (value.length < 15) {
@@ -243,12 +253,7 @@ function CreateQ() {
     return true;
   };
 
-  // handler 함수
-  // const handleTitleChange = e => {
-  //   setTitle(e.target.value);
-  //   console.log(e.target);
-  // };
-
+  // 타이틀 외 바디 onChange 함수
   const handleFirstEditorChange = value => {
     setFirstBody(value);
   };
@@ -257,7 +262,7 @@ function CreateQ() {
     setSecondBody(value);
   };
 
-  // 질문 추가하기
+  // 질문 추가하기 POST 요청
   const addQuestion = () => {
     fetch('http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions/ask', {
       method: 'POST',
@@ -277,13 +282,7 @@ function CreateQ() {
       });
   };
 
-  // const handleTotalSubmit = e => {
-  //   e.preventDefault();
-  //   addQuestion();
-  //   navigate('/questions');
-  // };
-
-  // 첫 페이지 진입 시 title에 자동 focus
+  // 첫 페이지 진입 시 타이틀 인풋에 자동 focus
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -291,20 +290,16 @@ function CreateQ() {
   }, []);
 
   // title은 실시간 반영이 안되고 submit 을 해야 반영이 됨
-  const onSubmit = (data, e) => {
-    // const Data = JSON.stringify(data);
-    // console.log('데이터', data);
-    e.preventDefault();
+  const onSubmit = data => {
     setTitle(data.title);
     addQuestion();
     navigate('/');
   };
 
+  // 타이틀 에러 렌더링
   const onError = error => {
     setIsError(error);
   };
-
-  // console.log('title', title, 'content', firstBody, secondBody);
 
   return (
     <Content>
@@ -352,7 +347,7 @@ function CreateQ() {
           {isError.title && <ErrorMessage>{isError.title.message}</ErrorMessage>}
           <NextBtn onClick={onActiveFirstBody}>Next</NextBtn>
         </QuestionTitle>
-        <TitleCard />
+        <TitleCard titleCardOpen={titleCardOpen} />
       </Container>
       <Container>
         <QuestionBody>
@@ -364,7 +359,7 @@ function CreateQ() {
           <EditorComp name="firstBody" value={firstBody} onChange={handleFirstEditorChange} />
           <NextBtn onClick={onActiveSecondBody}>Next</NextBtn>
         </QuestionBody>
-        <FirstBodyCard c={cardOpen} />
+        <FirstBodyCard firstBodyCardOpen={firstBodyCardOpen} />
       </Container>
       <Container>
         <QuestionBody>
@@ -377,7 +372,7 @@ function CreateQ() {
           <EditorComp name="secondBody" value={secondBody} onChange={handleSecondEditorChange} />
           <NextBtn onClick={onActiveTag}>Next</NextBtn>
         </QuestionBody>
-        <SecondBodyCard />
+        <SecondBodyCard secondBodyCardOpen={secondBodyCardOpen} />
       </Container>
       <Container>
         <QuestionTags>
@@ -390,7 +385,7 @@ function CreateQ() {
           <Tag name="tags" tags={tags} setTags={setTags} />
           <NextBtn onClick={setDisabled}>Next</NextBtn>
         </QuestionTags>
-        <TagCard />
+        <TagCard tagCardOpen={tagCardOpen} />
       </Container>
       <BtnContainer>
         <NextBtn onClick={handleSubmit(onSubmit, onError)} disabled={disabled}>
