@@ -140,31 +140,31 @@ function Login() {
     });
   };
 
+  const emailRegex =
+    /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
   async function getLogin() {
-    try {
-      await axios
-        .post('http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/login', {
-          email: account.email,
-          password: account.password,
-        })
-        .then(data => {
-          dispatch(loginActions.login());
-          localStorage.clear();
-          localStorage.setItem('accessToken', data.headers.authorization);
-          localStorage.setItem('userEmail', data.data.email);
-          navigate('/questions');
-          alert('로그인 성공!');
-          console.log(data.data);
-        });
-      // 일치하는 유저가 존재 X
-    } catch (error) {
-      // if (error.response.status === 401) {
-      //   alert('이메일 혹은 비밀번호가 일치하지 않습니다.');
-      //   console.log(error);
-      // } else {
-      //   alert(error.response.status);
-      console.log(error);
-      // }
+    if (!emailRegex.test(account.email)) {
+      alert('올바른 이메일양식이 아닙니다.');
+    } else if (account.password.length < 4) {
+      alert('비밀번호는 최소4글자 이상 입력해주세요');
+    } else {
+      try {
+        await axios
+          .post('http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/login', {
+            email: account.email,
+            password: account.password,
+          })
+          .then(data => {
+            dispatch(loginActions.login());
+            localStorage.clear();
+            localStorage.setItem('accessToken', data.headers.authorization);
+            navigate('/');
+            alert('로그인 완료!');
+          });
+        // 일치하는 유저가 존재 X
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
   console.log('로그인 여부', isLogin);
@@ -204,7 +204,7 @@ function Login() {
           <InputLable>
             <div>
               <p>Password</p>
-              <a href="/">Forgot password?</a>
+              <a href="/signup">Forgot password?</a>
             </div>
             <input
               name="password"
