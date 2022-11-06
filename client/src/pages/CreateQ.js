@@ -91,6 +91,14 @@ const QuestionTitle = styled.div`
 const Form = styled.form`
   width: 100%;
   margin: 10px 0 0;
+
+  .errorInput {
+    &:focus {
+      outline: none;
+      border-color: #c33e32;
+      box-shadow: 0 0 0 5px hsla(358, 62%, 47%, 0.15);
+    }
+  }
 `;
 
 const Input = styled.input`
@@ -98,6 +106,7 @@ const Input = styled.input`
   padding: 10px;
   border: 1px solid #babfc4;
   border-radius: 5px;
+
   &:focus {
     outline: none;
     border-color: hsl(206deg 100% 52%);
@@ -168,8 +177,8 @@ const DimmedLayerTags = styled.div`
 `;
 
 // 질문 입력 및 취소 버튼
-
 const BtnContainer = styled.div`
+  position: relative;
   display: flex;
 `;
 
@@ -205,8 +214,18 @@ const DiscardBtn = styled.button`
   }
 `;
 
+const DimmedLayerBtn = styled.div`
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 140px;
+  height: 100%;
+  background: white;
+  opacity: 0.7;
+  z-index: 100;
+`;
+
 function CreateQ() {
-  const [title, setTitle] = useState('');
   const [firstBody, setFirstBody] = useState('');
   const [secondBody, setSecondBody] = useState('');
   const [tags, setTags] = useState([]);
@@ -224,6 +243,10 @@ function CreateQ() {
   const [tagCardOpen, setTagCardOpen] = useState({ visibility: 'hidden' });
 
   const [discardOpen, setDiscardOpen] = useState(false);
+
+  const [firstBtnActive, setFirstBtnActive] = useState({ display: 'block' });
+  const [secondBtnActive, setSecondBtnActive] = useState({ display: 'block' });
+  const [submitBtnActive, setSubmitBtnActive] = useState({ display: 'block' });
 
   // 입력창 활성화 및 카드 함수
 
@@ -258,14 +281,20 @@ function CreateQ() {
   // 타이틀 외 바디 onChange 함수
   const handleFirstEditorChange = value => {
     setFirstBody(value);
+    if (firstBody.length >= 20) {
+      setFirstBtnActive({ display: 'none' });
+    }
   };
 
   const handleSecondEditorChange = value => {
     setSecondBody(value);
+    if (secondBody.length >= 20) {
+      setSecondBtnActive({ display: 'none' });
+    }
   };
 
   // 질문 추가하기 POST 요청
-  const addQuestion = () => {
+  const addQuestion = value => {
     fetch('http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions/ask', {
       method: 'POST',
       headers: {
@@ -273,7 +302,7 @@ function CreateQ() {
         Authorization: initialToken,
       },
       body: JSON.stringify({
-        title,
+        title: value,
         content: firstBody + secondBody,
         tags: tags.map(tag => ({ tagName: tag })),
       }),
@@ -284,17 +313,9 @@ function CreateQ() {
       });
   };
 
-  // 첫 페이지 진입 시 타이틀 인풋에 자동 focus
-  const inputRef = useRef(null);
-
-  useEffect(() => {
-    if (inputRef.current !== null) inputRef.current.focus();
-  }, []);
-
   // title은 실시간 반영이 안되고 submit 을 해야 반영이 됨
   const onSubmit = data => {
-    setTitle(data.title);
-    addQuestion();
+    addQuestion(data.title);
     navigate('/');
   };
 
@@ -304,10 +325,16 @@ function CreateQ() {
   };
 
   // discard 모달 오픈
-
   const onDiscardModal = () => {
     setDiscardOpen(!discardOpen);
   };
+
+  // 첫 페이지 진입 시 타이틀 인풋에 자동 focus
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (inputRef.current !== null) inputRef.current.focus();
+  }, []);
 
   return (
     <Content>
@@ -350,6 +377,8 @@ function CreateQ() {
               {...register('title', {
                 validate: validateTitle,
               })}
+              // className={isError ? 'errorInput' : ''}
+              className={isError.title && 'errorInput'}
             />
           </Form>
           {isError.title && <ErrorMessage>{isError.title.message}</ErrorMessage>}
@@ -365,7 +394,10 @@ function CreateQ() {
             Introduce the problem and expand on what you put in the title. Minimum 20 characters.
           </Desc>
           <EditorComp name="firstBody" value={firstBody} onChange={handleFirstEditorChange} />
-          <NextBtn onClick={onActiveSecondBody}>Next</NextBtn>
+          <BtnContainer>
+            <DimmedLayerBtn style={firstBtnActive} />
+            <NextBtn onClick={onActiveSecondBody}>Next</NextBtn>
+          </BtnContainer>
         </QuestionBody>
         <FirstBodyCard firstBodyCardOpen={firstBodyCardOpen} />
       </Container>
@@ -378,7 +410,10 @@ function CreateQ() {
             Minimum 20 characters.
           </Desc>
           <EditorComp name="secondBody" value={secondBody} onChange={handleSecondEditorChange} />
-          <NextBtn onClick={onActiveTag}>Next</NextBtn>
+          <BtnContainer>
+            <DimmedLayerBtn style={secondBtnActive} />
+            <NextBtn onClick={onActiveTag}>Next</NextBtn>
+          </BtnContainer>
         </QuestionBody>
         <SecondBodyCard secondBodyCardOpen={secondBodyCardOpen} />
       </Container>
@@ -391,13 +426,21 @@ function CreateQ() {
             suggestions.
           </Desc>
           <Tag name="tags" tags={tags} setTags={setTags} />
-          <NextBtn>Next</NextBtn>
+          <NextBtn onClick={() => setSubmitBtnActive({ display: 'none' })}>Next</NextBtn>
         </QuestionTags>
         <TagCard tagCardOpen={tagCardOpen} />
       </Container>
       <BtnContainer>
         <NextBtn onClick={handleSubmit(onSubmit, onError)}>Post your question</NextBtn>
-        {discardOpen && <Discard onDiscardModal={onDiscardModal} />}
+        <DimmedLayerBtn style={submitBtnActive} />
+        {discardOpen && (
+          <Discard
+            onDiscardModal={onDiscardModal}
+            setFirstBody={setFirstBody}
+            setSecondBody={setSecondBody}
+            setTags={setTags}
+          />
+        )}
         <DiscardBtn onClick={onDiscardModal}>Discard draft</DiscardBtn>
       </BtnContainer>
     </Content>
