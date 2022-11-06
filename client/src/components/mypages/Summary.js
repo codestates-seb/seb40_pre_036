@@ -1,38 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { faChartLine, faUserAstronaut } from '@fortawesome/free-solid-svg-icons';
 import { faUsb } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const Body = styled.div`
-  display: flex;
-  margin-top: 20px;
-`;
-const Subnav = styled.nav`
-  display: flex;
-  flex-direction: column;
-  font-size: 0.7rem;
-  color: #656b71;
-`;
-const Sub = styled.h5`
-  cursor: pointer;
-  padding: 5px 30px 5px 10px;
-  &:hover {
-    background-color: #f1f2f3;
-    border-radius: 30px;
-  }
-  &.clicked {
-    background-color: #f1823b;
-    border-radius: 30px;
-    color: white;
-  }
-  &.clicked::after {
-    background-color: #f1823b;
-    border-radius: 30px;
-    color: white;
-  }
-`;
 const Subbody = styled.div`
   display: flex;
   flex-direction: column;
@@ -136,11 +108,31 @@ const ListQ = styled.div`
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  width: 100%;
 `;
 const Questions = styled(Link)`
   display: flex;
   flex-direction: column;
   text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
+  color: #0074cc;
+  &:hover {
+    color: #0a95ff;
+  }
+  &:visited {
+    text-decoration: none;
+  }
+`;
+// answers
+const Answers = styled.div`
+  /* white-space: nowrap; */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  /* width: 250px; */
   cursor: pointer;
   color: #0074cc;
   &:hover {
@@ -173,6 +165,7 @@ const RelatedPost = styled.div`
   align-items: center;
   margin: 5px 0;
   overflow: hidden;
+  width: 100%;
   justify-content: space-between;
 `;
 const RelatedPostQ = styled.div`
@@ -182,6 +175,8 @@ const RelatedPostQ = styled.div`
 const Date = styled.div`
   display: flex;
   margin-left: 30px;
+  width: 60px;
+  justify-content: flex-end;
 `;
 const Tagview = styled.div`
   display: flex;
@@ -194,7 +189,8 @@ const Tagtitle = styled.div`
   align-items: flex-end;
   margin-right: 10px;
 `;
-function SummaryTab({ questions, questionList, tags, tagsLength }) {
+function SummaryTab({ answers, questions, questionList, tags, tagsLength }) {
+  console.log(answers);
   return (
     <Subbody>
       <h3>Summary</h3>
@@ -227,11 +223,33 @@ function SummaryTab({ questions, questionList, tags, tagsLength }) {
         <Inline>
           <H3>Answers</H3>
           <Subsummary>
-            <Summaries>
+            {answers === [] ? (
               <Subsummary>
                 You have not <Span>&nbsp;answered&nbsp;</Span> any questions
               </Subsummary>
-            </Summaries>
+            ) : (
+              <SummariesQ>
+                {answers &&
+                  answers.map(answer => (
+                    <RelatedPost>
+                      <RelatedPostQ>
+                        <RelatedVote key={`${answer.answerId.toString()}-${answer.vote}`}>
+                          {answer.vote}
+                        </RelatedVote>
+                        <Answers
+                          to={`/questions/${answer.questionId}`}
+                          key={`${answer.answerId.toString()}-${answer.answerContent.slice(0, 5)}`}
+                        >
+                          {answer.answerContent.slice(0, 22)}
+                        </Answers>
+                      </RelatedPostQ>
+                      <Date key={`${answer.answerId.toString()}-${answer.modifiedAt}`}>
+                        {answer.modifiedAt.slice(5, 10)}
+                      </Date>
+                    </RelatedPost>
+                  ))}
+              </SummariesQ>
+            )}
           </Subsummary>
         </Inline>
         <Inline>
