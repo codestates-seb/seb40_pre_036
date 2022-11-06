@@ -112,6 +112,7 @@ function Mypage() {
   const [user, setUser] = useState({});
   const [answers, setAnswers] = useState([]);
   const [tagsLength, setTagsLength] = useState('');
+  const [questionsLength, setQuestionsLength] = useState('');
   console.log(user);
   console.log(tagsLength);
   // const qId = answers.map(answer => answer.questionId);
@@ -133,6 +134,7 @@ function Mypage() {
         setUser(data.data);
         setAnswers(data.data.answers);
         setTagsLength(data.data.tags.length);
+        setQuestionsLength(data.data.questions.length);
       });
   };
 
@@ -206,6 +208,7 @@ function Mypage() {
               <Acitivity
                 questions={user.questions}
                 tagsLength={tagsLength}
+                questionsLength={questionsLength}
                 tags={user.tags && user.tags.map(el => el.tagName)}
                 questionList={user.questions && user.questions.map(el => el.title)}
                 answerList={user.questions && user.questions.map(el => el.title)}
@@ -213,12 +216,13 @@ function Mypage() {
             }
           />
           <Route
-            path="/activity"
+            path="/activity/*"
             element={
               <Acitivity
                 user={user}
                 questions={user.questions}
                 tagsLength={tagsLength}
+                questionsLength={questionsLength}
                 tags={user.tags && user.tags.map(el => el.tagName)}
                 answerList={user.questions && user.questions.map(el => el.title)}
                 questionList={user.questions && user.questions.map(el => el.title)}
