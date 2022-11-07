@@ -1,4 +1,4 @@
-﻿![header](https://capsule-render.vercel.app/api?type=waving&color=0:EEFF00,100:FCFFB2&height=200&section=header&text=36두유&fontSize=70&fontColor=425F57)
+![header](https://capsule-render.vercel.app/api?type=waving&color=0:EEFF00,100:FCFFB2&height=200&section=header&text=36두유&fontSize=70&fontColor=425F57)
 # 프로젝트이름
 
 ### StackOverFlow clone 프로젝트 36팀 read.me입니다.
