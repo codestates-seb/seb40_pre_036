@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import Nav from '../components/Nav';
 import EditorComp from '../components/EditorComp';
 import Tag from '../components/Tag';
-import Discard from '../components/creatQ/Discard';
+import Cancel from '../components/CancelCard';
 
 const Main = styled.div`
   display: flex;
@@ -88,7 +88,7 @@ const SaveEdit = styled.button`
     background-color: hsl(206, 100%, 40%);
   }
 `;
-const Cancel = styled.button`
+const CancelBtn = styled.button`
   color: #379fef;
   padding: 10px 15px;
   border: none;
@@ -146,7 +146,7 @@ function Edit() {
   const [updateContent, setUpdateContent] = useState('');
   const [updateTags, setUpdateTags] = useState([]);
 
-  const [discardOpen, setDiscardOpen] = useState(false);
+  const [cancelOpen, setCancelOpen] = useState(false);
   const initialToken = localStorage.getItem('accessToken');
 
   // title, Content, Tags input change
@@ -200,8 +200,8 @@ function Edit() {
   };
 
   // discard 모달 오픈
-  const onDiscardModal = () => {
-    setDiscardOpen(!discardOpen);
+  const onCancelModal = () => {
+    setCancelOpen(!cancelOpen);
   };
   return (
     <Main>
@@ -248,10 +248,10 @@ function Edit() {
               <SaveEdit name="saveEdit" onClick={handleSubmit}>
                 Save Edits
               </SaveEdit>
-              {discardOpen && <Discard onDiscardModal={onDiscardModal} />}
-              <Cancel name="cancel" onClick={onDiscardModal}>
+              {cancelOpen && <Cancel onCancelModal={onCancelModal} />}
+              <CancelBtn name="cancel" onClick={onCancelModal}>
                 Cancel
-              </Cancel>
+              </CancelBtn>
             </Buttons>
           </Body>
         </Content>
