@@ -148,7 +148,11 @@ function Mypage() {
       <Content>
         <Head>
           <Left>
-            <FontAwesomeIcon icon={faUser} size="6x" />
+            <img
+              src={`https://avatars.dicebear.com/api/adventurer-neutral/${user.userId}.svg?size=100`}
+              alt="avator"
+            />
+            {/* <FontAwesomeIcon icon={faUser} size="6x" /> */}
             <Details>
               <H1>{user.displayName}</H1>
               <Detail>

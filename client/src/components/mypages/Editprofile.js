@@ -70,7 +70,6 @@ function Editprofile({ user }) {
   const navigate = useNavigate();
   const [updateDisplayName, setUpdateDisplayName] = useState('');
   const handleContentChange = e => {
-    console.log(e.target.value);
     setUpdateDisplayName(e.target.value);
   };
   useEffect(() => {
@@ -122,7 +121,11 @@ function Editprofile({ user }) {
       <Inform>Public information</Inform>
       <PubBody>
         <SubTitle>Profile image</SubTitle>
-        <FontAwesomeIcon icon={faUser} size="6x" />
+        <img
+          src={`https://avatars.dicebear.com/api/adventurer-neutral/${user.userId}.svg?size=100`}
+          alt="avator"
+        />
+        {/* <FontAwesomeIcon icon={faUser} size="6x" /> */}
         <SubTitle>Display name</SubTitle>
         <Input onChange={handleContentChange} value={updateDisplayName} />
       </PubBody>
