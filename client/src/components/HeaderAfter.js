@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import React, { useState } from 'react';
-import { faIdCard, faInbox, faTrophy, faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
+import { faInbox, faTrophy, faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
 import { Link, useNavigate } from 'react-router-dom';
 import { faStackExchange } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -113,6 +113,11 @@ const Li = styled.li`
   color: #727272;
   font-size: 18px;
 
+  img {
+    width: 30px;
+    border-radius: 8px;
+  }
+
   &:hover {
     background-color: hsl(210deg 8% 90%);
   }
@@ -194,7 +199,11 @@ function HeaderAfter() {
         <Ol>
           <PageMove to="/users/me/*">
             <Li>
-              <FontAwesomeIcon icon={faIdCard} />
+              <img
+                src="https://mblogthumb-phinf.pstatic.net/MjAyMDA2MTBfMTY1/MDAxNTkxNzQ2ODcyOTI2.Yw5WjjU3IuItPtqbegrIBJr3TSDMd_OPhQ2Nw-0-0ksg.8WgVjtB0fy0RCv0XhhUOOWt90Kz_394Zzb6xPjG6I8gg.PNG.lamute/user.png?type=w800"
+                className="user"
+                alt="user"
+              />
               <CardInfo>1</CardInfo>
             </Li>
           </PageMove>
