@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useParams } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const SideBar = styled.div`
@@ -13,6 +13,7 @@ const Icon = styled.svg`
   fill: rgb(187, 191, 195);
   pointer-events: none;
   cursor: pointer;
+
   &.small-icon {
     width: 18px;
     height: 18px;
@@ -24,25 +25,17 @@ const Icon = styled.svg`
   path {
     pointer-events: none;
   }
-  /* &:active {
-    fill: #f48123;
-  } */
 `;
 
 const VoteBtnContainer = styled.div`
-  border: none;
-  background: none;
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const UpVote = styled.button`
   border: none;
   background: none;
 `;
 
-const DownVote = styled.button`
+const VoteBtn = styled.button`
   border: none;
   background: none;
 `;
@@ -54,18 +47,11 @@ const Count = styled.div`
   cursor: text;
 `;
 
-function QuestionSideBar({ target, id, queId, setQuestionVotes, questionVotes }) {
+function QuestionSideBar({ target, id, setQuestionVotes, questionVotes }) {
   const [clicked, setClicked] = useState('');
   const token = localStorage.getItem('accessToken');
-  // const [votes, setVotes] = useState(0);
-
-  // useEffect(() => {
-  //   console.log('clicked', clicked);
-  // }, [clicked]);
 
   const handleVoteClick = e => {
-    console.log('e.target.id!', e.target.id);
-    // console.log(clicked)
     if (e.target.id === '1' && clicked !== '1') {
       setClicked('1');
     } else if (e.target.id === '-1' && clicked !== '-1') {
@@ -73,9 +59,7 @@ function QuestionSideBar({ target, id, queId, setQuestionVotes, questionVotes })
     } else {
       setClicked('0');
     }
-    console.log('지금 뭐 눌렀어', clicked);
 
-    console.log(`저는 ${id}번째 ${target}에 ${clicked}표 행사합니다~`);
     // 이전과 동일한 target 클릭 시 투표 무효
     if (e.target.id === clicked) {
       fetch(
@@ -83,7 +67,6 @@ function QuestionSideBar({ target, id, queId, setQuestionVotes, questionVotes })
         {
           method: 'POST',
           headers: {
-            // 'Content-type': 'application/json',
             Authorization: token,
           },
         },
@@ -96,18 +79,18 @@ function QuestionSideBar({ target, id, queId, setQuestionVotes, questionVotes })
         })
         .then(data => {
           setQuestionVotes(data.data.totalVotes);
-          console.log('현재 토탈!!', data.data.totalVotes);
         })
         .catch(error => {
-          console.log(error);
+          throw new Error(error);
         });
+
+      // 1 / -1 투표 요청
     } else {
       fetch(
         `http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/${target}/votes/${id}?vote=${e.target.id}`,
         {
           method: 'POST',
           headers: {
-            // 'Content-type': 'application/json',
             Authorization: token,
           },
         },
@@ -120,20 +103,17 @@ function QuestionSideBar({ target, id, queId, setQuestionVotes, questionVotes })
         })
         .then(data => {
           setQuestionVotes(data.data.totalVotes);
-          console.log('현재 토탈!!', data.data.totalVotes);
         })
         .catch(error => {
-          console.log(error);
+          throw new Error(error);
         });
     }
-    // /answer/{answer-id}/votes/{vote}
-    // /questions/votes/{question-id}?vote={vote}
   };
 
   return (
     <SideBar>
       <VoteBtnContainer type="button">
-        <UpVote onClick={handleVoteClick} id="1">
+        <VoteBtn onClick={handleVoteClick} id="1">
           <Icon
             className={clicked === '1' ? 'clicked' : null}
             aria-hidden="true"
@@ -143,9 +123,9 @@ function QuestionSideBar({ target, id, queId, setQuestionVotes, questionVotes })
           >
             <path d="M2 25h32L18 9 2 25Z" />
           </Icon>
-        </UpVote>
+        </VoteBtn>
         <Count>{questionVotes}</Count>
-        <DownVote onClick={handleVoteClick} id="-1">
+        <VoteBtn onClick={handleVoteClick} id="-1">
           <Icon
             className={clicked === '-1' ? 'clicked' : null}
             aria-hidden="true"
@@ -155,7 +135,7 @@ function QuestionSideBar({ target, id, queId, setQuestionVotes, questionVotes })
           >
             <path d="M2 11h32L18 27 2 11Z" />
           </Icon>
-        </DownVote>
+        </VoteBtn>
         <Icon className="small-icon" aria-hidden="true" width="18" height="18" viewBox="0 0 18 18">
           <path d="m9 10.6 4 2.66V3H5v10.26l4-2.66ZM3 17V3c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v14l-6-4-6 4Z" />
         </Icon>

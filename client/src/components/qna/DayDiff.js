@@ -5,6 +5,7 @@ function DayDiff({ createdAt }) {
   const now = dayjs();
   const ago = dayjs(createdAt);
   let diff = now.diff(ago, 'hour') - 9; // utc를 한국 표준시로
+
   if (diff >= 720) {
     diff = `${Math.floor(diff / 720)} months ago`;
   } else if (diff >= 168) {

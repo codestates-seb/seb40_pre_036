@@ -37,7 +37,6 @@ const AsideContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 20px;
-
   gap: 50px;
 `;
 
@@ -53,16 +52,8 @@ function QnA() {
   const [answers, setAnswers] = useState([]);
   const [totalANum, setTotalANum] = useState(0);
   const [questionVotes, setQuestionVotes] = useState(0);
-  const [answerVotes, setAnswerVotes] = useState(0);
 
   useEffect(() => {
-    // console.log(answers);
-    console.log(answerVotes);
-    console.log(questionVotes);
-  }, [answerVotes, questionVotes]);
-
-  useEffect(() => {
-    // question list data 요청
     fetch(`http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`)
       .then(res => {
         if (!res.ok) {
@@ -71,32 +62,19 @@ function QnA() {
         return res.json();
       })
       .then(data => {
-        console.log('data', data);
-        // console.log('data.data.answers', data.data.answers.data);
         setQuestion(data.data);
         setQuestionVotes(data.data.votes);
+
         if (data.data.answers) {
           setAnswers(data.data.answers.data);
           setTotalANum(data.data.answers.pageInfo.totalElements);
-          // setAnswerVotes(data.data.answers.data.map(el => el.vote));
         }
-
-        // console.log('나우러 답변', answers[0].vote);
-        // console.log('questionVotes', questionVotes);
-        // console.log('answerVotes', answerVotes);
-        // console.log('총 질문수!!', data.pageInfo.totalElements);
-        // setQuestion(data.data);
-        // setTotalQNum(data.pageInfo.totalElements);
       })
-      .catch(err => console.log(err));
+      .catch(error => {
+        throw new Error(error);
+      });
   }, []);
 
-  // useEffect(() => {
-  //   axios.get(`http://localhost:3001/questions/${id}`).then(res => {
-  //     console.log('res', res);
-  //     setQuestions(res.data);
-  //   });
-  // }, []);
   return (
     <Container>
       <Nav path="Questions" />
@@ -121,22 +99,13 @@ function QnA() {
             <QnAComment />
             <Title>{totalANum} Answer</Title>
             {answers &&
-              answers.map((ans, i) => (
+              answers.map(ans => (
                 <AnswerContent
                   key={ans.answerId}
                   ansId={ans.answerId}
                   queId={ans.questionId}
                   content={ans.answerContent}
                   user={ans.user}
-                  answerVotes={answerVotes}
-                  // answerVotes={
-                  //   Array.isArray(answerVotes) ? answerVotes.filter((el, idx) => idx === i) : null
-                  // }
-                  // votes={
-                  //   Array.isArray(answerVotes) ? answerVotes.filter((el, idx) => idx === i) : null
-                  // }
-                  totalANum={totalANum}
-                  setAnswerVotes={setAnswerVotes}
                   createdAt={ans.createdAt}
                 />
               ))}

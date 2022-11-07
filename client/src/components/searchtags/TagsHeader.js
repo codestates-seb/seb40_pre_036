@@ -8,6 +8,7 @@ const Header = styled.header`
   font-size: 13px;
   color: #232639;
   line-height: 1.4;
+
   p {
     max-width: 590px;
     font-size: 15px;
@@ -67,7 +68,6 @@ const Input = styled.input`
     border-color: hsl(206deg 90% 70%);
     box-shadow: 0px 0px 0px 5px #e1ecf4;
   }
-
   &::placeholder {
     color: rgb(190, 192, 195);
   }
@@ -92,18 +92,15 @@ const FilterBtn = styled.button`
     border-bottom-left-radius: 5px 5px;
     border-right: 1px solid rgb(148, 156, 163);
   }
-
   &.right-btn {
     border-top-right-radius: 5px 5px;
     border-bottom-right-radius: 5px 5px;
   }
-
   &.sorted {
     background-color: #e3e6e8;
     color: #3b4045;
     pointer-events: none;
   }
-
   &:hover {
     background-color: rgb(247, 247, 247);
     color: #525960;
