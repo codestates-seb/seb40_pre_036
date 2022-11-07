@@ -12,14 +12,15 @@ import Settings from '../components/mypages/Settings';
 
 const Main = styled.div`
   display: flex;
-  margin: var(--margin-main-side);
+  justify-content: center;
 `;
 
 const Content = styled.div`
   display: flex;
   flex-direction: column;
   padding: 15px;
-  width: 70%;
+  width: 1088px;
+  /* width: 70%; */
 `;
 
 const Head = styled.div`

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import Nav from '../components/Nav';
 import Aside from '../components/Aside';
 import QuestionContent from '../components/qna/QuestionContent';
@@ -10,21 +8,21 @@ import QnAHeader from '../components/qna/QnAHeader';
 import QnAComment from '../components/qna/QnAComment';
 import AnswerContent from '../components/qna/AnswerContent';
 import AnswerForm from '../components/qna/AnswerForm';
-import RelatedContents from '../components/qna/RelatedConent';
+import RelatedContents from '../components/qna/RelatedContents';
 
 const Container = styled.div`
   display: flex;
-  margin: 0 5rem 0 3rem;
+  justify-content: center;
 `;
 
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 24px;
+  width: 1088px;
 `;
 
 const QnAContainer = styled.div`
-  max-width: 730px;
   display: flex;
   flex-direction: column;
 `;
@@ -32,13 +30,15 @@ const QnAContainer = styled.div`
 // header 밑 부분 정렬
 const ContentContainer = styled.div`
   display: flex;
-  margin-top: 16px;
+  margin-top: 18px;
 `;
 
 const AsideContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 20px;
+
+  gap: 50px;
 `;
 
 const Title = styled.h2`
@@ -99,7 +99,7 @@ function QnA() {
   // }, []);
   return (
     <Container>
-      <Nav />
+      <Nav path="Questions" />
       <MainContainer>
         <QnAHeader
           title={question.title}

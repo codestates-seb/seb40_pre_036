@@ -9,11 +9,13 @@ import TimeDiff from '../components/main/TimeDiff';
 
 const SearchPage = styled.div`
   display: flex;
+  justify-content: center;
 `;
 
 const MainBar = styled.main`
   padding: 24px;
-  width: 100%;
+  box-sizing: border-box;
+  width: 751px;
 `;
 
 const Start = styled.div`
@@ -496,7 +498,9 @@ function Search() {
           setLimit={setLimit}
         />
       </MainBar>
-      <Aside />
+      <div>
+        <Aside />
+      </div>
     </SearchPage>
   );
 }

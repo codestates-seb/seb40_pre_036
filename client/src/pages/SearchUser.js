@@ -4,12 +4,12 @@ import Nav from '../components/Nav';
 
 const SearchUserPage = styled.div`
   display: flex;
-  margin: 0 5rem 0 3rem;
+  justify-content: center;
 `;
 
 const MainBar = styled.main`
   padding: 24px;
-  width: 100%;
+  width: 1088px;
 `;
 
 const Start = styled.div`

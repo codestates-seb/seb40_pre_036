@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 import TimeDiff from '../main/TimeDiff';
 
 const User = styled.a`
@@ -68,20 +70,27 @@ const UserInfo = styled.div`
   margin-top: 1px;
 `;
 
-const UserPic = styled.img`
+const UserPic = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 32px;
   height: 32px;
-  background-color: gray;
+  font-size: 20px;
   border-radius: 4px;
   margin-right: 4px;
+  color: rgb(250, 250, 250, 0.95);
+  background-color: #0074cc;
 `;
 
 const DeleteModal = styled.div`
   padding: 25px 20px 20px 20px;
   position: absolute;
+  background-color: #fdf2f2;
   color: #3b4045;
-  border: 1px solid hsl(210deg 8% 85%);
-  background: white;
+  border: 1px solid #f4b4b6;
+  /* border: 1px solid hsl(210deg 8% 85%); */
+  /* background: white; */
   border-radius: 5px;
   box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.06), 0 2px 6px hsla(0, 0%, 0%, 0.06),
     0 3px 8px hsla(0, 0%, 0%, 0.09);
@@ -92,7 +101,7 @@ const DeleteModal = styled.div`
   /* top: 40px; */
   div {
     span {
-      color: #f48123;
+      color: #de4f54;
       font-weight: bold;
     }
   }
@@ -100,18 +109,17 @@ const DeleteModal = styled.div`
 
 const BtnContainer = styled.div`
   display: flex;
-  /* flex-direction: column; */
   justify-content: space-between;
   margin-top: 5px;
-  /* align-items: flex-end; */
+
   button {
     font-weight: bold;
     margin: 10px 60px 0;
     border: none;
     background: none;
-    /* padding: 0px 10px; */
+
     &:hover {
-      color: #f48123;
+      color: #d0393e;
     }
   }
 `;
@@ -212,10 +220,10 @@ function ContentMenu({ path, user, createdAt, target, ansId, queId }) {
               Are you sure you want to <span>delete</span> this post?
             </div>
             <BtnContainer>
-              <button type="button" onClick={handleChoice}>
+              <button className="yes" type="button" onClick={handleChoice}>
                 Yes
               </button>
-              <button type="button" onClick={handleChoice}>
+              <button className="no" type="button" onClick={handleChoice}>
                 No
               </button>
             </BtnContainer>
@@ -227,7 +235,9 @@ function ContentMenu({ path, user, createdAt, target, ansId, queId }) {
           <TimeDiff createAt={createdAt} target={target} />
         </Time>
         <UserInfo>
-          <UserPic />
+          <UserPic>
+            <FontAwesomeIcon icon={faUser} />
+          </UserPic>
           <User className="post-owner">{userName}</User>
         </UserInfo>
       </PostInfoBox>

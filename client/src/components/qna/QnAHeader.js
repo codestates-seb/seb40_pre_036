@@ -8,8 +8,7 @@ const Header = styled.header`
   display: flex;
   flex-direction: column;
   /* height: 114px; */
-  /* padding: 20px 20px 10px 20px; */
-  padding-bottom: 16px;
+  padding: 5px 0 16px 0;
   border-bottom: 1px solid #e3e6e8;
   font-size: 13px;
   color: #232639;
@@ -42,7 +41,7 @@ const AskBtn = styled.button`
 const PostInfo = styled.div`
   color: #6a737c;
   display: flex;
-  padding-top: 8px;
+  padding-top: 5px;
 `;
 
 const Time = styled.time`

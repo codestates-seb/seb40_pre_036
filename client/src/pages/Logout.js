@@ -109,7 +109,7 @@ function Logout() {
   function logoutHandler() {
     dispatch(loginActions.logout());
     localStorage.clear();
-    navigate('/questions');
+    navigate('/');
   }
   return (
     <Container>

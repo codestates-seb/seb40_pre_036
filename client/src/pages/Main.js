@@ -9,7 +9,7 @@ import Pagination from '../components/Pagination';
 
 const Allcontent = styled.div`
   display: flex;
-  margin: 0 5rem 0 3rem;
+  justify-content: center;
 `;
 
 // li 태그를 담을 ul태그
@@ -18,6 +18,7 @@ const ListContainer = styled.ul`
   flex-direction: column;
   color: #232629;
   font-size: 13px;
+  width: 751px;
 `;
 
 function Main() {
@@ -86,7 +87,9 @@ function Main() {
           setLimit={setLimit}
         />
       </ListContainer>
-      <Aside />
+      <div>
+        <Aside />
+      </div>
     </Allcontent>
   );
 }

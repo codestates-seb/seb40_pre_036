@@ -7,6 +7,10 @@ import { Link } from 'react-router-dom';
 const Container = styled.div`
   margin: 1px;
   border-right: 1px solid rgb(216, 217, 220);
+
+  @media screen and (max-width: 640px) {
+    display: none;
+  }
 `;
 
 const Navbar = styled.nav`
@@ -40,7 +44,7 @@ const Home = styled.div`
     color: rgb(12, 13, 14);
   }
   &.clicked {
-    background-image: linear-gradient(to right, rgb(241, 242, 243) 98.5%, rgb(229, 136, 61) 1.5%);
+    background-image: linear-gradient(to right, rgb(241, 242, 243) 98.1%, rgb(229, 136, 61) 1.9%);
     font-weight: bold;
   }
 `;
@@ -76,7 +80,7 @@ const Li = styled.li`
   }
 
   &.clicked {
-    background-image: linear-gradient(to right, rgb(241, 242, 243) 98.5%, rgb(229, 136, 61) 1.5%);
+    background-image: linear-gradient(to right, rgb(241, 242, 243) 98.1%, rgb(229, 136, 61) 1.9%);
     background-color: rgb(241, 242, 243);
     font-weight: bold;
   }
