@@ -249,7 +249,6 @@ function CreateQ() {
   const [submitBtnActive, setSubmitBtnActive] = useState({ display: 'block' });
 
   // 입력창 활성화 및 카드 함수
-
   const onActiveFirstBody = () => {
     setFirstStyle({ display: 'none' });
     setTitleCardOpen({ visibility: 'hidden' });
@@ -377,7 +376,6 @@ function CreateQ() {
               {...register('title', {
                 validate: validateTitle,
               })}
-              // className={isError ? 'errorInput' : ''}
               className={isError.title && 'errorInput'}
             />
           </Form>
