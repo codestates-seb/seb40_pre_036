@@ -80,10 +80,8 @@ public interface QuestionMapper {
         question.setUser(user);
 
         if(questionPatchDto.getTags() == null){ // 태그 수정을 하지 않는 경우 -> 기존 질문에서 태그를 불러옴
-            System.out.println("태그 수정 안하는 경우");
             question.setTags(questionService.findVerifiedQuestion(question.getQuestionId()).getTags());
         } else { // 태그 수정을 하는 경우
-            System.out.println("태그 수정 하는 경우");
             List<Tag> tags = tagsDtosToTags(questionPatchDto.getTags(), question, user);
             question.setTags(tags);
         }

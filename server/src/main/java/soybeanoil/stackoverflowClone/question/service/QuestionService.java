@@ -60,7 +60,7 @@ public class QuestionService {
     }
 
     public List<Question> findQuestions(User user) {
-        return questionRepository.findAllByUser(user);
+        return questionRepository.findAllByUserAndQuestionStatus(user, Question.QuestionStatus.QUESTION_EXIST);
     }
 
     public Question updateQuestion(Question question) {
