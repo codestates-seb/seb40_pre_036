@@ -31,7 +31,7 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path="/users/signup" element={<Signup />} />
           <Route path="/users/logout" element={<Logout />} />
-          <Route path="/users/login" element={<Login />} />
+          <Route path="/users/login" element={isLogin ? <Logout /> : <Login />} />
           <Route path="/team" element={<Team />} />
           <Route path="/questions/:id" element={<QnA />} />
           <Route path="/tags" element={<SearchTag />} />
