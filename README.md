@@ -7,11 +7,20 @@
 
 <a href="http://stackoverflow-clone-36soymlik.s3-website.ap-northeast-2.amazonaws.com">Stack Overflow Clone</a>
 
+<br />
+
+||test account|
+|:-:|:-:|
+|ID|guest@gmail.com|
+|PW|1234|
+
 </div>
 
-<br /><br />
+<br /><br /><br /><br /><br />
 
-# 👨‍👨‍👧‍👧 Team
+# 👨‍👩‍👦‍👦 Team
+
+<br />
 
 <div align="center">
 
@@ -21,7 +30,7 @@
 |<img src="https://avatars.githubusercontent.com/u/34926950?v=4" width=150>|<img src="https://avatars.githubusercontent.com/u/104997140?v=4" width=150>|<img src="https://avatars.githubusercontent.com/u/107875909?v=4" width=150>|<img src="https://avatars.githubusercontent.com/u/93895421?v=4" width=150>|
 |[@pung8146](https://github.com/pung8146)|[@ssunip](https://github.com/ssunip)|[@uxolrv](https://github.com/uxolrv)|[@devminoh](https://github.com/devminoh)|
 
-<br />
+<br /><br /><br />
 
 ## ⚙️ Backend
 |김영준|김지효|허성은|
@@ -31,9 +40,11 @@
 
 </div>
 
-<br /><br />
+<br /><br /><br /><br /><br />
 
 # 💡 Pages
+
+<br />
 
 <div align="center">
 
@@ -45,7 +56,7 @@
 |질문 목록|질문 상세|태그 검색|
 |:-:|:-:|:-:|
 |<img width="300" alt="스크린샷 2022-11-07 오후 6 01 45" src="https://user-images.githubusercontent.com/104997140/200270908-d267bb3b-4036-4f4d-8447-0f9a0852fde3.png">|<img width="300" alt="스크린샷 2022-11-07 오후 6 04 07" src="https://user-images.githubusercontent.com/104997140/200270882-f6fd2803-f392-4e9d-88ca-60aba5578a3e.png">|<img width="300" alt="스크린샷 2022-11-07 오후 6 03 11" src="https://user-images.githubusercontent.com/104997140/200270894-2274cbb4-5ac8-4184-b45b-23ea72a78ab3.png">|
-|(설명)|(설명)|(설명)|
+|전체 질문을 조회할 수 있습니다.<br />최신순, 조회수, 투표수로 정렬하여 질문을 조회할 수 있습니다.<br />로그인한 유저일 경우, 질문 작성 페이지에 접근할 수 있습니다.|질문의 내용과 해당 질문의 답변을 확인할 수 있습니다.<br />질문에 대한 답변을 작성할 수 있습니다.<br />자신이 작성한 질문 및 답변을 삭제할 수 있습니다.<br />질문과 답변에 up/down을 투표할 수 있습니다.|<br />게시글에 사용된 태그 전체를 조회하실 수 있습니다.<br />원하는 태그를 검색창에 검색하여 찾을 수 있습니다.<br />인기순, 이름순으로 정렬하여 태그를 조회할 수 있습니다.|
 
 |질문 작성|질문 검색|유저 검색|
 |:-:|:-:|:-:|
@@ -57,17 +68,42 @@
 |<img width="300" alt="스크린샷 2022-11-07 오후 6 04 36" src="https://user-images.githubusercontent.com/104997140/200270879-0ae4bd10-323d-438a-a301-2cfdea7eb046.png">|<img width="300" alt="스크린샷 2022-11-07 오후 6 06 47" src="https://user-images.githubusercontent.com/104997140/200270871-611ead16-cbb4-41c8-926f-6878ca7ace05.png">|<img width="300" alt="스크린샷 2022-11-07 오후 6 03 26" src="https://user-images.githubusercontent.com/104997140/200270886-d7ec7c27-3a4f-4390-9757-303898ae04d6.png">|
 |(설명)|(설명)|(설명)|
 
+<br /><br /><br />
+
+➕
+<br />
+
+|팀원|
+|:-:|
+|<img width="1425" alt="스크린샷 2022-11-07 오후 8 45 16" src="https://user-images.githubusercontent.com/107875909/200302467-02a9505e-a383-49d5-adb8-f1c38ca257fd.png">|
+|해당 프로젝트 팀원의 Github을 확인하실 수 있습니다.|
+
 </div>
 
-<br /><br />
+<br /><br /><br /><br /><br /><br />
 
-# ⚙️ Skills
+# 🔎 Skills
+
+<br />
 
 ## 🖥 Frontend
-<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/fontawesome-339AF0?style=for-the-badge&logo=fontawesome&logoColor=white"> <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=white"> <img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white">
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/Create React App-09D3AC?style=for-the-badge&logo=CreateReactApp&logoColor=white"/> <img src="https://img.shields.io/badge/React Router-CA4245?style=for-the-badge&logo=ReactRouter&logoColor=white"/> <img src="https://img.shields.io/badge/React Hook Form-EC5990?style=for-the-badge&logo=ReactHookForm&logoColor=white"/> <img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white"> <img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=white"> <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/fontawesome-339AF0?style=for-the-badge&logo=fontawesome&logoColor=white"> <img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white"> <img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=AmazonS3&logoColor=white">
+
+<br /><br /><br /><br />
 
 ## ⚙️ Backend
 <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/springsecurity-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white"> <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> <img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white"> <img src="https://img.shields.io/badge/jwt-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white"> <img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=AmazonEC2&logoColor=white"> <img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=for-the-badge&logo=AmazonRDS&logoColor=white">
 
 
-***
+
+<br /><br /><br /><br /><br /><br />
+
+#  Thanks !
+
+<div align="center">
+
+<img width="416" alt="스크린샷 2022-11-07 오후 5 43 16" src="https://user-images.githubusercontent.com/107875909/200307711-03742498-9fca-453f-9075-6a28650bc2f2.png">
+
+</div>
+
+<br /><br /><br /><br /><br /><br /><br /><br />
