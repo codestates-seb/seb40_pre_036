@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Nav from '../components/Nav';
 import EditorComp from '../components/EditorComp';
+import Discard from '../components/creatQ/Discard';
 
 const Main = styled.div`
   display: flex;
-  /* width: 80%; */
-  margin: 0 10%;
+  justify-content: center;
 `;
 
 const Container = styled.div`
   display: flex;
-  /* width: 100%; */
+  padding: 24px;
+  width: 1088px;
   justify-content: center;
   margin-bottom: 20px;
   @media screen and (max-width: 1400px) {
@@ -20,11 +21,15 @@ const Container = styled.div`
     margin-left: 10px;
   }
 `;
+
+// 왼쪽 Content
 const Content = styled.div`
   display: flex;
   flex-direction: column;
   padding: 15px;
 `;
+
+// Alert 부분
 const Alert = styled.div`
   background-color: #fdf7e2;
   border: 1px solid;
@@ -34,11 +39,52 @@ const Alert = styled.div`
   color: #787a77;
   margin-bottom: 20px;
 `;
-const H4 = styled.h6`
+const H6 = styled.h6`
   color: #787a77;
   margin: 10px;
   font-size: 0.7rem;
 `;
+
+// Body
+const Body = styled.div``;
+const Bodyeditor = styled.div``;
+
+// Body title
+const Title = styled.h2`
+  margin-bottom: 10px;
+`;
+
+// Body button
+const Buttons = styled.div`
+  display: flex;
+  margin: 10px;
+`;
+const SaveEdit = styled.button`
+  padding: 10px;
+  color: white;
+  text-decoration: none;
+  background-color: #379fef;
+  border-radius: 3px;
+  border: none;
+  margin-right: 10px;
+  cursor: pointer;
+  &:hover {
+    background-color: hsl(206, 100%, 40%);
+  }
+`;
+const Cancel = styled.button`
+  color: #379fef;
+  padding: 10px 15px;
+  border: none;
+  background-color: white;
+  border-radius: 3px;
+  cursor: pointer;
+  &:hover {
+    background-color: #efefef;
+  }
+`;
+
+// 오른쪽 alert
 const Side = styled.div`
   display: flex;
   flex-direction: column;
@@ -49,7 +95,8 @@ const Sidealert = styled.div`
   box-shadow: 2px 2px 2px 1px #e7e7e7;
   margin-bottom: 20px;
 `;
-const Top = styled.div`
+// 오른쪽 alert title
+const SideAlertTitle = styled.div`
   display: flex;
   background-color: #fbf3d5;
   padding: 3%;
@@ -58,6 +105,14 @@ const Top = styled.div`
   border: 1px solid;
   border-color: #f1e5bc;
   color: #3b4045;
+`;
+
+// 오른쪽 alert content
+const Explain = styled.div`
+  padding: 5px 70px 5px 20px;
+  background-color: #faf5e6;
+  border: 1px solid;
+  border-color: #f1e5bc;
 `;
 const Ul = styled.ul`
   color: #6c6f6f;
@@ -72,59 +127,25 @@ const Li = styled.li`
   padding-right: 30px;
   list-style: inside;
 `;
-const Explain = styled.div`
-  padding: 5px 70px 5px 20px;
-  background-color: #faf5e6;
-  border: 1px solid;
-  border-color: #f1e5bc;
-`;
-const Buttons = styled.div`
-  display: flex;
-  margin: 10px;
-`;
-const Button1 = styled.button`
-  padding: 10px;
-  color: white;
-  text-decoration: none;
-  background-color: #379fef;
-  border-radius: 3px;
-  border: none;
-  margin-right: 10px;
-  cursor: pointer;
-  &:hover {
-    background-color: hsl(206, 100%, 40%);
-  }
-`;
-const Button2 = styled.button`
-  color: #379fef;
-  padding: 10px 15px;
-  border: none;
-  background-color: white;
-  border-radius: 3px;
-  cursor: pointer;
-  &:hover {
-    background-color: #efefef;
-  }
-`;
-const Title = styled.h2`
-  margin-bottom: 10px;
-`;
-const Body = styled.div``;
-const Bodyeditor = styled.div``;
 function UpdateA() {
-  const id = useLocation().pathname.split('/')[2];
-  const [content, setContent] = useState('');
-  const [updateContent, setUpdateContent] = useState('');
-  const qid = content.questionId;
-  const aid = content.answerId;
   const navigate = useNavigate();
   const initialToken = localStorage.getItem('accessToken');
+
+  const [content, setContent] = useState('');
+  const [updateContent, setUpdateContent] = useState('');
+  const [discardOpen, setDiscardOpen] = useState(false);
+
+  // id 받아오기
+  const id = useLocation().pathname.split('/')[2];
+  const qid = content.questionId;
+  const aid = content.answerId;
+
+  // content 바꾸는 부분
   const handleContentChange = e => {
-    console.log(e);
     setUpdateContent(e);
   };
-  // console.log(content);
-  console.log(updateContent);
+
+  // content 내용 받아오는 부분
   useEffect(() => {
     fetch(`http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions/ans/${id}`)
       .then(res => {
@@ -134,12 +155,12 @@ function UpdateA() {
         return res.json();
       })
       .then(json => {
-        console.log('json', json);
         setContent(json.data);
         setUpdateContent(json.data.answerContent);
-      })
-      .catch(err => console.log(err));
+      });
   }, []);
+
+  // content update 하기
   const updateAnswer = () => {
     fetch(
       `http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions/${qid}/answer/${aid}`,
@@ -153,45 +174,53 @@ function UpdateA() {
           answerContent: updateContent,
         }),
       },
-    )
-      .then(res => res.json())
-      .then(json => {
-        console.log(json.data);
-      });
+    ).then(res => res.json());
   };
+
+  // 수정내용 내보내기
   const handleSubmit = e => {
     e.preventDefault();
     updateAnswer();
     navigate(`/questions/${id}`);
   };
+
+  // discard 모달 오픈
+  const onDiscardModal = () => {
+    setDiscardOpen(!discardOpen);
+  };
   return (
     <Main>
-      <Nav />
+      <Nav path="Questions" />
       <Container>
         <Content>
           <Alert>
-            <H4>Your edit will be placed in a queue until it is peer reviewed.</H4>
-            <H4>
+            <H6>Your edit will be placed in a queue until it is peer reviewed.</H6>
+            <H6>
               We welcome edits that make the post easier to understand and more valuable for
               readers. Because community members review edits, please try to make the post
               substantially better than how you found it, for example, by fixing grammar or adding
               additional resources and hyperlinks.
-            </H4>
+            </H6>
           </Alert>
           <Body>
             <Bodyeditor>
-              <Title>Body</Title>
-              <EditorComp value={updateContent} onChange={handleContentChange} />
+              <Title name="title">Body</Title>
+              <EditorComp name="content" value={updateContent} onChange={handleContentChange} />
             </Bodyeditor>
             <Buttons>
-              <Button1 onClick={handleSubmit}>Save Edits</Button1>
-              <Button2>Cancel</Button2>
+              <SaveEdit name="saveEdit" onClick={handleSubmit}>
+                Save Edits
+              </SaveEdit>
+              {discardOpen && <Discard onDiscardModal={onDiscardModal} />}
+              <Cancel name="cancel" onClick={onDiscardModal}>
+                Cancel
+              </Cancel>
             </Buttons>
           </Body>
         </Content>
         <Side>
           <Sidealert>
-            <Top>How to Edit</Top>
+            <SideAlertTitle name="alertTitle">How to Edit</SideAlertTitle>
             <Explain>
               <Ul>
                 <Li>Correct minor typos or mistakes</Li>
@@ -203,7 +232,7 @@ function UpdateA() {
             </Explain>
           </Sidealert>
           <Sidealert>
-            <Top>How to Format</Top>
+            <SideAlertTitle name="alertTitle">How to Format</SideAlertTitle>
             <Explain>
               <Ul>
                 <Li>create code fences with backticks ` or tildes ~</Li>
