@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useLocation, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 import Nav from '../components/Nav';
 import Aside from '../components/Aside';
 import Pagination from '../components/Pagination';
@@ -216,15 +218,12 @@ const Question = styled.article`
   width: 100%;
   color: #3b4045;
   line-height: 1.3;
-
-  svg {
-    margin-right: 0.3rem;
-  }
 `;
 
 // 질문 제목
 const QuestionTitle = styled(Link)`
-  display: inline-block;
+  display: flex;
+  align-items: center;
   text-decoration: none;
   color: #0074cc;
   cursor: pointer;
@@ -235,6 +234,11 @@ const QuestionTitle = styled(Link)`
   }
   &:visited {
     text-decoration: none;
+  }
+
+  svg {
+    margin-right: 5px;
+    flex-shrink: 1;
   }
 `;
 
@@ -261,13 +265,15 @@ const InfoContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 12px;
-  margin-bottom: 5px;
+  margin: 9px 0 5px 0;
+  white-space: nowrap;
 `;
 
 // 태그 컨테이너
 const TagsContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  gap: 7px 0;
 `;
 
 // 태그
@@ -289,7 +295,6 @@ const Tag = styled.button`
 // 유저정보 + 작성일
 const PostInfo = styled.div`
   display: flex;
-  justify-content: flex-end;
   font-size: 0.85rem;
 `;
 
@@ -307,24 +312,17 @@ const User = styled.a`
 `;
 
 // 유저 프로필사진
-const UserPic = styled.img`
+const UserPic = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(250, 250, 250, 0.95);
+  background-color: #0074cc;
+  font-size: 11px;
   width: 16px;
   height: 16px;
-  background-color: gray;
   border-radius: 4px;
   margin-right: 4px;
-
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-// 업로드 시간
-const Time = styled.time`
-  color: #6a737c;
-  span {
-    font-weight: 700;
-  }
 `;
 
 function Search() {
@@ -423,7 +421,7 @@ function Search() {
                 We couldn&apos;t find anything for <span className="keyword">{keyword}</span>
               </div>
               <div>
-                <spans className="option">Search options:</spans> not deleted
+                <span className="option">Search options:</span> not deleted
               </div>
               <div>Try different or less specific keywords.</div>
             </NoResult>
@@ -443,29 +441,32 @@ function Search() {
                     </div>
                   </Counts>
                   <Question>
-                    {item.answerCount === 0 ? (
-                      <svg
-                        aria-hidden="true"
-                        className="svg-icon iconQuestion"
-                        width="18"
-                        height="18"
-                        viewBox="0 0 18 18"
-                      >
-                        <path d="m4 15-3 3V4c0-1.1.9-2 2-2h12c1.09 0 2 .91 2 2v9c0 1.09-.91 2-2 2H4Zm7.75-3.97c.72-.83.98-1.86.98-2.94 0-1.65-.7-3.22-2.3-3.83a4.41 4.41 0 0 0-3.02 0 3.8 3.8 0 0 0-2.32 3.83c0 1.29.35 2.29 1.03 3a3.8 3.8 0 0 0 2.85 1.07c.62 0 1.2-.11 1.71-.34.65.44 1 .68 1.06.7.23.13.46.23.7.3l.59-1.13a5.2 5.2 0 0 1-1.28-.66Zm-1.27-.9a5.4 5.4 0 0 0-1.5-.8l-.45.9c.33.12.66.29.98.5-.2.07-.42.11-.65.11-.61 0-1.12-.23-1.52-.68-.86-1-.86-3.12 0-4.11.8-.9 2.35-.9 3.15 0 .9 1.01.86 3.03-.01 4.08Z" />
-                      </svg>
-                    ) : (
-                      <svg
-                        aria-hidden="true"
-                        className="svg-icon iconAnswer"
-                        width="18"
-                        height="18"
-                        viewBox="0 0 18 18"
-                      >
-                        <path d="M14 15H3c-1.09 0-2-.91-2-2V4c0-1.1.9-2 2-2h12c1.09 0 2 .91 2 2v14l-3-3Zm-1.02-3L9.82 4H8.14l-3.06 8h1.68l.65-1.79h3.15l.69 1.79h1.73Zm-2.93-3.12H7.9l1.06-2.92 1.09 2.92Z" />
-                      </svg>
-                    )}
-
-                    <QuestionTitle to={`/questions/${item.questionId}`}>{item.title}</QuestionTitle>
+                    <QuestionTitle to={`/questions/${item.questionId}`}>
+                      <div>
+                        {item.answerCount === 0 ? (
+                          <svg
+                            aria-hidden="true"
+                            className="svg-icon iconQuestion"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 18 18"
+                          >
+                            <path d="m4 15-3 3V4c0-1.1.9-2 2-2h12c1.09 0 2 .91 2 2v9c0 1.09-.91 2-2 2H4Zm7.75-3.97c.72-.83.98-1.86.98-2.94 0-1.65-.7-3.22-2.3-3.83a4.41 4.41 0 0 0-3.02 0 3.8 3.8 0 0 0-2.32 3.83c0 1.29.35 2.29 1.03 3a3.8 3.8 0 0 0 2.85 1.07c.62 0 1.2-.11 1.71-.34.65.44 1 .68 1.06.7.23.13.46.23.7.3l.59-1.13a5.2 5.2 0 0 1-1.28-.66Zm-1.27-.9a5.4 5.4 0 0 0-1.5-.8l-.45.9c.33.12.66.29.98.5-.2.07-.42.11-.65.11-.61 0-1.12-.23-1.52-.68-.86-1-.86-3.12 0-4.11.8-.9 2.35-.9 3.15 0 .9 1.01.86 3.03-.01 4.08Z" />
+                          </svg>
+                        ) : (
+                          <svg
+                            aria-hidden="true"
+                            className="svg-icon iconAnswer"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 18 18"
+                          >
+                            <path d="M14 15H3c-1.09 0-2-.91-2-2V4c0-1.1.9-2 2-2h12c1.09 0 2 .91 2 2v14l-3-3Zm-1.02-3L9.82 4H8.14l-3.06 8h1.68l.65-1.79h3.15l.69 1.79h1.73Zm-2.93-3.12H7.9l1.06-2.92 1.09 2.92Z" />
+                          </svg>
+                        )}
+                      </div>
+                      {item.title}
+                    </QuestionTitle>
                     <Content>{item.content}</Content>
                     <InfoContainer>
                       <TagsContainer>
@@ -474,13 +475,11 @@ function Search() {
                         ))}
                       </TagsContainer>
                       <PostInfo>
-                        <UserPic />
-                        <User href="https://stackoverflow.com/users/20315421/seyeon-kim">
-                          {item.user.displayName}
-                        </User>
-                        <Time>
-                          <TimeDiff createAt={item.createdAt} />
-                        </Time>
+                        <UserPic>
+                          <FontAwesomeIcon icon={faUser} />
+                        </UserPic>
+                        <User>{item.user.displayName}</User>
+                        <TimeDiff createAt={item.createdAt} target="asked" />
                       </PostInfo>
                     </InfoContainer>
                   </Question>
