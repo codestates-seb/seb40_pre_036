@@ -6,35 +6,50 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import soybeanoil.stackoverflowClone.auth.PrincipalDetails;
+import soybeanoil.stackoverflowClone.auth.jwt.UserDetailService;
+import soybeanoil.stackoverflowClone.auth.utils.CustomAuthorityUtils;
+import soybeanoil.stackoverflowClone.exception.BusinessLogicException;
+import soybeanoil.stackoverflowClone.exception.ExceptionCode;
 import soybeanoil.stackoverflowClone.user.entity.User;
 import soybeanoil.stackoverflowClone.user.repository.UserRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final CustomAuthorityUtils authorityUtils;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, CustomAuthorityUtils authorityUtils) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.authorityUtils = authorityUtils;
     }
 
     public User createUser(User user) {
         verifyExistsEmail(user.getEmail());
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole("ROLE_USER");
+        List<String> roles = authorityUtils.createRoles(user.getEmail());
+        user.setRoles(roles);
 
         return userRepository.save(user);
     }
 
+    public User getLoginUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<User> user = userRepository.findByEmail(principal.toString());
+        return user.get();
+    }
+
+    // 마이페이지
     public User findUser(long userId) {
         return findVerifiedUser(userId);
     }
 
+    // 전체 유저 찾기
     public Page<User> findUsers(int page, int size) {
         return userRepository.findAll(PageRequest.of(page, size,
                 Sort.by("userId").descending()));
@@ -58,10 +73,4 @@ public class UserService {
             throw new BusinessLogicException(ExceptionCode.USER_NOT_FOUND);
         return findUser;
     }
-
-//    public User getUserByToken(){
-//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        PrincipalDetails principalDetails = (PrincipalDetails)principal;
-//        return principalDetails.getUser();
-//    }
 }

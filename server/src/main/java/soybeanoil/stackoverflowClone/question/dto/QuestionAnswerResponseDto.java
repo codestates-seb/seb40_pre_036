@@ -12,13 +12,15 @@ import java.util.List;
 
 @Getter
 @Setter
-public class QuestionAnswerResponseDto {
+public class QuestionAnswerResponseDto { // 특정 질문 조회
 
     private Long questionId;
     private Question.QuestionStatus questionStatus;
     private String title;
     private String content;
     private Integer votes;
+    private Integer view;
+    private Integer answerCount;
     private UserResponseDto user;
     private MultiResponseDto<AnswerResponseDto> answers;
     private List<TagResponseDto> questionTags;
