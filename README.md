@@ -61,7 +61,7 @@
 |질문 작성|질문 검색|유저 검색|
 |:-:|:-:|:-:|
 |<img width="300" alt="스크린샷 2022-11-07 오후 6 03 03" src="https://user-images.githubusercontent.com/104997140/200270899-14948fbc-d012-49ea-8e57-270622cbc4b3.png">|<img width="300" alt="스크린샷 2022-11-07 오후 6 02 41" src="https://user-images.githubusercontent.com/104997140/200270902-3fe30e33-4ce9-4f95-8a19-1c7be38cf31f.png">|<img width="300" alt="스크린샷 2022-11-07 오후 6 03 18" src="https://user-images.githubusercontent.com/104997140/200270889-e1757100-8cb5-476e-b2a4-3391779bc276.png">|
-|(설명)|(설명)|(설명)|
+|<div align="start">새 질문을 작성할 수 있습니다.<br>글자 수 기준으로 유효성 체크를 실시합니다.<br>입력폼에 맞는 안내 카드가 나타납니다.<br>discard 버튼을 누르면 입력폼이 비워집니다.</div>|<div align="start">키워드로 검색을 할 수 있습니다.<br>최신, 조회, 투표 순으로 목록 정렬이 가능합니다.</div>|<div align="start">stackoverflowd의 유저를 조회 할 수 있습니다.<br>유저 이름으로 검색이 가능합니다.<br>명성도, 최신 순으로 정렬이 가능합니다.</div>|
 
 |질문 수정|답변 수정|마이 페이지|
 |:-:|:-:|:-:|
