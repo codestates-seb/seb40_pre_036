@@ -24,7 +24,7 @@
 
 <div align="center">
 
-## 🖥 Frontend
+## 🖥 Front-end
 |박상훈 (팀장)|송인선 (서기)|김세연|노경민|
 |:-:|:-:|:-:|:-:|
 |<img src="https://avatars.githubusercontent.com/u/34926950?v=4" width=150>|<img src="https://avatars.githubusercontent.com/u/104997140?v=4" width=150>|<img src="https://avatars.githubusercontent.com/u/107875909?v=4" width=150>|<img src="https://avatars.githubusercontent.com/u/93895421?v=4" width=150>|
@@ -32,7 +32,7 @@
 
 <br /><br /><br />
 
-## ⚙️ Backend
+## ⚙️ Back-end
 |김영준|김지효|허성은|
 |:-:|:-:|:-:|
 |<img src="https://avatars.githubusercontent.com/u/108052178?v=4" width=150>|<img src="https://avatars.githubusercontent.com/u/107678471?v=4" width=150>|<img src="https://avatars.githubusercontent.com/u/82304095?v=4" width=150>|
@@ -124,12 +124,12 @@
 
 <br />
 
-## 🖥 Frontend
+## 🖥 Front-end
 <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/Create React App-09D3AC?style=for-the-badge&logo=CreateReactApp&logoColor=white"/> <img src="https://img.shields.io/badge/React Router-CA4245?style=for-the-badge&logo=ReactRouter&logoColor=white"/> <img src="https://img.shields.io/badge/React Hook Form-EC5990?style=for-the-badge&logo=ReactHookForm&logoColor=white"/> <img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white"> <img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=white"> <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/fontawesome-339AF0?style=for-the-badge&logo=fontawesome&logoColor=white"> <img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white"> <img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=AmazonS3&logoColor=white">
 
 <br /><br /><br /><br />
 
-## ⚙️ Backend
+## ⚙️ Back-end
 <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/springsecurity-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white"> <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> <img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white"> <img src="https://img.shields.io/badge/jwt-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white"> <img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=AmazonEC2&logoColor=white"> <img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=for-the-badge&logo=AmazonRDS&logoColor=white">
 
 
