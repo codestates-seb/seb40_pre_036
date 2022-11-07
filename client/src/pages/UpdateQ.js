@@ -156,9 +156,9 @@ function Edit() {
   const handleContentChange = e => {
     setUpdateContent(e);
   };
-  // const handleTagsChange = e => {
-  //   setUpdateTags(e.target.value);
-  // };
+  const handleTagsChange = e => {
+    setUpdateTags(e.target.value);
+  };
 
   // 수정내용받아오기
   useEffect(() => {
@@ -187,7 +187,7 @@ function Edit() {
       body: JSON.stringify({
         title: updateTitle,
         content: updateContent,
-        // tags: updateTags.map(tag => ({ tagName: tag })),
+        tags: updateTags.map(tag => ({ tagName: tag })),
       }),
     }).then(res => res.json());
   };
@@ -240,7 +240,7 @@ function Edit() {
             <H2>Tags</H2>
             <Tag
               name="tags"
-              // onChange={handleTagsChange}
+              onChange={handleTagsChange}
               tags={updateTags}
               setTags={setUpdateTags}
             />

@@ -139,7 +139,8 @@ function UpdateA() {
   const id = useLocation().pathname.split('/')[2];
   const qid = content.questionId;
   const aid = content.answerId;
-
+  console.log(content);
+  console.log(qid);
   // content 바꾸는 부분
   const handleContentChange = e => {
     setUpdateContent(e);
@@ -163,7 +164,7 @@ function UpdateA() {
   // content update 하기
   const updateAnswer = () => {
     fetch(
-      `http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions/${qid}/answer/${aid}`,
+      `http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions/answer/${aid}`,
       {
         method: 'PATCH',
         headers: {
@@ -174,14 +175,16 @@ function UpdateA() {
           answerContent: updateContent,
         }),
       },
-    ).then(res => res.json());
+    )
+      .then(res => res.json())
+      .catch(err => console.log(err));
   };
 
   // 수정내용 내보내기
   const handleSubmit = e => {
     e.preventDefault();
     updateAnswer();
-    navigate(`/questions/${id}`);
+    navigate(`/questions/${qid}`);
   };
 
   // discard 모달 오픈
