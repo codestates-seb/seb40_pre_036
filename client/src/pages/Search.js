@@ -372,7 +372,6 @@ function Search() {
     fetchSearch(filter);
   }, [location]);
 
-  console.log(list);
   return (
     <SearchPage>
       <Nav />
