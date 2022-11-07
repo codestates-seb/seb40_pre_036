@@ -11,6 +11,7 @@ import soybeanoil.stackoverflowClone.user.entity.User;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserResponseDto {
+    private long userId;
     private String displayName;
     private String email;
     private User.UserStatus userStatus;

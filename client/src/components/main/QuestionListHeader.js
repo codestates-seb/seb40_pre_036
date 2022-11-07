@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -24,6 +24,7 @@ const BtnContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   padding-top: 25px;
+
   .questions-num {
     font-size: 17px;
   }
@@ -43,23 +44,19 @@ const AskBtn = styled.button`
   border-radius: 3px;
   white-space: nowrap;
   margin-left: 10px;
+
   &:hover {
     background-color: #0074cc;
   }
 `;
 
 const SortContainer = styled.div`
-  /* display: flex;
-  /* justify-content: space-between; */
-  /* align-items: center;
-  justify-content: space-between; */
   vertical-align: baseline;
   border: 1px solid rgb(148, 156, 163);
   border-radius: 5px;
 `;
 
 const SortBtn = styled.button`
-  /* width: 63px; */
   padding: 10px;
   height: 35px;
   color: #6a737c;
@@ -72,26 +69,23 @@ const SortBtn = styled.button`
     border-top-left-radius: 5px 5px;
     border-bottom-left-radius: 5px 5px;
   }
-
   &.right-btn {
     border-left: 1px solid rgb(148, 156, 163);
     border-top-right-radius: 5px 5px;
     border-bottom-right-radius: 5px 5px;
   }
-
   &.clicked {
     background-color: #e3e6e8;
     color: #3b4045;
     pointer-events: none;
   }
-
   &:hover {
     background-color: rgb(247, 247, 247);
     color: #525960;
   }
 `;
 
-function QuestionListHeader({ totalQNum, setSort, sort }) {
+function QuestionListHeader({ totalQNum, setSort }) {
   const [clicked, setClicked] = useState('Newest');
   const token = localStorage.getItem('accessToken');
 

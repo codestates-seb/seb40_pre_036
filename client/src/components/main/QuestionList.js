@@ -1,4 +1,3 @@
-// import React, { useState, useCallback } from 'react';
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -13,7 +12,6 @@ const List = styled.li`
   box-sizing: border-box;
   padding: 16px;
   margin-right: 20px;
-  /* max-width: 751px; */
 `;
 
 // votes, answers, views 수
@@ -29,11 +27,9 @@ const Counts = styled.div`
     min-width: 105px;
     text-align: right;
   }
-
   .vote {
     color: #232629;
   }
-
   .count {
     font-weight: bold;
   }
@@ -48,12 +44,13 @@ const Question = styled.article`
 
 // 질문 제목
 const QuestionTitle = styled(Link)`
-  display: inline-block;
   text-decoration: none;
   color: #0074cc;
   cursor: pointer;
   font-size: 17px;
   vertical-align: top;
+  word-break: break-all;
+
   &:hover {
     color: #0a95ff;
   }
@@ -73,6 +70,7 @@ const Content = styled.div`
   line-height: 1.4;
   height: 2.8em;
   text-align: left;
+  word-break: break-all;
   word-wrap: break-word; // 단어 단위로 줄바꿈
   display: -webkit-box; // 유연하게 height를 증감시킬 수 있는 플렉스 박스형태로 변환
   -webkit-line-clamp: 2; // 보여줄 줄 수
@@ -95,7 +93,6 @@ const TagsContainer = styled.div`
   gap: 7px 0;
 `;
 
-// 태그
 const Tag = styled.button`
   padding: 6px 6px;
   margin-right: 6px;
@@ -129,7 +126,6 @@ const User = styled.a`
   }
 `;
 
-// 유저 프로필사진
 const UserPic = styled.div`
   display: flex;
   justify-content: center;

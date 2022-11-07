@@ -241,10 +241,6 @@ function SearchUser() {
   const onSearch = e => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      // 키를 눌렀을 때 동작할 코드
-      // const filtered = users.filter(user => {
-      //   return user.display_name.toUpperCase().includes(value.toUpperCase());
-      // });
       fetch(
         `https://api.stackexchange.com/2.3/users?order=desc&sort=${clicked}&inname=${value}&site=stackoverflow`,
       )

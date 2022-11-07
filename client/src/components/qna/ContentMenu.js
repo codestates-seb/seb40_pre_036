@@ -6,26 +6,23 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import TimeDiff from '../main/TimeDiff';
 
 const User = styled.a`
+  margin: 0 6px;
   text-decoration: none;
   color: #0074cc;
 
   :visited {
     text-decoration: none;
   }
-  margin: 0 6px;
   &.post-owner {
     margin: 0;
   }
 `;
 
 const Time = styled.div`
-  color: #6a737c;
   margin-right: 5px;
   margin-bottom: 4px;
   font-size: 12px;
-  /* &.post-time {
-    margin-bottom: 3px;
-  } */
+  color: #6a737c;
 `;
 
 const MenuUserContainer = styled.div`
@@ -42,6 +39,7 @@ const Menu = styled.span`
   color: #6a737c;
   font-size: 13px;
   margin-right: 10px;
+
   &.delete {
     cursor: pointer;
   }
@@ -53,15 +51,15 @@ const PageMove = styled(Link)`
 `;
 
 const PostInfoBox = styled.div`
-  width: 200px;
-  height: 67px;
-  background-color: rgb(220, 233, 246);
-  border-radius: 4px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font-size: 13px;
+  width: 200px;
+  height: 67px;
+  border-radius: 4px;
   padding: 8px 8px;
+  font-size: 13px;
+  background-color: rgb(220, 233, 246);
 `;
 
 const UserInfo = styled.div`
@@ -84,21 +82,18 @@ const UserPic = styled.div`
 `;
 
 const DeleteModal = styled.div`
-  padding: 25px 20px 20px 20px;
-  position: absolute;
-  background-color: #fdf2f2;
-  color: #3b4045;
-  border: 1px solid #f4b4b6;
-  /* border: 1px solid hsl(210deg 8% 85%); */
-  /* background: white; */
-  border-radius: 5px;
-  box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.06), 0 2px 6px hsla(0, 0%, 0%, 0.06),
-    0 3px 8px hsla(0, 0%, 0%, 0.09);
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
-  /* top: 40px; */
+  position: absolute;
+  padding: 25px 20px 20px 20px;
+  border: 1px solid #f4b4b6;
+  border-radius: 5px;
+  background-color: #fdf2f2;
+  color: #3b4045;
+  box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.06), 0 2px 6px hsla(0, 0%, 0%, 0.06),
+    0 3px 8px hsla(0, 0%, 0%, 0.09);
+
   div {
     span {
       color: #de4f54;
@@ -117,7 +112,6 @@ const BtnContainer = styled.div`
     margin: 10px 60px 0;
     border: none;
     background: none;
-
     &:hover {
       color: #d0393e;
     }
@@ -125,15 +119,12 @@ const BtnContainer = styled.div`
 `;
 
 function ContentMenu({ path, user, createdAt, target, ansId, queId }) {
-  // const [questionUserName, setQuestionUserName] = useState('');
   const [userName, setUserName] = useState('');
-  const token = localStorage.getItem('accessToken');
-  const loginUserEmail = localStorage.getItem('userEmail');
   const [delClicked, setDelClicked] = useState(false);
   const [isAuthor, setIsAuthor] = useState(false);
+  const token = localStorage.getItem('accessToken');
+  const loginUserEmail = localStorage.getItem('userEmail');
   const navigate = useNavigate();
-  // console.log('당신누 구세요', user.email === loginUserEmail);
-  console.log(`${queId}번째 질문과, ${ansId}번째 답변`);
 
   useEffect(() => {
     if (user) {
@@ -144,18 +135,18 @@ function ContentMenu({ path, user, createdAt, target, ansId, queId }) {
         setIsAuthor(user.email === loginUserEmail);
       }
     }
-    console.log(ansId);
-    console.log(queId);
   }, [user, ansId, queId]);
 
   const handleDelete = () => {
     setDelClicked(true);
-    console.log(`${queId} 삭제하려구요`);
   };
 
   const handleChoice = e => {
+    // 유저가 삭제를 원치 않을 때
     if (e.target.innerText === 'No') {
       setDelClicked(false);
+
+      // 삭제 target이 question일 때
     } else if (target === 'asked') {
       fetch(
         `http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions/${queId}`,
@@ -173,10 +164,11 @@ function ContentMenu({ path, user, createdAt, target, ansId, queId }) {
           navigate(`/`);
         })
         .catch(error => {
-          console.log(error);
+          throw new Error(error);
         });
+
+      // 삭제 target이 answer일 때
     } else if (target === 'answered') {
-      console.log(`${ansId}번째 답변 삭제할거야?`);
       fetch(
         `http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions/${queId}/answer/${ansId}`,
         {
@@ -190,12 +182,10 @@ function ContentMenu({ path, user, createdAt, target, ansId, queId }) {
           if (!res.ok) {
             throw Error('could not fetch the data for that resource');
           }
-
-          // navigate(`/questions/${queId}`);
           window.location.reload();
         })
         .catch(error => {
-          console.log(error);
+          throw new Error(error);
         });
     }
   };

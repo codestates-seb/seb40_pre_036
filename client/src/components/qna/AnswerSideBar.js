@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const SideBar = styled.div`
@@ -13,6 +13,7 @@ const Icon = styled.svg`
   fill: rgb(187, 191, 195);
   pointer-events: none;
   cursor: pointer;
+
   &.small-icon {
     width: 18px;
     height: 18px;
@@ -24,25 +25,17 @@ const Icon = styled.svg`
   path {
     pointer-events: none;
   }
-  /* &:active {
-    fill: #f48123;
-  } */
 `;
 
 const VoteBtnContainer = styled.div`
-  border: none;
-  background: none;
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const UpVote = styled.div`
   border: none;
   background: none;
 `;
 
-const DownVote = styled.div`
+const VoteBtn = styled.div`
   border: none;
   background: none;
 `;
@@ -54,18 +47,10 @@ const Count = styled.div`
   cursor: text;
 `;
 
-function AnswerSideBar({ target, beforeVotes, id, queId, setAnswerVotes, answerVotes }) {
+function AnswerSideBar({ id }) {
   const [clicked, setClicked] = useState('');
   const token = localStorage.getItem('accessToken');
   const [votes, setVotes] = useState(0);
-
-  // useEffect(() => {
-  //   if (answerVotes) {
-  //     if (answerVotes !== 'undefined' && answerVotes !== null) {
-  //       setAnswerVotes(answerVotes);
-  //     }
-  //   }
-  // }, [answerVotes]);
 
   // 답변 투표 수 갱신
   useEffect(() => {
@@ -77,24 +62,14 @@ function AnswerSideBar({ target, beforeVotes, id, queId, setAnswerVotes, answerV
         return res.json();
       })
       .then(data => {
-        // console.log('data 니먼데', data);
-        // console.log('첫렌더링 시 답변 투표 수', data.data.vote);
         setVotes(data.data.vote);
-        // if (data.vote !== undefined) {
-        //   setVotes(data.vote);
-        // }
       })
       .catch(error => {
-        console.log(error);
+        throw new Error(error);
       });
-    // console.log('clicked', clicked);
-    // console.log('answerVotes', answerVotes);
-    // console.log('votes', votes);
   }, [votes]);
 
   const handleVoteClick = e => {
-    console.log('e.target.id!', e.target.id);
-    // console.log(clicked)
     if (e.target.id === '1' && clicked !== '1') {
       setClicked('1');
     } else if (e.target.id === '-1' && clicked !== '-1') {
@@ -102,19 +77,8 @@ function AnswerSideBar({ target, beforeVotes, id, queId, setAnswerVotes, answerV
     } else {
       setClicked('0');
     }
-    console.log('지금 뭐 눌렀어', clicked);
-    // const before = clicked;
-    // console.log('아까 뭐 눌렀어', before);
 
-    // console.log('answerVotes', answerVotes);
-
-    // if (before !== 0 && before === clicked) {
-    //   console.log('같은 걸 누르셧네요');
-    //   setClicked(0);
-    // }
-
-    console.log(`저는 ${id}번째 answer에 ${clicked}표 행사합니다~`);
-    // 이전과 동일한 target 클릭 시 투표 무효
+    // 이전과 동일한 target 클릭 시 투표 무효 ===> 0
     if (e.target.id === clicked) {
       fetch(
         `http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/answer/${id}/votes?ansVote=0`,
@@ -134,11 +98,12 @@ function AnswerSideBar({ target, beforeVotes, id, queId, setAnswerVotes, answerV
         })
         .then(data => {
           setVotes(data.data.ansTotalVotes);
-          console.log('현재 토탈@', data.data.ansTotalVotes);
         })
         .catch(error => {
-          console.log(error);
+          throw new Error(error);
         });
+
+      // 1 / -1 투표 요청
     } else {
       fetch(
         `http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/answer/${id}/votes?ansVote=${e.target.id}`,
@@ -158,10 +123,9 @@ function AnswerSideBar({ target, beforeVotes, id, queId, setAnswerVotes, answerV
         })
         .then(data => {
           setVotes(data.data.ansTotalVotes);
-          console.log('현재 토탈@', data.data.ansTotalVotes);
         })
         .catch(error => {
-          console.log(error);
+          throw new Error(error);
         });
     }
   };
@@ -169,7 +133,7 @@ function AnswerSideBar({ target, beforeVotes, id, queId, setAnswerVotes, answerV
   return (
     <SideBar>
       <VoteBtnContainer type="button">
-        <UpVote onClick={handleVoteClick} id="1">
+        <VoteBtn onClick={handleVoteClick} id="1">
           <Icon
             className={clicked === '1' ? 'clicked' : null}
             aria-hidden="true"
@@ -179,9 +143,9 @@ function AnswerSideBar({ target, beforeVotes, id, queId, setAnswerVotes, answerV
           >
             <path d="M2 25h32L18 9 2 25Z" />
           </Icon>
-        </UpVote>
+        </VoteBtn>
         <Count>{votes}</Count>
-        <DownVote onClick={handleVoteClick} id="-1">
+        <VoteBtn onClick={handleVoteClick} id="-1">
           <Icon
             className={clicked === '-1' ? 'clicked' : null}
             aria-hidden="true"
@@ -191,7 +155,7 @@ function AnswerSideBar({ target, beforeVotes, id, queId, setAnswerVotes, answerV
           >
             <path d="M2 11h32L18 27 2 11Z" />
           </Icon>
-        </DownVote>
+        </VoteBtn>
         <Icon className="small-icon" aria-hidden="true" width="18" height="18" viewBox="0 0 18 18">
           <path d="m9 10.6 4 2.66V3H5v10.26l4-2.66ZM3 17V3c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v14l-6-4-6 4Z" />
         </Icon>

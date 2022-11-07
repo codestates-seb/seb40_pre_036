@@ -1,6 +1,7 @@
 package soybeanoil.stackoverflowClone.question.dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import soybeanoil.stackoverflowClone.question.entity.Question;
 import soybeanoil.stackoverflowClone.user.dto.UserResponseDto;
@@ -35,18 +36,21 @@ public class QuestionDto {
         private String content;
         private List<TagDto> tags;
 
-        private Question.QuestionStatus questionStatus;
+//        private Question.QuestionStatus questionStatus;
     }
 
     @Getter
     @Setter
-    public static class Response {
+    @NoArgsConstructor
+    public static class Response { // 질문 등록, 수정
 
         private Long questionId;
         private String title;
         private String content;
         private Question.QuestionStatus questionStatus;
         private Integer votes;
+        private Integer view;
+        private Integer answerCount;
         private UserResponseDto user;
         private List<TagResponseDto> questionTags;
         private LocalDateTime createdAt;

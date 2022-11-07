@@ -66,6 +66,7 @@ const Products = styled.div`
 const Container = styled.div`
   width: 56%;
 `;
+
 const Form = styled.form`
   display: flex;
   top: 100%;
@@ -114,6 +115,7 @@ const LoginBtn = styled.button`
     background-color: hsl(205deg 57% 81%);
   }
 `;
+
 const SignupBtn = styled.button`
   display: flex;
   margin-left: 5px;
