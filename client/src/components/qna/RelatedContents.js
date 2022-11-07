@@ -6,11 +6,15 @@ const RelatedContainer = styled.aside`
   flex-direction: column;
   color: #3b4045;
   margin-top: 15px;
+  margin: 0 0 10px 25px;
   h2 {
     font-size: 18px;
     margin-bottom: 15px;
   }
-  margin-bottom: 10px;
+
+  @media screen and (max-width: 980px) {
+    display: none;
+  }
 `;
 
 const RelatedVote = styled.div`
@@ -39,7 +43,7 @@ const RelatedTitle = styled.a`
   cursor: pointer;
   font-size: 13px;
   line-height: 1.4;
-  width: 90%;
+  width: 80%;
   &:visited {
     text-decoration: none;
   }
