@@ -1,11 +1,10 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
-import { faUser, faCake, faClock, faPencil } from '@fortawesome/free-solid-svg-icons';
+import { faCake, faClock, faPencil } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarDays } from '@fortawesome/free-regular-svg-icons';
 import { faStackExchange } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Routes, Route, Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import Nav from '../components/Nav';
 import Acitivity from '../components/mypages/Acitivity';
 import Settings from '../components/mypages/Settings';
@@ -20,7 +19,6 @@ const Content = styled.div`
   flex-direction: column;
   padding: 15px;
   width: 1088px;
-  /* width: 70%; */
 `;
 
 const Head = styled.div`
@@ -30,6 +28,7 @@ const Head = styled.div`
   margin-bottom: 10px;
 `;
 
+// profile, settings 탭으로 가는 부분
 const Tabs = styled.div`
   display: flex;
 `;
@@ -115,9 +114,7 @@ function Mypage() {
   const [answersLength, setAnswersLength] = useState('');
   const [tagsLength, setTagsLength] = useState('');
   const [questionsLength, setQuestionsLength] = useState('');
-  console.log(answers);
   // const qId = answers.map(answer => answer.questionId);
-  // console.log(qId);
   const onClick = useCallback(e => {
     const text = e.target.innerText;
     setClicked(text);
@@ -174,14 +171,14 @@ function Mypage() {
           </Left>
           <Buttons>
             <Link to="settings" style={{ textDecoration: 'none' }}>
-              <Button>
+              <Button name="editProfile">
                 <FAI2>
                   <FontAwesomeIcon icon={faPencil} size="1x" />
                 </FAI2>
                 Edit profile
               </Button>
             </Link>
-            <Button>
+            <Button name="networkProfile">
               <FAI2>
                 <FontAwesomeIcon icon={faStackExchange} size="1x" color="#5a8dc5" />
               </FAI2>
@@ -190,19 +187,31 @@ function Mypage() {
           </Buttons>
         </Head>
         <Tabs>
-          <Tab className={clicked === 'profile' ? 'clicked' : ''} onClick={onClick}>
+          <Tab
+            name="profileTab"
+            className={clicked === 'profile' ? 'clicked' : ''}
+            onClick={onClick}
+          >
             profile
           </Tab>
           <Link to="activity" style={{ textDecoration: 'none' }}>
-            <Tab className={clicked === 'Activity' ? 'clicked' : ''} onClick={onClick}>
+            <Tab
+              name="activityTab"
+              className={clicked === 'Activity' ? 'clicked' : ''}
+              onClick={onClick}
+            >
               Activity
             </Tab>
           </Link>
-          <Tab className={clicked === 'saves' ? 'clicked' : ''} onClick={onClick}>
+          <Tab name="savesTab" className={clicked === 'saves' ? 'clicked' : ''} onClick={onClick}>
             saves
           </Tab>
           <Link to="settings" style={{ textDecoration: 'none' }}>
-            <Tab className={clicked === 'Settings' ? 'clicked' : ''} onClick={onClick}>
+            <Tab
+              name="settingsTab"
+              className={clicked === 'Settings' ? 'clicked' : ''}
+              onClick={onClick}
+            >
               Settings
             </Tab>
           </Link>
