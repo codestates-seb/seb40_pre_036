@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.bb4271dc.css",
+    "main.js": "/static/js/main.ded2c3be.js",
+    "static/media/sofLogo.png": "/static/media/sofLogo.991526b37be05d9ef16d.png",
+    "static/media/google.png": "/static/media/google.6887c15e40daa8d356ac.png",
+    "static/media/github.png": "/static/media/github.ca16afb27680275df6a0.png",
+    "static/media/stackapp.jfif": "/static/media/stackapp.99a0d29b3ed7f79da2f5.jfif",
+    "index.html": "/index.html",
+    "main.bb4271dc.css.map": "/static/css/main.bb4271dc.css.map",
+    "main.ded2c3be.js.map": "/static/js/main.ded2c3be.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bb4271dc.css",
+    "static/js/main.ded2c3be.js"
+  ]
+}
