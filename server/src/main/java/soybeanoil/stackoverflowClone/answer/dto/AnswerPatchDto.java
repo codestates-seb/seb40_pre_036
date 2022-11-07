@@ -13,6 +13,7 @@ import javax.validation.constraints.Positive;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsContstructor
 public class AnswerPatchDto {
 
 //    @Positive
