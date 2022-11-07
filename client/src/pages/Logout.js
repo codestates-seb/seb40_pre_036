@@ -10,6 +10,7 @@ import stackchange from '../img/logout/stackchange.png';
 import superuser from '../img/logout/superuser.png';
 import stackover from '../img/logout/stackover.png';
 import { loginActions } from '../store/reducer';
+import Alert from '../components/Alert';
 
 const Container = styled.div`
   background-color: #f1f2f3;
@@ -109,6 +110,7 @@ function Logout() {
   function logoutHandler() {
     dispatch(loginActions.logout());
     localStorage.clear();
+    Alert('success', 'Logout Complete !');
     navigate('/');
   }
   return (

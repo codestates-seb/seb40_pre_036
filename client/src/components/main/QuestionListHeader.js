@@ -44,6 +44,7 @@ const AskBtn = styled.button`
   border-radius: 3px;
   white-space: nowrap;
   margin-left: 10px;
+  cursor: pointer;
 
   &:hover {
     background-color: #0074cc;

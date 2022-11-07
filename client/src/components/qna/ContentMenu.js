@@ -170,7 +170,7 @@ function ContentMenu({ path, user, createdAt, target, ansId, queId }) {
       // 삭제 target이 answer일 때
     } else if (target === 'answered') {
       fetch(
-        `http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions/${queId}/answer/${ansId}`,
+        `http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions/answer/${ansId}`,
         {
           method: 'DELETE',
           headers: {

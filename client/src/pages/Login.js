@@ -3,11 +3,14 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import footerLogo from '../footerLogo.png';
+import footerLogo from '../img/footerLogo.png';
 import google from '../img/google.png';
 import github from '../img/github.png';
 import facebook from '../img/facebook.png';
 import { loginActions } from '../store/reducer';
+// import Swal from 'sweetalert2'
+// import withReactContent from 'sweetalert2-react-content'
+import Alert from '../components/Alert';
 
 const Container = styled.div`
   background-color: #f1f2f3;
@@ -144,9 +147,9 @@ function Login() {
     /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
   async function getLogin() {
     if (!emailRegex.test(account.email)) {
-      alert('올바른 이메일양식이 아닙니다.');
+      Alert('error', 'The email is not a valid email address.');
     } else if (account.password.length < 4) {
-      alert('비밀번호는 최소4글자 이상 입력해주세요');
+      Alert('error', 'Please enter at least 4 characters for the password.');
     } else {
       try {
         await axios
@@ -160,15 +163,14 @@ function Login() {
             localStorage.setItem('accessToken', data.headers.authorization);
             localStorage.setItem('userEmail', data.data.email);
             navigate('/');
-            alert('로그인 완료!');
+            Alert('success', 'Login Complete !');
           });
         // 일치하는 유저가 존재 X
       } catch (error) {
-        console.log(error);
+        throw new Error(error);
       }
     }
   }
-  console.log('로그인 여부', isLogin);
 
   return (
     <Container>

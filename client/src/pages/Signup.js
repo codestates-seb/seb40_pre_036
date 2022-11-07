@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import ReCAPTCHA from 'react-google-recaptcha';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { signupActions } from '../store/signreducer';
 // icon
@@ -13,6 +13,7 @@ import vote from '../img/vote.png';
 import google from '../img/google.png';
 import github from '../img/github.png';
 import facebook from '../img/facebook.png';
+import Alert from '../components/Alert';
 
 function onChange(value) {
   console.log('Captcha value:', value);
@@ -73,7 +74,7 @@ const RightBox = styled.div`
 `;
 
 const ButtonBox = styled.div`
-  margin: 5px;
+  margin: 20px 0 5px 5px;
   width: 50%;
   display: flex;
   flex-direction: column;
@@ -130,21 +131,29 @@ const InputLable = styled.div`
 `;
 
 const ReCaptchaBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 20px 0;
   width: 100%;
-  background: #f1f2f3;
-  border: 1px solid gray;
-  height: 150px;
+  height: 100px;
+  div {
+    transform: scale(0.95, 0.95);
+    transform-origin: 50% 50%;
+  }
 `;
 
 const ConcentBox = styled.div`
   display: flex;
+  justify-content: center;
+
   p {
     line-height: 16px;
     color: gray;
     font-size: 12px;
   }
   input {
+    margin-right: 5px;
     margin-bottom: 60px;
   }
 `;
@@ -172,8 +181,7 @@ const ConsentGuide = styled.div`
 function Signup() {
   const dispatch = useDispatch();
   const isLogin = useSelector(state => state.isLogin);
-
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [account, setAccount] = useState({
     displayName: '',
@@ -200,8 +208,8 @@ function Signup() {
           dispatch(signupActions.register());
           localStorage.clear();
           localStorage.setItem('accessToken', data.headers.authorization);
-          // navigate('/questions');
-          alert('회원가입 성공');
+          navigate('/');
+          Alert('success', 'Congratulations! Register was successful.');
           // console.log(data.headers.authorization);
         });
       // 일치하는 유저가 존재 X
@@ -210,7 +218,7 @@ function Signup() {
         alert('이메일 혹은 비밀번호가 일치하지 않습니다.');
         console.log(error);
       } else {
-        alert(error.response.status);
+        // alert(error.response.status);
         console.log(error);
       }
     }

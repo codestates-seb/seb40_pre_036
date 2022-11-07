@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import React from 'react';
-import footerLogo from '../footerLogo.png';
+import footerLogo from '../img/footerLogo.png';
 
 const FooterBox = styled.div`
   background-color: #232629;
