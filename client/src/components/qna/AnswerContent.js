@@ -1,14 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import EditorViewr from '../EditorViewer';
+import EditorViewer from '../EditorViewer';
 import AnswerSideBar from './AnswerSideBar';
 import ContentMenu from './ContentMenu';
-
-// const Title = styled.h2`
-//   color: #232629;
-//   font-size: 20px;
-//   margin: 25px 0;
-// `;
 
 const Container = styled.div`
   display: flex;
@@ -22,18 +16,12 @@ const AnsContent = styled.div`
   width: 100%;
 `;
 
-function AnswerContent({ ansId, queId, content, user, setAnswerVotes, answerVotes, createdAt }) {
-  console.log(`${ansId}번째 답변의 ${answerVotes}`);
+function AnswerContent({ ansId, queId, content, user, createdAt }) {
   return (
     <Container>
-      <AnswerSideBar
-        id={ansId}
-        // beforeVotes={votes}
-        setAnswerVotes={setAnswerVotes}
-        answerVotes={answerVotes}
-      />
+      <AnswerSideBar id={ansId} />
       <AnsContent>
-        <EditorViewr content={content} />
+        <EditorViewer content={content} />
         <ContentMenu
           user={user}
           path={`answer/${ansId}`}

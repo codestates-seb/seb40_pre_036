@@ -1,9 +1,8 @@
-// 질문 상세 페이지의 질문 본문
 import React from 'react';
 import styled from 'styled-components';
 import QuestionSideBar from './QuestionSideBar';
 import ContentMenu from './ContentMenu';
-import EditorViewr from '../EditorViewer';
+import EditorViewer from '../EditorViewer';
 
 const Container = styled.div`
   display: grid;
@@ -11,9 +10,9 @@ const Container = styled.div`
 `;
 
 const QueContent = styled.div`
-  color: #232629;
-  font-size: 15px;
   border-bottom: 1px solid #e3e6e8;
+  font-size: 15px;
+  color: #232629;
 `;
 
 const TagsContainer = styled.div`
@@ -21,7 +20,6 @@ const TagsContainer = styled.div`
   margin: 30px 0;
 `;
 
-// 태그
 const Tag = styled.button`
   padding: 6px 6px;
   margin-right: 6px;
@@ -31,6 +29,7 @@ const Tag = styled.button`
   border: none;
   border-radius: 2px;
   cursor: pointer;
+
   &:hover {
     background-color: #d0e3f1;
     color: #2c5877;
@@ -38,21 +37,16 @@ const Tag = styled.button`
 `;
 
 function QuestionContent({ content, tags, id, user, setQuestionVotes, questionVotes, createdAt }) {
-  // console.log('tags', tags);
-  // console.log('user', user);
-
-  // console.log('🌳아이디 왜케 많은데?', id);
   return (
     <Container>
       <QuestionSideBar
         id={id}
-        queId={id}
         target="questions"
         setQuestionVotes={setQuestionVotes}
         questionVotes={questionVotes}
       />
       <QueContent>
-        <EditorViewr content={content} />
+        <EditorViewer content={content} />
         <TagsContainer>
           {tags && tags.map((tag, idx) => <Tag key={`${idx.toString()}- ${tag}`}>{tag}</Tag>)}
         </TagsContainer>

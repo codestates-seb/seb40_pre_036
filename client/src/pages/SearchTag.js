@@ -11,17 +11,18 @@ const Container = styled.div`
 `;
 
 const ContentContainer = styled.div`
-  width: 1088px;
   display: flex;
   flex-direction: column;
+  width: 1088px;
   padding: 24px;
 `;
 
 const TagBoxGrid = styled.ul`
-  width: 100%;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   grid-gap: 20px;
+  width: 100%;
+
   @media screen and (max-width: 1345px) {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -36,7 +37,7 @@ const TagBoxGrid = styled.ul`
 function SearchTag() {
   const [tags, setTags] = useState([]);
 
-  // 페이지네이션을 위한 states
+  // 페이지네이션
   const [limit, setLimit] = useState(32);
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState('Popular');
@@ -60,9 +61,10 @@ function SearchTag() {
           }
           return res.json();
         })
-        .then(data => data.items)
-        .then(items => setTags(items))
-        .catch(err => console.log(err));
+        .then(data => setTags(data.items))
+        .catch(error => {
+          throw new Error(error);
+        });
 
       // tag 검색 시
     } else {
@@ -75,11 +77,10 @@ function SearchTag() {
           }
           return res.json();
         })
-        .then(data => data.items)
-        .then(items => {
-          setTags(items);
-        })
-        .catch(err => console.log(err));
+        .then(data => setTags(data.items))
+        .catch(error => {
+          throw new Error(error);
+        });
     }
   }, [value, sort]);
 

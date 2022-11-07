@@ -5,14 +5,12 @@ const TagContainer = styled.li`
   display: flex;
   flex-direction: column;
   width: 100%;
-  /* width: 254px; */
   height: 177px;
   padding: 13px;
   border: 1px solid #d6d9dc;
   border-radius: 3px;
 `;
 
-// 태그
 const Tag = styled.button`
   display: inline-block;
   width: min-content;
@@ -24,6 +22,7 @@ const Tag = styled.button`
   border: none;
   border-radius: 2px;
   cursor: pointer;
+
   &:hover {
     background-color: #d0e3f1;
     color: #2c5877;

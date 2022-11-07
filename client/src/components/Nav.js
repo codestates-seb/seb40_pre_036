@@ -16,14 +16,9 @@ const Container = styled.div`
 const Navbar = styled.nav`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
   box-sizing: border-box;
-  /* width: 17%; */
   width: 156px;
-  /* min-width: 156px; */
   padding-top: 25px;
-  /* padding-left: 5%; */
   font-size: 13px;
   color: rgb(83, 89, 95);
   position: sticky;
@@ -40,6 +35,7 @@ const Home = styled.div`
   width: 156px;
   padding: 11px 0 11px 8px;
   cursor: pointer;
+
   &:hover {
     color: rgb(12, 13, 14);
   }
@@ -70,15 +66,12 @@ const Li = styled.li`
     font-size: 11px;
     color: rgb(108, 115, 123);
   }
-
   &:hover:not(.public) {
     color: rgb(12, 13, 14);
   }
-
   &.no-icon {
     padding-left: 30px;
   }
-
   &.clicked {
     background-image: linear-gradient(to right, rgb(241, 242, 243) 98.1%, rgb(229, 136, 61) 1.9%);
     background-color: rgb(241, 242, 243);
@@ -95,23 +88,8 @@ function Nav({ path }) {
   const [clicked, setClicked] = useState(path);
 
   const onClick = useCallback(() => {
-    // const text = e.target.innerText;
     setClicked(path);
   }, [clicked]);
-
-  // console.log(path);
-
-  // const [clicked, setClicked] = useState('Questions');
-
-  // const onClick = useCallback(e => {
-  //   const text = e.target.innerText;
-  //   setClicked(text);
-  // }, []);
-
-  // const onClick = useEffect(e => {
-  //   const text = e.target.innerText;
-  //   setClicked(text);
-  // }, []);
 
   return (
     <Container>

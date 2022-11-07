@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
+import styled from 'styled-components';
 // import styled from 'styled-components';
 import MDEditor from '@uiw/react-md-editor';
 // import rehypeSanitize from 'rehype-sanitize';
 
-function EditorViewr({ content }) {
+const Container = styled.div`
+  width: 650px;
+`;
+
+function EditorViewer({ content }) {
   // const [content] = useState(`
   // ## Hi!
 
@@ -23,7 +28,11 @@ function EditorViewr({ content }) {
 
   // `); // editor의 state를 editor 뷰어에서 사용해야 하니까 에디터와 뷰어의 부모에 상태 위치
 
-  return <MDEditor.Markdown source={content} />;
+  return (
+    <Container>
+      <MDEditor.Markdown source={content} />
+    </Container>
+  );
 }
 
-export default EditorViewr;
+export default EditorViewer;

@@ -8,16 +8,13 @@ const Container = styled.div`
 `;
 
 const CommentContent = styled.div`
-  color: #232629;
-  font-size: 13px;
-  /* border-top: 1px solid #e3e6e8; */
+  display: flex;
+  flex-direction: column;
   padding: 10px 10px 10px 30px;
   line-height: 1.5;
   border-bottom: 1px solid #e3e6e8;
-  display: flex;
-  flex-direction: column;
-  /* display: flex; */
-  /* align-items: center; */
+  color: #232629;
+  font-size: 13px;
 `;
 
 const Info = styled.span`
@@ -30,13 +27,14 @@ const Icon = styled.svg`
 `;
 
 const User = styled.a`
+  margin: 0 6px;
   text-decoration: none;
   color: #0074cc;
   cursor: pointer;
-  :visited {
+
+  &:visited {
     text-decoration: none;
   }
-  margin: 0 6px;
   &.post-owner {
     margin: 0;
   }
@@ -45,6 +43,7 @@ const User = styled.a`
 const Time = styled.time`
   color: #9199a1;
   margin-right: 5px;
+
   &.post-time {
     color: #6a737c;
     margin-bottom: 3px;
@@ -61,6 +60,7 @@ const CommentInput = styled.textarea`
   border: none;
   resize: none;
   margin: 10px 2px;
+
   &:focus {
     outline: none;
     height: 50px;

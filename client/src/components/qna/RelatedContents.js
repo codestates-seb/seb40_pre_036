@@ -7,11 +7,11 @@ const RelatedContainer = styled.aside`
   color: #3b4045;
   margin-top: 15px;
   margin: 0 0 10px 25px;
+
   h2 {
     font-size: 18px;
     margin-bottom: 15px;
   }
-
   @media screen and (max-width: 980px) {
     display: none;
   }
@@ -23,11 +23,11 @@ const RelatedVote = styled.div`
   justify-content: center;
   min-width: 38px;
   min-height: 23px;
-  background-color: #5eba7d;
   font-size: 12px;
-  color: white;
   border-radius: 3px;
   margin-right: 10px;
+  color: white;
+  background-color: #5eba7d;
   cursor: pointer;
 `;
 
@@ -39,11 +39,12 @@ const RelatedPost = styled.div`
 
 const RelatedTitle = styled.a`
   text-decoration: none;
-  color: #0074cc;
-  cursor: pointer;
-  font-size: 13px;
   line-height: 1.4;
   width: 80%;
+  cursor: pointer;
+  font-size: 13px;
+  color: #0074cc;
+
   &:visited {
     text-decoration: none;
   }

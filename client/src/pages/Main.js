@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 import Aside from '../components/Aside';
 import Nav from '../components/Nav';
 import QuestionsList from '../components/main/QuestionList';
@@ -22,17 +21,17 @@ const ListContainer = styled.ul`
 `;
 
 function Main() {
-  const [lists, setLists] = useState([]); // pagination이 필요한 페이지가 여러 개이니, 이 상태들 전역에서 관리해야하지 않을까?
-  const [limit, setLimit] = useState(15); // pagination이 필요한 페이지마다 Limit이 다름 // setLimit
+  // 페이지네이션
+  const [lists, setLists] = useState([]);
+  const [limit, setLimit] = useState(15);
   const [page, setPage] = useState(1);
-  const [totalQNum, setTotalQNum] = useState(0);
   const offset = (page - 1) * limit;
+
+  const [totalQNum, setTotalQNum] = useState(0);
   const [sort, setSort] = useState('questionId');
   const token = localStorage.getItem('accessToken');
-  console.log('현재 sort', sort);
 
   useEffect(() => {
-    // question list data 요청
     fetch(
       `http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions?size=100&sort=${sort}`,
       {
@@ -42,7 +41,6 @@ function Main() {
         },
       },
     )
-      // questions?page={page}&size={size}&sort={sort}
       .then(res => {
         if (!res.ok) {
           throw Error('could not fetch the data for that resource');
@@ -50,13 +48,12 @@ function Main() {
         return res.json();
       })
       .then(data => {
-        console.log('data', data);
-        console.log('총 질문수!!', data.pageInfo.totalElements);
-        console.log('data.data', data.data);
         setLists(data.data);
         setTotalQNum(data.pageInfo.totalElements);
       })
-      .catch(err => console.log(err));
+      .catch(error => {
+        throw new Error(error);
+      });
   }, [sort]);
 
   return (
@@ -67,7 +64,6 @@ function Main() {
         {lists.slice(offset, offset + limit).map(list => (
           <QuestionsList
             key={list.questionId}
-            // {`${i.toString()}-${page}`}
             id={list.questionId}
             answerCount={list.answerCount}
             content={list.content}
