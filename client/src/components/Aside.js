@@ -8,31 +8,42 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Nav = styled.nav`
   display: flex;
   flex-direction: column;
-  margin: 10px;
+  margin: 25px 20px 0 20px;
+  width: 298px;
+  min-width: 298px;
+  /* height: 100%; */
+  border: 1px solid #f1e5bc;
+  box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
+    0 2px 8px hsla(0, 0%, 0%, 0.05);
+
+  @media screen and (max-width: 980px) {
+    display: none;
+  }
 `;
 const Header = styled.div`
   background-color: #fbf3d5;
-  padding: 10px;
-  font-size: 0.6rem;
+  padding: 15px;
+  font-size: 12px;
   font-weight: 700;
   display: flex;
-  border: 1px solid;
-  border-color: #f1e5bc;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
+  outline: 1px solid #f1e5bc;
+  /* border-top-left-radius: 3px;
+  border-top-right-radius: 3px; */
   color: #656a6d;
 `;
 
 const Content = styled.div`
   background-color: #fdf7e2;
-  font-size: 0.3rem;
+  font-size: 12px;
+  font-weight: 300;
   display: flex;
-  padding: 10px;
+  padding: 11px 17px;
   cursor: pointer;
 `;
 
 const FAI = styled.div`
-  margin-right: 7px;
+  margin-right: 8px;
+  font-size: 0.3rem;
 `;
 
 function Aside() {

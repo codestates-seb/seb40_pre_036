@@ -7,15 +7,16 @@ const Header = styled.header`
   flex-direction: column;
   width: 100%;
   height: 135px;
-  padding: 20px 20px 10px 20px;
+  padding: 25px 0px 10px 25px;
   border-bottom: 1px solid rgb(216, 217, 220);
+  color: #3b4045;
 `;
 
 const Info = styled.h1`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 27px;
+  font-size: 26px;
 `;
 
 const BtnContainer = styled.div`

@@ -2,6 +2,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 import TimeDiff from './TimeDiff';
 
 // 질문 li
@@ -11,7 +13,7 @@ const List = styled.li`
   box-sizing: border-box;
   padding: 16px;
   margin-right: 20px;
-  width: 751px;
+  /* max-width: 751px; */
 `;
 
 // votes, answers, views 수
@@ -24,7 +26,7 @@ const Counts = styled.div`
   line-height: 1.9;
 
   div {
-    min-width: 100px;
+    min-width: 105px;
     text-align: right;
   }
 
@@ -83,11 +85,14 @@ const InfoContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   margin: 9px 0 14px 0;
+  white-space: nowrap;
 `;
 
 // 태그 컨테이너
 const TagsContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  gap: 7px 0;
 `;
 
 // 태그
@@ -125,10 +130,15 @@ const User = styled.a`
 `;
 
 // 유저 프로필사진
-const UserPic = styled.img`
+const UserPic = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(250, 250, 250, 0.95);
+  background-color: #0074cc;
+  font-size: 11px;
   width: 16px;
   height: 16px;
-  background-color: gray;
   border-radius: 4px;
   margin-right: 4px;
 `;
@@ -169,7 +179,9 @@ function QuestionsList({
               questionTags.map((tag, i) => <Tag key={`${i.toString()}-${tag}`}>{tag}</Tag>)}
           </TagsContainer>
           <PostInfo>
-            <UserPic />
+            <UserPic>
+              <FontAwesomeIcon icon={faUser} />
+            </UserPic>
             <User>{user}</User>
             <TimeDiff createAt={createdAt} target="asked" />
           </PostInfo>

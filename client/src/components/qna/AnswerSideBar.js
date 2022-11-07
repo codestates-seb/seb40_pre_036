@@ -57,6 +57,7 @@ const Count = styled.div`
 function AnswerSideBar({ target, beforeVotes, id, queId, setAnswerVotes, answerVotes }) {
   const [clicked, setClicked] = useState('');
   const token = localStorage.getItem('accessToken');
+  const [votes, setVotes] = useState(0);
 
   // useEffect(() => {
   //   if (answerVotes) {
@@ -66,37 +67,9 @@ function AnswerSideBar({ target, beforeVotes, id, queId, setAnswerVotes, answerV
   //   }
   // }, [answerVotes]);
 
-  const handleVoteClick = e => {
-    console.log('e.target.id!', e.target.id);
-    if (e.target.id === '1') {
-      setClicked('1');
-    } else if (e.target.id === '-1') {
-      setClicked('-1');
-    }
-
-    console.log('지금 뭐 눌렀어', clicked);
-    // const before = clicked;
-    // console.log('아까 뭐 눌렀어', before);
-
-    console.log('answerVotes', answerVotes);
-
-    // if (before !== 0 && before === clicked) {
-    //   console.log('같은 걸 누르셧네요');
-    //   setClicked(0);
-    // }
-
-    console.log(`저는 ${id}번째 answer에 ${clicked}표 행사합니다~`);
-
-    fetch(
-      `http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/answer/${id}/votes?ansVote=${clicked}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json',
-          Authorization: token,
-        },
-      },
-    )
+  // 답변 투표 수 갱신
+  useEffect(() => {
+    fetch(`http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/questions/ans/${id}`)
       .then(res => {
         if (!res.ok) {
           throw Error('could not fetch the data for that resource');
@@ -104,26 +77,94 @@ function AnswerSideBar({ target, beforeVotes, id, queId, setAnswerVotes, answerV
         return res.json();
       })
       .then(data => {
-        console.log('data 잘오셨나요', data);
-        console.log('answer vote!!', data.data.ansTotalVotes);
-        // console.log('data.data', data.data.totalVotes);
-        setAnswerVotes(data.data.ansTotalVotes);
-        // console.log('토탈 투표', votes);
-        // else {
-        //   setVotes()
+        // console.log('data 니먼데', data);
+        // console.log('첫렌더링 시 답변 투표 수', data.data.vote);
+        setVotes(data.data.vote);
+        // if (data.vote !== undefined) {
+        //   setVotes(data.vote);
         // }
-        // console.log(data.data.totalVotes);
       })
       .catch(error => {
         console.log(error);
       });
-    // window.location.reload();
-  };
+    // console.log('clicked', clicked);
+    // console.log('answerVotes', answerVotes);
+    // console.log('votes', votes);
+  }, [votes]);
 
-  useEffect(() => {
-    console.log('clicked', clicked);
-    console.log('answerVotes', answerVotes);
-  }, [clicked, answerVotes]);
+  const handleVoteClick = e => {
+    console.log('e.target.id!', e.target.id);
+    // console.log(clicked)
+    if (e.target.id === '1' && clicked !== '1') {
+      setClicked('1');
+    } else if (e.target.id === '-1' && clicked !== '-1') {
+      setClicked('-1');
+    } else {
+      setClicked('0');
+    }
+    console.log('지금 뭐 눌렀어', clicked);
+    // const before = clicked;
+    // console.log('아까 뭐 눌렀어', before);
+
+    // console.log('answerVotes', answerVotes);
+
+    // if (before !== 0 && before === clicked) {
+    //   console.log('같은 걸 누르셧네요');
+    //   setClicked(0);
+    // }
+
+    console.log(`저는 ${id}번째 answer에 ${clicked}표 행사합니다~`);
+    // 이전과 동일한 target 클릭 시 투표 무효
+    if (e.target.id === clicked) {
+      fetch(
+        `http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/answer/${id}/votes?ansVote=0`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+            Authorization: token,
+          },
+        },
+      )
+        .then(res => {
+          if (!res.ok) {
+            throw Error('could not fetch the data for that resource');
+          }
+          return res.json();
+        })
+        .then(data => {
+          setVotes(data.data.ansTotalVotes);
+          console.log('현재 토탈@', data.data.ansTotalVotes);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    } else {
+      fetch(
+        `http://ec2-43-201-73-28.ap-northeast-2.compute.amazonaws.com:8080/answer/${id}/votes?ansVote=${e.target.id}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+            Authorization: token,
+          },
+        },
+      )
+        .then(res => {
+          if (!res.ok) {
+            throw Error('could not fetch the data for that resource');
+          }
+          return res.json();
+        })
+        .then(data => {
+          setVotes(data.data.ansTotalVotes);
+          console.log('현재 토탈@', data.data.ansTotalVotes);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  };
 
   return (
     <SideBar>
@@ -139,7 +180,7 @@ function AnswerSideBar({ target, beforeVotes, id, queId, setAnswerVotes, answerV
             <path d="M2 25h32L18 9 2 25Z" />
           </Icon>
         </UpVote>
-        <Count>{answerVotes}</Count>
+        <Count>{votes}</Count>
         <DownVote onClick={handleVoteClick} id="-1">
           <Icon
             className={clicked === '-1' ? 'clicked' : null}

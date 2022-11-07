@@ -7,11 +7,11 @@ import Pagination from '../components/Pagination';
 
 const Container = styled.div`
   display: flex;
-  margin: 0 5rem 0 3rem;
+  justify-content: center;
 `;
 
 const ContentContainer = styled.div`
-  width: 80%;
+  width: 1088px;
   display: flex;
   flex-direction: column;
   padding: 24px;
