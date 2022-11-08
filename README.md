@@ -50,7 +50,7 @@
 
 |1️⃣ 회원가입|2️⃣ 로그인|3️⃣ 로그아웃|
 |:-:|:-:|:-:|
-||<img width="300" alt="스크린샷 2022-11-07 오후 6 00 38" src="https://user-images.githubusercontent.com/104997140/200270910-9262682d-090e-49e3-a464-0c4e4f32c23b.png">|<img width="300" alt="스크린샷 2022-11-07 오후 6 13 22" src="https://user-images.githubusercontent.com/104997140/200272043-761bbd54-a3a3-4a50-8b2c-deac33af301c.png">|
+|<img width="300" alt="스크린샷 2022-11-08 오후 10 19 44" src="https://user-images.githubusercontent.com/107875909/200575401-ec610f04-9e8d-457d-b95f-dac3187e612e.png">|<img width="300" alt="스크린샷 2022-11-07 오후 6 00 38" src="https://user-images.githubusercontent.com/104997140/200270910-9262682d-090e-49e3-a464-0c4e4f32c23b.png">|<img width="300" alt="스크린샷 2022-11-07 오후 6 13 22" src="https://user-images.githubusercontent.com/104997140/200272043-761bbd54-a3a3-4a50-8b2c-deac33af301c.png">|
 
 |4️⃣ 질문 목록|5️⃣ 질문 상세|6️⃣ 태그 검색|
 |:-:|:-:|:-:|
@@ -66,6 +66,18 @@
 
 <br /><br />
 <div align="start">
+
+#### 1️⃣ 회원가입 페이지:
+* 사이트의 회원으로 가입할 수 있습니다.<br>
+<br>
+
+#### 2️⃣ 로그인 페이지:
+* 가입 시 작성한 e-mail과 비밀번호를 통해 로그인할 수 있습니다.<br>
+<br>
+
+#### 3️⃣ 로그아웃 페이지:
+* 사이트에서 로그아웃할 수 있습니다.<br>
+<br>
 
 #### 4️⃣ 질문 목록 페이지:
 * 전체 질문을 조회할 수 있습니다.
